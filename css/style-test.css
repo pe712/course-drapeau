@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Aboreto&display=swap');
+
+h1 {
+    color: rgb(16, 20, 23);
+    font-family: "Roboto";
+}
+
+.italic {
+    font-style: italic;
+    font-family: "Aboreto";
+    font-size: large;
+    color: rgb(20, 155, 40);
+}
+
+#tactic {
+    color: blue;
+}
+
+.blue {
+    color: purple;
+}
+
+.gris {
+    color: grey;
+}
