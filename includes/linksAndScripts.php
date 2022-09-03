@@ -3,7 +3,7 @@
 
 <?php
 if (isset($css))
-    echo "<link rel=stylesheet href=css/$css>";
+    echo "<link rel=stylesheet href=styles/css/$css>";
 ?>
 
 <script src="bootstrap-5.2.0-dist\js\bootstrap.bundle.js"></script>
