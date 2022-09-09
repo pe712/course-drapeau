@@ -1,7 +1,7 @@
 <?php
 $n = 5;
 if (!array_key_exists("section", $_GET)) {
-  header("Location:index.php?page=Admin&section=1");
+  header("Location:../index.php?page=Admin&section=1");
   die();
 }
 $section = $_GET["section"];

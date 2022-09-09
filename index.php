@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+session_start();
+
 if (!array_key_exists("page", $_GET)) {
     header("Location:index.php?page=Acceuil");
     die();
@@ -15,7 +18,6 @@ if (!isset($title)) {
     die();
 }
 
-session_start();
 if (isset($admin) && $admin) {
     $_SESSION["display"]="Vous devez avoir les droits d'administrateur pour accéder à la page $name";
     header("Location:index.php?page=Acceuil");

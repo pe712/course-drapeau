@@ -1,10 +1,21 @@
 <nav>
     <div class="container-fluid bg-dark">
         <div class="row">
-            <div class="col-md-3"><a href="index.php?page=Acceuil">Accueil</a></div>
-            <div class="col-md-3"><a href="index.php?page=About">A propos</a></div>
-            <div class="col-md-3"><a href="index.php?page=Inscription">Inscription</a></div>
-            <div class="col-md-3"><a href="index.php?page=Contact">Qui sommes-nous?</a></div>
+            <div class="col-md-2"><a href="index.php?page=Acceuil">Accueil</a></div>
+            <div class="col-md-2"><a href="index.php?page=About">A propos</a></div>
+            <div class="col-md-2"><a href="index.php?page=Contact">Qui sommes-nous?</a></div>
+            <?php
+            if (array_key_exists("id", $_SESSION))
+                echo <<<FIN
+                <div class="col-md-4" style="color: var(--bs-link-color)">Bienvenue</div>
+                <div class="col-md-2"><a href="index.php?page=Unconnect">Me déconnecter</a></div>
+                FIN;
+            else
+                echo <<<FIN
+                <div class="col-md-2"><a href="index.php?page=Inscription">Inscription</a></div>
+                <div class="col-md-2"><a href="index.php?page=Connect">Me connecter</a></div>
+                FIN;
+            ?>
         </div>
     </div>
 </nav>
@@ -15,7 +26,7 @@
         unset($_SESSION["display"]);
         echo <<<END
         <div class="bg-warning bg-gradient">
-            <h2>$msg</h2>
+            <h2 style="margin:0">$msg</h2>
         </div>
         END;
     }
