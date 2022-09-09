@@ -4,11 +4,22 @@ require("ConnectDB.php");
 
 class Users
 {
+    public $id;
+    public $mail;
+    public $hash;
+    public $creationTime;
+    public $valid;
+    public $lastConn;
+    public $nom;
+    public $prenom;
+    public $age;
+
     public static function connectUser()
     {
         extract($_POST);
         $conn = Database::connect();
         $select = $conn->prepare("select * from login where mail=?");
+        $select->setFetchMode(PDO::FETCH_CLASS,'Users');
         $select->execute(array($mail));
         $n = $select->rowCount();
 
@@ -23,13 +34,13 @@ class Users
             die();
         } else {
             $user = $select->fetch();
-            if (password_verify($mdp, $user["hash"])) {
+            if (password_verify($mdp, $user->hash)) {
 
                 session_regenerate_id(true);
-                $_SESSION["id"] = $user["id"];
+                $_SESSION["id"] = $user->id;
 
                 $update = $conn->prepare("update login set lastConn=CURRENT_TIMESTAMP where id=?");
-                $update->execute(array($user["id"]));
+                $update->execute(array($user->id));
 
                 $_SESSION["displayValid"] = "Vous êtes bien connecté";
                 header("location:index.php?page=Acceuil");
@@ -42,7 +53,6 @@ class Users
         }
         $conn = null;
     }
-
 
     public static function newUser()
     {
@@ -120,4 +130,5 @@ class Users
         );
         return $ret;
     }
+
 }

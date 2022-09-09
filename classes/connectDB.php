@@ -8,16 +8,15 @@ class Database
         $dsn = "mysql:dbname=$db; host=$host";
         $user = "root";
         $password = "";
-        $dbh = null;
+        $conn = null;
         try {
-            $dbh = new PDO(
+            $conn = new PDO(
                 $dsn,
                 $user,
                 $password,
-                array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES
-utf8")
+                array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") /* définit l'encodage pour récupérer et envoyer des données */
             );
-            $dbh->setAttribute(
+            $conn->setAttribute(
                 PDO::ATTR_ERRMODE,
                 PDO::ERRMODE_EXCEPTION
             );
@@ -25,6 +24,6 @@ utf8")
             echo "Connexion échouée: " . $e->getMessage();
             exit(0);
         }
-        return $dbh;
+        return $conn;
     }
 }

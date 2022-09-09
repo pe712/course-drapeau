@@ -1,3 +1,21 @@
+<?php
+if (array_key_exists("dlnum", $_GET)){
+    $num = $_GET["dlnum"];
+    $file = "pages/troncons/trace$num.gpx";
+    if (file_exists($file)) {
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . basename($file) . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($file));
+        flush(); // Flush system output buffer
+        readfile($filepath);
+        die();
+    }
+} 
+?>
 <table class="table table-striped table-hover">
     <tr>
         <th>Numéro troncon</th>
@@ -29,19 +47,7 @@
         FIN;
     }
 
-    /* $file = '../upload/BAVIERE Pierre-Emmanuel/certificat medical BAVIERE Pierre-Emmanuel.pdf';
-    if (file_exists($file)) {
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="' . basename($file) . '"');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        header('Content-Length: ' . filesize($file));
-        flush(); // Flush system output buffer
-        readfile($filepath);
-        die();
-    } */
+    
 
 
     ?>
