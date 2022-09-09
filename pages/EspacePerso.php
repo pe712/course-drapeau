@@ -2,12 +2,12 @@
 
 /* $_SESSION[] */
 $nom = "BAVIERE Pierre-Emmanuel";
-$dossier = "./upload/$nom/";
+$dossier = "pages/espacePerso/upload/$nom/";
 
 if (!is_dir($dossier))
   mkdir($dossier);
 
-include("pages/espacePerso/PersoCertifPost.php");
+require("pages/espacePerso/PersoCertifPost.php");
 ?>
 
 <div class="progress">

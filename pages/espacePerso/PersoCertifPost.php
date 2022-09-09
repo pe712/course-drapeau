@@ -27,7 +27,7 @@ if (isset($_FILES['certificat'])) {
      );
      $nomFichier = preg_replace('/([^.a-z0-9]+)/i', '-', $nomFichier);
      if (move_uploaded_file($file['tmp_name'], $dossier . $nomFichier)) {
-          rename($dossier . $nomFichier, $dossier . "certificat medical $nom");
+          rename($dossier . $nomFichier, $dossier . "certificat medical $nom.pdf");
           $_SESSION["displayValid"] = 'Upload effectué avec succès !';
           header("location:index.php?page=EspacePerso");
           die();

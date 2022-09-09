@@ -1,6 +1,6 @@
 
 <?php
-require("includes/ConnectDB.php");
+require("ConnectDB.php");
 
 class Users
 {
@@ -31,7 +31,7 @@ class Users
                 $update = $conn->prepare("update login set lastConn=CURRENT_TIMESTAMP where id=?");
                 $update->execute(array($user["id"]));
 
-                $_SESSION["displayError"] = "Vous êtes bien connecté";
+                $_SESSION["displayValid"] = "Vous êtes bien connecté";
                 header("location:index.php?page=Acceuil");
                 die();
             } else {
@@ -40,6 +40,7 @@ class Users
                 die();
             }
         }
+        $conn = null;
     }
 
 
@@ -78,11 +79,12 @@ class Users
 
                 $_SESSION["id"] = $id;
 
-                $_SESSION["displayError"] = "Votre compte a bien été créé.";
+                $_SESSION["displayValid"] = "Votre compte a bien été créé.";
                 header("location:index.php?page=Acceuil");
                 die();
             }
         }
+        $conn = null;
     }
 
     private static function CorrectPWD($mdp1, $mdp2)

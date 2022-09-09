@@ -7,7 +7,8 @@
             <?php
             if (array_key_exists("id", $_SESSION))
                 echo <<<FIN
-                <div class="col-md-4" style="color: var(--bs-link-color)">Bienvenue</div>
+                <div class="col-md-2" style="color: var(--bs-link-color)">Bienvenue</div>
+                <div class="col-md-2"><a href="index.php?page=EspacePerso">Espace Personnel</a></div>
                 <div class="col-md-2"><a href="index.php?page=Unconnect">Me déconnecter</a></div>
                 FIN;
             else

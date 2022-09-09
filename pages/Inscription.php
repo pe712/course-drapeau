@@ -1,6 +1,6 @@
 <?php
 if (array_key_exists("mail", $_POST)) {
-    include("includes/userManagement.php");
+    require("classes/userManagement.php");
     Users::newUser();
 } else {
 ?><div class="formContainer">
@@ -24,6 +24,10 @@ if (array_key_exists("mail", $_POST)) {
             </div>
             <button type="submit" class="btn btn-primary">Valider</button>
         </form>
+    </div>
+    <br><br>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 18%;" aria-valuemin="0" aria-valuemax="100">18%</div>
     </div>
 
 <?php
