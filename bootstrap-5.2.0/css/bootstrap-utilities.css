@@ -23,7 +23,7 @@
 
 .text-bg-success {
   color: #fff !important;
-  background-color: RGBA(94, 112, 0, var(--bs-bg-opacity, 1)) !important;
+  background-color: RGBA(0, 118, 0, var(--bs-bg-opacity, 1)) !important;
 }
 
 .text-bg-info {
@@ -43,7 +43,7 @@
 
 .text-bg-light {
   color: #000 !important;
-  background-color: RGBA(248, 249, 250, var(--bs-bg-opacity, 1)) !important;
+  background-color: RGBA(162, 170, 176, var(--bs-bg-opacity, 1)) !important;
 }
 
 .text-bg-dark {
@@ -66,10 +66,10 @@
 }
 
 .link-success {
-  color: #5E7000 !important;
+  color: #007600 !important;
 }
 .link-success:hover, .link-success:focus {
-  color: #4b5a00 !important;
+  color: #005e00 !important;
 }
 
 .link-info {
@@ -94,10 +94,10 @@
 }
 
 .link-light {
-  color: #f8f9fa !important;
+  color: rgb(162, 170, 176) !important;
 }
 .link-light:hover, .link-light:focus {
-  color: #f9fafb !important;
+  color: #b5bbc0 !important;
 }
 
 .link-dark {

@@ -1,3 +1,39 @@
-.accordion-button{
+/*******************************************************************/
+/* ABOUT */
+/*******************************************************************/
+.accordion-button {
     background-color: #e7f1ff;
+}
+
+/*******************************************************************/
+/* form */
+/*******************************************************************/
+.form-control{
+    width: 400px;
+}
+
+.formContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 200px;
+    margin-top: 50px;
+}
+
+/*******************************************************************/
+/* FOOTER */
+/*******************************************************************/
+footer {
+    position: absolute;
+    bottom: 0;
+    width:100%;
+}
+
+footer div {
+    padding-top: 2em;
+    padding-bottom: 1em;
+}
+
+footer div div {
+    padding: 0;
 }

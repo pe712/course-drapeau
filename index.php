@@ -19,7 +19,7 @@ if (!isset($title)) {
 }
 
 if (isset($admin) && $admin) {
-    $_SESSION["display"]="Vous devez avoir les droits d'administrateur pour accéder à la page $name";
+    $_SESSION["displayError"]="Vous devez avoir les droits d'administrateur pour accéder à la page $name";
     header("Location:index.php?page=Acceuil");
     die();
 }

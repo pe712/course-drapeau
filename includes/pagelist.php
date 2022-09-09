@@ -9,7 +9,6 @@ $page_list = array(
         "name" => "About",
         "title" => "A propos",
         "sectionToRequire" => "pages/About.php",
-        "css" => "style.css",
     ),
     array(
         "name" => "Inscription",
@@ -28,11 +27,6 @@ $page_list = array(
         "admin" => false,/* à mettre sur true sur le long terme */
     ),
     array(
-        "name" => "Perso",
-        "title" => "Mon espace personnel",
-        "sectionToRequire" => "pages/Perso.php",
-    ),
-    array(
         "name" => "Troncons",
         "title" => "Tronçons sur le parcours",
         "sectionToRequire" => "pages/Troncons.php",
@@ -46,5 +40,10 @@ $page_list = array(
         "name" => "Unconnect",
         "title" => "Page de connexion",
         "sectionToRequire" => "pages/Unconnect.php",
+    ),
+    array(
+        "name" => "EspacePerso",
+        "title" => "Mon Espace Personnel",
+        "sectionToRequire" => "pages/EspacePerso.php",
     ),
 );

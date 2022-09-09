@@ -14,11 +14,13 @@ class Users
 
         if ($n == 0) {
             //Il n'y a pas de mail comme celui-ci dans la BDD
-            $_SESSION["display"] = "Erreur de connexion, il n'y a pas de compte associé à ce mail";
+            $_SESSION["displayError"] = "Erreur de connexion, il n'y a pas de compte associé à ce mail";
             header("location:index.php?page=Connect");
+            die();
         } elseif ($n > 1) {
-            $_SESSION["display"] = "Erreur côté serveur contacter l'admin";
+            $_SESSION["displayError"] = "Erreur côté serveur contacter l'admin";
             header("location:index.php?page=Connect");
+            die();
         } else {
             $user = $select->fetch();
             if (password_verify($mdp, $user["hash"])) {
@@ -29,11 +31,13 @@ class Users
                 $update = $conn->prepare("update login set lastConn=CURRENT_TIMESTAMP where id=?");
                 $update->execute(array($user["id"]));
 
-                $_SESSION["display"] = "Vous êtes bien connecté";
+                $_SESSION["displayError"] = "Vous êtes bien connecté";
                 header("location:index.php?page=Acceuil");
+                die();
             } else {
-                $_SESSION["display"] = "Mot de passe incorrect, veuillez réessayer";
+                $_SESSION["displayError"] = "Mot de passe incorrect, veuillez réessayer";
                 header("location:index.php?page=Connect");
+                die();
             }
         }
     }
@@ -45,19 +49,22 @@ class Users
         $conn = Database::connect();
 
         if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-            $_SESSION["display"] = "Le mail n'est pas valide. Veuillez vérifier votre mail.";
+            $_SESSION["displayError"] = "Le mail n'est pas valide. Veuillez vérifier votre mail.";
             header("location:index.php?page=Inscription");
+            die();
         }
         extract(Users::CorrectPWD($mdp1, $mdp2)); /* on récupère $corr et $msg */
         if (!$corr) {
-            $_SESSION["display"] = $msg;
+            $_SESSION["displayError"] = $msg;
             header("location:index.php?page=Inscription");
+            die();
         } else {
             $select = $conn->prepare('select * from login where mail=?');
             $select->execute(array($mail));
             if ($select->rowCount() > 0) {
-                $_SESSION["display"] = "Il y a déjà un compte associé à ce mail.";
+                $_SESSION["displayError"] = "Il y a déjà un compte associé à ce mail.";
                 header("location:index.php?page=Acceuil.php");
+                die();
             } else {
                 $options = ["cost" => 14,];
                 $hash = password_hash($mdp1, PASSWORD_BCRYPT, $options);
@@ -71,8 +78,9 @@ class Users
 
                 $_SESSION["id"] = $id;
 
-                $_SESSION["display"] = "Votre compte a bien été créé.";
+                $_SESSION["displayError"] = "Votre compte a bien été créé.";
                 header("location:index.php?page=Acceuil");
+                die();
             }
         }
     }
