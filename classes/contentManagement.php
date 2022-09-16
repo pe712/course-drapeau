@@ -8,15 +8,17 @@ class Content
     public $description;
 
     public function __construct(
-        $page,
-        $section,
-        $sous_section,
-        $contenu
+        $page=null,
+        $section=null,
+        $sous_section=null,
+        $contenu=null,
+        $description=null
     ) {
         $this->page = $page;
         $this->section = $section;
         $this->sous_section = $sous_section;
         $this->contenu = $contenu;
+        $this->description = $description;
     }
 
     public function update_db($conn)

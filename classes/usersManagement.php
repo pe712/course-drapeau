@@ -1,6 +1,5 @@
 
 <?php
-require("ConnectDB.php");
 
 class Users
 {
@@ -17,7 +16,6 @@ class Users
     public static function connectUser()
     {
         extract($_POST);
-        $conn = Database::connect();
         $select = $conn->prepare("select * from users where mail=?");
         $select->setFetchMode(PDO::FETCH_CLASS,'Users');
         $select->execute(array($mail));
@@ -57,8 +55,6 @@ class Users
     public static function newUser()
     {
         extract($_POST);
-        $conn = Database::connect();
-
         if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
             $_SESSION["displayError"] = "Le mail n'est pas valide. Veuillez vérifier votre mail.";
             header("location:index.php?page=Inscription");

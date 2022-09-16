@@ -5,16 +5,13 @@ if (!array_key_exists("section", $_GET) || !array_key_exists("pageModif", $_GET)
 } else {
   $section = $_GET["section"];
   $pageModif = $_GET["pageModif"];
-  require("classes/connectDB.php");
-  require("classes/contentManagement.php");
-  $conn = Database::connect();
   if (array_key_exists("contenu", $_POST)) {
     extract($_POST);
     $article = new Content(
       $pageModif,
       $section,
       $sous_section,
-      $contenu,
+      $contenu
     );
     $article->update_db($conn);
   }
@@ -38,7 +35,7 @@ if (!array_key_exists("section", $_GET) || !array_key_exists("pageModif", $_GET)
 <section class="adminSection">
   <?php
   $select = $conn->prepare("select * from content where page=? and section=?");
-  $select->setFetchMode(PDO::FETCH_CLASS, 'Content');
+  $select->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Content');
   $select->execute(array($pageModif, $section));
   $n = $select->rowCount();
   while ($article = $select->fetch()) {

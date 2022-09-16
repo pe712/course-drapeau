@@ -24,6 +24,8 @@ if (isset($admin) && $admin) {
     header("Location:index.php?page=Acceuil");
     die();
 }
+
+require("includes/sous_sections.php");
 ?>
 
 <!DOCTYPE html>
