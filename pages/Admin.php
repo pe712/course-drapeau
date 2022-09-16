@@ -1,10 +1,17 @@
 <?php
-$n = 5;
+if (!array_key_exists("pageModif", $_GET)){
+  foreach ($page_list as $page) {
+    echo <<<FIN
+    <a href="index.php?page=Admin&pageModif=.$page[name]">$page[title]</a>
+    FIN;
+  }
+}
 if (!array_key_exists("section", $_GET)) {
-  header("Location:../index.php?page=Admin&section=1");
+  header("Location:../index.php?page=Admin&".$_GET["pageModif"]."&section=1");
   die();
 }
 $section = $_GET["section"];
+$n = 5;
 ?>
 <section>
   <article>

@@ -13,13 +13,14 @@ foreach ($page_list as $page) {
         extract($page);
     }
 }
+
 if (!isset($title)) {
     header("Location:index.php?page=Acceuil");
     die();
 }
 
 if (isset($admin) && $admin) {
-    $_SESSION["displayError"]="Vous devez avoir les droits d'administrateur pour accéder à la page $name";
+    $_SESSION["displayError"] = "Vous devez avoir les droits d'administrateur pour accéder à la page $name";
     header("Location:index.php?page=Acceuil");
     die();
 }

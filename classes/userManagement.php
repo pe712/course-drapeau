@@ -85,7 +85,8 @@ class Users
 
                 $select = $conn->prepare('select id from login where mail=?');
                 $select->execute(array($mail));
-                $id = $select->fetch()[0];
+                $select->setFetchMode(PDO::FETCH_CLASS,'Users');
+                $id = $select->fetch()->id;
 
                 $_SESSION["id"] = $id;
 

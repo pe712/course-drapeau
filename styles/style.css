@@ -23,17 +23,17 @@
 /*******************************************************************/
 /* FOOTER */
 /*******************************************************************/
-footer {
+.mainfooter {
     position: absolute;
     bottom: 0;
     width:100%;
 }
 
-footer div {
+.mainfooter div {
     padding-top: 2em;
     padding-bottom: 1em;
 }
 
-footer div div {
+.mainfooter div div {
     padding: 0;
 }
