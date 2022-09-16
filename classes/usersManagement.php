@@ -18,7 +18,7 @@ class Users
     {
         extract($_POST);
         $conn = Database::connect();
-        $select = $conn->prepare("select * from login where mail=?");
+        $select = $conn->prepare("select * from users where mail=?");
         $select->setFetchMode(PDO::FETCH_CLASS,'Users');
         $select->execute(array($mail));
         $n = $select->rowCount();
@@ -39,7 +39,7 @@ class Users
                 session_regenerate_id(true);
                 $_SESSION["id"] = $user->id;
 
-                $update = $conn->prepare("update login set lastConn=CURRENT_TIMESTAMP where id=?");
+                $update = $conn->prepare("update users set lastConn=CURRENT_TIMESTAMP where id=?");
                 $update->execute(array($user->id));
 
                 $_SESSION["displayValid"] = "Vous êtes bien connecté";
@@ -70,7 +70,7 @@ class Users
             header("location:index.php?page=Inscription");
             die();
         } else {
-            $select = $conn->prepare('select * from login where mail=?');
+            $select = $conn->prepare('select * from users where mail=?');
             $select->execute(array($mail));
             if ($select->rowCount() > 0) {
                 $_SESSION["displayError"] = "Il y a déjà un compte associé à ce mail.";
@@ -80,10 +80,10 @@ class Users
                 $options = ["cost" => 14,];
                 $hash = password_hash($mdp1, PASSWORD_BCRYPT, $options);
 
-                $insert = $conn->prepare("insert into login (mail, hash) values (?,?)");
+                $insert = $conn->prepare("insert into users (mail, hash) values (?,?)");
                 $insert->execute(array($mail, $hash));
 
-                $select = $conn->prepare('select id from login where mail=?');
+                $select = $conn->prepare('select id from users where mail=?');
                 $select->execute(array($mail));
                 $select->setFetchMode(PDO::FETCH_CLASS,'Users');
                 $id = $select->fetch()->id;

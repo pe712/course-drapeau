@@ -23,6 +23,6 @@ require("pages/espacePerso/PersoCertifPost.php");
       <label for="certif" class="form-label">Certificat médical de moins de 1 an</label>
       <input type="file" class="form-control" name="certificat" id="certif" />
     </div>
-    <input type="submit" class="btn btn-primary">Envoyer</button>
+    <button type="submit" class="btn btn-primary">Envoyer</button>
   </form>
 </div>

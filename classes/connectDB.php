@@ -14,7 +14,10 @@ class Database
                 $dsn,
                 $user,
                 $password,
-                array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") /* définit l'encodage pour récupérer et envoyer des données */
+                array(
+                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8", /* définit l'encodage pour récupérer et envoyer des données */
+                    PDO::ATTR_PERSISTENT => true
+                )
             );
             $conn->setAttribute(
                 PDO::ATTR_ERRMODE,

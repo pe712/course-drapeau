@@ -38,7 +38,7 @@ $page_list = array(
     ),
     array(
         "name" => "Unconnect",
-        "title" => "Page de connexion",
+        "title" => "Page de déconnexion",
         "sectionToRequire" => "pages/Unconnect.php",
     ),
     array(
