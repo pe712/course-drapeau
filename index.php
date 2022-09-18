@@ -40,9 +40,13 @@ require("includes/sous_sections.php");
 </head>
 
 <body>
+    <div class="mainContent">
+        <?php
+        require("includes/navbar.php");
+        require($sectionToRequire);
+        ?>
+    </div>
     <?php
-    require("includes/navbar.php");
-    require($sectionToRequire);
     require("includes/footer.php")
     ?>
 </body>

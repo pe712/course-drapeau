@@ -23,8 +23,11 @@
 /*******************************************************************/
 /* FOOTER */
 /*******************************************************************/
+.mainContent {
+    min-height: calc(100vh - 122px);
+}
+
 .mainfooter {
-    position: absolute;
     bottom: 0;
     width: 100%;
 }
@@ -37,6 +40,8 @@
 .mainfooter div div {
     padding: 0;
 }
+
+
 
 /*******************************************************************/
 /* Admin */
@@ -62,25 +67,33 @@
 }
 
 .adminSection {
-    padding-top: 20px;
+    padding-top: 15px;
+    padding-left: 20px;
 }
 
 .adminSection article {
-    padding-left: 20px;
-    padding-right: 20px;
     padding-top: 30px;
 }
 
 .adminSection article button {
-    margin-top: 20px;
+    margin-top: 15;
 }
 
 .adminSection article textarea {
-    width: 100%;
+    width: 70%;
     min-height: 100px;
 }
 
-
 #activeModif {
     background-color: #26962698;
+}
+
+.adminTitle{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 30%;
+}
+
+.adminView label{
+    width: 300px;
 }

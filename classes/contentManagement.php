@@ -23,7 +23,7 @@ class Content
 
     public function update_db($conn)
     {
-        $update = $conn->prepare("update content set contenu=? where page=? and section=? and sous_section=?");
+        $update = $conn->prepare("update content set contenu=? WHERE page=? and section=? and sous_section=?");
         $update->execute(array($this->contenu, $this->page, $this->section, $this->sous_section));
     }
 }
