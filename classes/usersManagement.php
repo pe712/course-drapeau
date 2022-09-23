@@ -15,6 +15,7 @@ class Users
 
     public static function connectUser()
     {
+        global $conn;
         extract($_POST);
         $select = $conn->prepare("SELECT * FROM users WHERE mail=?");
         $select->setFetchMode(PDO::FETCH_CLASS,'Users');
@@ -49,11 +50,11 @@ class Users
                 die();
             }
         }
-        $conn = null;
     }
 
     public static function newUser()
     {
+        global $conn;
         extract($_POST);
         if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
             $_SESSION["displayError"] = "Le mail n'est pas valide. Veuillez vérifier votre mail.";
@@ -91,7 +92,6 @@ class Users
                 die();
             }
         }
-        $conn = null;
     }
 
     private static function CorrectPWD($mdp1, $mdp2)

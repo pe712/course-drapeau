@@ -5,6 +5,10 @@
     background-color: #e7f1ff;
 }
 
+.aboutH2{
+    margin-left: 20px;
+}
+
 /*******************************************************************/
 /* form */
 /*******************************************************************/
@@ -96,4 +100,12 @@
 
 .adminView label{
     width: 300px;
+}
+
+#AdminStructure{
+    display: inherit;
+}
+
+#AdminModification{
+    display: none;
 }
