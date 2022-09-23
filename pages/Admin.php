@@ -2,33 +2,34 @@
 if (!array_key_exists("section", $_GET) || !array_key_exists("pageModif", $_GET)) {
   header("Location:../index.php?page=Admin&pageModif=Acceuil&section=1");
   die();
-} else {
-  $section = $_GET["section"];
-  $pageModif = $_GET["pageModif"];
-  if (array_key_exists("contenu", $_POST)) {
-    extract($_POST);
-    $article = new Content(
-      $pageModif,
-      $section,
-      $sous_section,
-      $contenu
-    );
-    $article->update_db($conn);
-  }
+}
+
+$section = $_GET["section"];
+$pageModif = $_GET["pageModif"];
+if (array_key_exists("contenu", $_POST)) {
+  extract($_POST);
+  $article = new Content(
+    $pageModif,
+    $section,
+    $sous_section,
+    $contenu
+  );
+  $article->update_db($conn);
+}
 ?>
-  <div class="pageContainer">
-    <?php
-    foreach ($page_list as $page) {
-      if ($_GET["pageModif"] == $page["name"]) {
-        echo "<div id=activeModif><div>";
-      } else
-        echo "<div><div>";
-    ?>
-      <a href="index.php?page=Admin&pageModif=<?= $page["name"] ?>&section=1"><?= $page["title"] ?></a>
-  </div>
-  </div>
+<div class="pageContainer">
+  <?php
+  foreach ($page_list as $page) {
+    if ($_GET["pageModif"] == $page["name"]) {
+      echo "<div id=activeModif><div>";
+    } else
+      echo "<div><div>";
+  ?>
+    <a href="index.php?page=Admin&pageModif=<?= $page["name"] ?>&section=1"><?= $page["title"] ?></a>
+</div>
+</div>
 <?php
-    }
+  }
 ?>
 </div>
 
@@ -125,38 +126,32 @@ if (!array_key_exists("section", $_GET) || !array_key_exists("pageModif", $_GET)
   <!-- Vue Structure -->
   <div id="AdminStructure">
     Voici la structure
-          <?php
-          $select = $conn->query("SELECT * FROM content ORDER BY page, section, sous_section");
-          $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Content');
-          $page = null;
-          $section = null;
-          $first =true;
-          while ($sub_section = $select->fetch()) {
-            $Npage = $sub_section->page;
-            $Nsection = $sub_section->section;
-            $desc = $sub_section->description;
-            if ($Npage != $page) {
-              $page = $Npage;
-              if (!$first){
-                echo "</ol></div>";
-                $first = false;
-           }
-           echo "<div><ol> Page $Npage";
-              
-            }
-            if ($Nsection != $section) {
-              $section = $Nsection;
-              echo "</li></li><li><ol>";
-            }
-          ?>
-            <li><?= $desc ?></li>
-          <?php
-          }
-          ?>
+    <?php
+    $select = $conn->query("SELECT * FROM content ORDER BY page, section, sous_section");
+    $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Content');
+    $page = null;
+    $section = null;
+    $first = true;
+    while ($sub_section = $select->fetch()) {
+      $Npage = $sub_section->page;
+      $Nsection = $sub_section->section;
+      $desc = $sub_section->description;
+      if ($Npage != $page) {
+        $page = $Npage;
+        if (!$first)
+          echo "</ol></div>";
+        echo "<div><ol> Page $Npage";
+      }
+      if ($Nsection != $section) {
+        $section = $Nsection;
+        if (!$first)
+          echo "</ul></li>";
+        echo "<li><ul>";
+      }
+      echo "<li>$desc</li>";
+      if ($first)
+        $first = false;
+    }
+    ?>
   </div>
 </section>
-<ul>
-  <li></li>
-</ul>
-<?php
-}
