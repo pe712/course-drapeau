@@ -5,7 +5,7 @@
     background-color: #e7f1ff;
 }
 
-.aboutH2{
+.aboutH2 {
     margin-left: 20px;
 }
 
@@ -92,20 +92,55 @@
     background-color: #26962698;
 }
 
-.adminTitle{
+.adminTitle {
     display: flex;
     justify-content: space-between;
     margin-right: 30%;
 }
 
-.adminView label{
+.adminView label {
     width: 300px;
 }
 
-#AdminStructure{
+#AdminStructure {
     display: inherit;
 }
 
-#AdminModification{
+#AdminModification {
     display: none;
+}
+
+/*******************************************************************/
+/* ESPACE PERSO */
+/*******************************************************************/
+.card {
+    width: 32%;
+    margin: 1%;
+    position: relative;
+    top: 0;
+    height: 300px;
+    background-color: rgba(128, 128, 128, 0.721);
+}
+
+.card-valid{
+    background-color: rgba(0, 128, 0, 0.548)
+}
+
+.espacePersoRowContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.card-body {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.progression {
+    font-size: x-large;
+}
+
+.espacePersoMainContainer {
+    padding: 0 10% 0 10%;
 }
