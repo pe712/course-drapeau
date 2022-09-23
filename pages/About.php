@@ -11,7 +11,7 @@ $numbers = array("Two", "Three", "Four", "Five", "Six", "Seven", "Height", "Nine
                 <?= $sections[0][0] ?>
             </button>
         </div>
-        <div id="collapseOne" class="accordion-collapse collapse border show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div id="collapseOne" class="accordion-collapse collapse border show" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <?= $sections[0][1] ?>
             </div>
@@ -25,7 +25,7 @@ $numbers = array("Two", "Three", "Four", "Five", "Six", "Seven", "Height", "Nine
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse$letters" aria-expanded="false" aria-controls="collapse$letters">
                     $section[0]
                 </button>
-                <div id="collapse$letters" class="accordion-collapse collapse border" aria-labelledby="heading$letters" data-bs-parent="#accordionExample">
+                <div id="collapse$letters" class="accordion-collapse collapse border" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                      $section[1]
                     </div>

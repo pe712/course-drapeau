@@ -20,15 +20,17 @@ if (array_key_exists("contenu", $_POST)) {
 <div class="pageContainer">
   <?php
   foreach ($page_list as $page) {
-    if ($_GET["pageModif"] == $page["name"]) {
-      echo "<div id=activeModif><div>";
-    } else
-      echo "<div><div>";
+    if ($page["content"]) {
+      if ($_GET["pageModif"] == $page["name"]) {
+        echo "<div id=activeModif><div>";
+      } else
+        echo "<div><div>";
   ?>
-    <a href="index.php?page=Admin&pageModif=<?= $page["name"] ?>&section=1"><?= $page["title"] ?></a>
+      <a href="index.php?page=Admin&pageModif=<?= $page["name"] ?>&section=1"><?= $page["title"] ?></a>
 </div>
 </div>
 <?php
+    }
   }
 ?>
 </div>
@@ -47,10 +49,10 @@ if (array_key_exists("contenu", $_POST)) {
 
   <!-- Choix de la vue -->
   <div class="btn-group adminView" role="group" aria-label="Basic radio toggle button group">
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" onclick="changeViewStructure()" checked>
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" onclick="changeView('AdminModification', 'AdminStructure')" checked>
     <label class="btn btn-outline-primary" for="btnradio1">Structure</label>
 
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" onclick="changeViewModif()">
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" onclick="changeView('AdminStructure', 'AdminModification')">
     <label class="btn btn-outline-primary" for="btnradio2">Modification</label>
   </div>
 
@@ -131,27 +133,37 @@ if (array_key_exists("contenu", $_POST)) {
     $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Content');
     $page = null;
     $section = null;
-    $first = true;
+    $firstP = true;
+    $parité = "pair";
+    echo "<ul id=myUL>";
     while ($sub_section = $select->fetch()) {
       $Npage = $sub_section->page;
       $Nsection = $sub_section->section;
       $desc = $sub_section->description;
       if ($Npage != $page) {
         $page = $Npage;
-        if (!$first)
-          echo "</ol></div>";
-        echo "<div><ol> Page $Npage";
+        $firstS = true;
+        if ($parité == "pair")
+          $parité = "impair";
+        else
+          $parité = "pair";
+        if (!$firstP)
+          echo "</ul></li></ul></div>";
+        else
+          $firstP = false;
+        echo "<div class=$parité><li><span class='caret caret-down'> Page $Npage </span><ul class='nested active'>";
       }
       if ($Nsection != $section) {
         $section = $Nsection;
-        if (!$first)
+        if (!$firstS)
           echo "</ul></li>";
-        echo "<li><ul>";
+        else
+          $firstS = false;
+        echo "<li><span class='caret'> Section $section </span><ul class='nested'>";
       }
       echo "<li>$desc</li>";
-      if ($first)
-        $first = false;
     }
+    echo "</ul>";
     ?>
   </div>
 </section>

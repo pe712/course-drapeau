@@ -4,6 +4,7 @@
             <div class="col-md-2"><a href="index.php?page=Acceuil">Accueil</a></div>
             <div class="col-md-2"><a href="index.php?page=About">A propos</a></div>
             <div class="col-md-2"><a href="index.php?page=Contact">Qui sommes-nous?</a></div>
+            <div class="col-md-2"><a href="index.php?page=Troncons">Tronçons</a></div>
             <?php
             if (array_key_exists("id", $_SESSION)) {
             ?>

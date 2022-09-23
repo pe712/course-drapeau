@@ -7,5 +7,6 @@
         <li>blabla</li>
     </ul>
     </p>
-    <p>Vous pouvez nous contacter à : <br>course.bordeaux@binets.polytechnique.edu</p>
+    <p>Vous pouvez nous contacter à : <br>
+    <a id="mail" href=# onclick="copiermail()">course.bordeaux@binets.polytechnique.edu</a></p>
 </section>
