@@ -19,9 +19,7 @@ $(document).ready(function () {
 
 /**************** Contact *************************/
 
-navigator.clipboard.writeText("ok");
 function copiermail() {
-    navigator.clipboard.writeText("ok");
     navigator.clipboard.writeText(document.getElementById("mail").textContent);
 
 }
