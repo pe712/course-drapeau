@@ -44,23 +44,17 @@ if (array_key_exists("dlnum", $_GET)) {
             <th>Télécharger la trace</th>
         </tr>
         <?php
-        $troncons = array(
-            array(
-                "num" => "Admin",
-                "hdep" => "14",
-                "pdep" => "14.54.5",
-                "harr" => "15",
-                "parr" => ".54.54827",
-            ),
-        );
-        foreach ($troncons as $tronc) {
-            extract($tronc);
+        require("classes/GPXmanagement.php");
+        $select = $conn->prepare("SELECT * FROM tracesGPX");
+        $select->setFetchMode(PDO::FETCH_CLASS,'GPX');
+        $select->execute();
+        while ($trace = $select->fetch()){
             echo <<<FIN
-        <td>$num</td>
-        <td>$hdep </td>
-        <td><a id="pdep$num" href=# onclick="copier('pdep$num', 'Point GPS copié')">$pdep</td>
-        <td>$harr</td>
-        <td><a id="pdep$num" href=# onclick="copier('pdep$num', 'Point GPS copié')">$parr</td>
+        <td>$trace->id</td>
+        <td>$trace->h_dep </td>
+        <td><a id="pdep$trace->id " href=# onclick="copier('pdep$trace->id ', 'Point GPS copié')">$trace->gps_dep</td>
+        <td>$trace->h_arr</td>
+        <td><a id="pdep$trace->id " href=# onclick="copier('pdep$trace->id ', 'Point GPS copié')">$trace->gps_arr</td>
         <td><a href="pages/troncons/trace1.gpx" download>Télécharger</button></td>
         FIN;
         }

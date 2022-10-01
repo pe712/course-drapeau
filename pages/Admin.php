@@ -4,6 +4,13 @@ if (!array_key_exists("section", $_GET) || !array_key_exists("pageModif", $_GET)
   die();
 }
 
+if (isset($_FILES['trace'])) {
+  $name = "première trace";
+  require("classes/upload.php");
+  $trace = new Upload(array(".gpx", ".GPX"), 3000000, "pages/troncons", "index.php?page=Admin&pageModif=Acceuil&section=3");
+  $trace->upload($name, "trace");
+}
+
 $section = $_GET["section"];
 $pageModif = $_GET["pageModif"];
 if (array_key_exists("contenu", $_POST)) {
@@ -165,5 +172,26 @@ if (array_key_exists("contenu", $_POST)) {
     }
     echo "</ul>";
     ?>
+  </div>
+
+  <div id=GPXmanagement>
+    <?php
+    require("classes/GPXmanagement.php");
+    /* GPX::update_GPXStartStop_DB("../pages/troncons/trace1.GPX", 1); */
+    
+
+    ?>
+
+  <div class="formContainer">
+    <form enctype="multipart/form-data" action="index.php?page=Admin&pageModif=Acceuil&section=2" method="post">
+      <div class="mb-3">
+        <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
+        <label for="trace" class="form-label">Trace GPX numéroté (par exemple: trace10.gpx)</label>
+        <input type="file" class="form-control" name="trace" id="trace" />
+      </div>
+      <button type="submit" class="btn btn-primary">Envoyer</button>
+    </form>
+  </div>
+    GPXmanagement
   </div>
 </section>

@@ -7,6 +7,7 @@ class Content
     public $contenu;
     public $description;
 
+    //les paramètres sont à null pour match la méthode sql de récupération de données
     public function __construct(
         $page = null,
         $section = null,
@@ -29,19 +30,3 @@ class Content
     }
 }
 
-class GPX
-{
-    public static function update_GPXStartStop_DB($file, $num)
-    {
-        $xml = simplexml_load_file($file);
-        $pts = $xml->trk->trkseg->trkpt;
-        $start = $pts[0];
-        $stop = $pts[count($pts) - 1];
-        $start_gps = $start["lat"] . " " . $start["lon"];
-        $stop_gps = $stop["lat"] . " " . $stop["lon"];
-
-        global $conn;
-        $update = $conn->prepare("insert into tracesGPS (id, GPS_dep, GPS_arr) values (?,?,?)");
-        $update->execute(array($num, $start_gps, $stop_gps));
-    }
-}

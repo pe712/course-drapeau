@@ -3,11 +3,16 @@
 /* $_SESSION[] */
 $nom = "BAVIERE Pierre-Emmanuel";
 $dossier = "pages/espacePerso/upload/$nom/";
+$name = "certificat medical $nom.pdf";
 
 if (!is_dir($dossier))
   mkdir($dossier);
 
-require("pages/espacePerso/PersoCertifPost.php");
+if (isset($_FILES['certificat'])) {
+  require("classes/upload.php");
+  $certif = new Upload(array(".pdf", ".PDF"), 500000, $dossier, "index.php?page=EspacePerso");
+  $certif->upload($name, "certificat");
+}
 ?>
 
 
@@ -21,22 +26,22 @@ require("pages/espacePerso/PersoCertifPost.php");
   <div class="espacePersoRowContainer">
     <div class="card">
       <div class="card-body">
-        <h2 >
-        <a href="" class="stretched-link">Mes informations personnelles</a>
+        <h2>
+          <a href="" class="stretched-link">Mes informations personnelles</a>
         </h2>
       </div>
     </div>
     <div class="card">
       <div class="card-body">
-        <h2 >
-        <a href="" class="stretched-link">Mon certificat médical</a>
+        <h2>
+          <a href="" class="stretched-link">Mon certificat médical</a>
         </h2>
       </div>
     </div>
     <div class="card">
       <div class="card-body">
-        <h2 >
-        <a href="" class="stretched-link">Mes informations personnelles</a>
+        <h2>
+          <a href="" class="stretched-link">Mes informations personnelles</a>
         </h2>
       </div>
     </div>
@@ -48,7 +53,7 @@ require("pages/espacePerso/PersoCertifPost.php");
   <div class="formContainer">
     <form enctype="multipart/form-data" action="index.php?page=EspacePerso" method="post">
       <div class="mb-3">
-        <input type="hidden" name="MAX_FILE_SIZE" value="300000" />
+        <input type="hidden" name="MAX_FILE_SIZE" value="500000" />
         <label for="certif" class="form-label">Certificat médical de moins de 1 an</label>
         <input type="file" class="form-control" name="certificat" id="certif" />
       </div>
@@ -56,3 +61,4 @@ require("pages/espacePerso/PersoCertifPost.php");
     </form>
   </div>
 </div>
+<?php
