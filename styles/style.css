@@ -236,6 +236,34 @@ ul,
     padding-top: 20px;
 }
 
-#tronconsVisualisation{
+#map{
     display: none;
+    margin-top: 20px;
+    height: 502.9px;
+    width: 80%;
+    margin-left: 10%;
+}
+
+
+/*******************************************************************/
+/* Pop-up */
+/*******************************************************************/
+.cs-popup {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    background-color: rgba(43, 41, 41, 0.48);
+    padding-top: 100px;
+    overflow: auto;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.cs-popup-content {
+    background-color: #ffffff;
+    width: 40%;
+    padding: 16px;
+    margin: auto;
+    border: 1px solid #888;
 }

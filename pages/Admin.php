@@ -14,7 +14,7 @@ if (array_key_exists("contenu", $_POST)) {
     $sous_section,
     $contenu
   );
-  $article->update_db($conn);
+  $article->update_db();
 }
 ?>
 <div class="pageContainer">

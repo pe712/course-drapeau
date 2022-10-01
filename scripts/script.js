@@ -19,9 +19,9 @@ $(document).ready(function () {
 
 /**************** Contact *************************/
 
-function copiermail() {
-    navigator.clipboard.writeText(document.getElementById("mail").textContent);
-
+function copier(id, texte) {
+    call_cs_popup(texte, 1500);
+    navigator.clipboard.writeText(document.getElementById(id).textContent);
 }
 
 /**************** Inscription *************************/
@@ -78,4 +78,23 @@ function unvalidate(id) {
     var st = document.getElementById(id).style;
     st.color = "inherit";
     st.fontWeight = "inherit";
+}
+
+/**************** Pop-up *************************/
+function call_cs_popup(text, time) {
+    var html_content = '<div id="cs-popup-container" class="cs-popup"><div class="cs-popup-content">' + text + '</div></div>';
+    document.getElementById('cs-popup-area').innerHTML = html_content;
+    var popup = document.getElementById('cs-popup-container');
+    popup.style.display = "block";
+
+    window.onclick = function (event) {
+        if (event.target == popup) {
+            popup.style.display = "none";
+        }
+    }
+    if (time != 0) {
+        setTimeout(function () {
+            popup.style.display = "none";
+        }, time);
+    }
 }

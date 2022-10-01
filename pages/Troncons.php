@@ -18,17 +18,19 @@ if (array_key_exists("dlnum", $_GET)) {
 ?>
 
 <div class="btn-group adminView" role="group" aria-label="Basic radio toggle button group">
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" onclick="changeView('tronconsVisualisation', 'tronconsListe')" checked>
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" onclick="changeView('map', 'tronconsListe')" checked>
     <label class="btn btn-outline-primary" for="btnradio1">Liste</label>
 
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" onclick="changeView('tronconsListe', 'tronconsVisualisation')">
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" onclick="changeView('tronconsListe', 'map'); add_gpx('pages/troncons/trace5.gpx')">
     <label class="btn btn-outline-primary" for="btnradio2">Visualisation</label>
 </div>
 
 
 
-<div id=tronconsVisualisation>ok</div>
-
+<div id="map"></div>
+<script src="../scripts/map.js"></script>
+<script>
+</script>
 
 
 <div id=tronconsListe>
@@ -55,13 +57,14 @@ if (array_key_exists("dlnum", $_GET)) {
             extract($tronc);
             echo <<<FIN
         <td>$num</td>
-        <td>$hdep</td>
-        <td>$pdep</td>
+        <td>$hdep </td>
+        <td><a id="pdep$num" href=# onclick="copier('pdep$num', 'Point GPS copié')">$pdep</td>
         <td>$harr</td>
-        <td>$parr</td>
-        <td><button>Télécharger la trace correspondante</button></td>
+        <td><a id="pdep$num" href=# onclick="copier('pdep$num', 'Point GPS copié')">$parr</td>
+        <td><a href="pages/troncons/trace1.gpx" download>Télécharger</button></td>
         FIN;
         }
         ?>
     </table>
+    <div id="cs-popup-area"></div>
 </div>
