@@ -1,9 +1,8 @@
 /**************** ADMIN *************************/
-function changeView(fromid, toid) {
-    document.getElementById(toid).style.display = "inherit";
-    document.getElementById(fromid).style.display = "none";
+function changeView(fromid, toid, from = "none", to = "inherit") {
+    document.getElementById(fromid).style.display = from;
+    document.getElementById(toid).style.display = to;
 }
-
 
 /**************** Tree View *************************/
 $(document).ready(function () {

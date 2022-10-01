@@ -208,9 +208,32 @@ if (array_key_exists("contenu", $_POST)) {
     <button>Supprimer toutes les traces enregistrées
       Requete à configurer
       <?php
-     /*  GPX::removeGPX(); */
+      /*  GPX::removeGPX(); */
       ?>
-      
+    </button>
+
+    <button>Calculer les horaires de passage
+      Requete à configurer
+      <?php
+      $select = $conn->query("SELECT contenu, sous_section from content where page='Troncons' and section=1");
+      while ($horaire = $select->fetch()) {
+        if ($horaire["sous_section"] == 1)
+          $hdep = $horaire["contenu"];
+        else
+          $harr = $horaire["contenu"];
+      }
+      $duration = $harr-$hdep;
+      $select = $conn->query("SELECT * from tracesGPX");
+      $n = $select->rowCount();
+      $delta = $duration/$n;
+      $current_delta = 0;
+      for ($i=1; $i <= $n; $i++) { 
+        $update = $conn->prepare("UPDATE tracesGPX set heure_dep=FROM_UNIXTIME(?), heure_arr=FROM_UNIXTIME(?) where id =?");
+        $update->execute(array($hdep+$current_delta, $hdep+$current_delta+$delta, $i));
+        $current_delta+=$delta;
+      }
+      ?>
+
     </button>
   </div>
 </section>

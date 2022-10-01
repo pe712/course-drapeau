@@ -1,64 +1,63 @@
-<?php
-if (array_key_exists("dlnum", $_GET)) {
-    $num = $_GET["dlnum"];
-    $file = "pages/troncons/trace$num.gpx";
-    if (file_exists($file)) {
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="' . basename($file) . '"');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        header('Content-Length: ' . filesize($file));
-        flush(); // Flush system output buffer
-        readfile($filepath);
-        die();
-    }
-}
-?>
-
 <div class="btn-group adminView" role="group" aria-label="Basic radio toggle button group">
     <input type="radio" class="btn-check" name="btnradio" id="btnradio1" onclick="changeView('map', 'tronconsListe')" checked>
     <label class="btn btn-outline-primary" for="btnradio1">Liste</label>
 
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" onclick="changeView('tronconsListe', 'map'); add_gpx('pages/troncons/trace5.gpx')">
-    <label class="btn btn-outline-primary" for="btnradio2">Visualisation</label>
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" onclick="changeView('tronconsListe', 'map'); add_gpx('pages/troncons/trace_complete.gpx', 0)">
+    <label class="btn btn-outline-primary" for="btnradio2">Visualisation parcours complet</label>
 </div>
 
 
 
 <div id="map"></div>
-<script src="../scripts/map.js"></script>
-<script>
-</script>
+
 
 
 <div id=tronconsListe>
-    <table class="table table-striped table-hover">
+    <table id="table" class="table table-striped table-hover">
         <tr>
             <th>Numéro troncon</th>
             <th>Heure de départ</th>
             <th>Point GPS de départ</th>
             <th>Heure arrivée</th>
             <th>Point GPS arrivée</th>
+            <th>Voir sur la carte</th>
             <th>Télécharger la trace</th>
         </tr>
         <?php
         require("classes/GPXmanagement.php");
-        $select = $conn->prepare("SELECT * FROM tracesGPX");
-        $select->setFetchMode(PDO::FETCH_CLASS,'GPX');
+        $select = $conn->prepare("SELECT id, UNIX_TIMESTAMP(heure_dep) as heure_dep, UNIX_TIMESTAMP(heure_arr) as heure_arr,gps_dep, gps_arr FROM tracesGPX");
+        $select->setFetchMode(PDO::FETCH_CLASS, 'GPX');
         $select->execute();
-        while ($trace = $select->fetch()){
+        while ($trace = $select->fetch()) {
+            $date_dep = new DateTime();
+            $date_arr = new DateTime();
+            $date_dep->setTimestamp($trace->heure_dep);
+            $date_arr->setTimestamp($trace->heure_arr);
+            $date_dep = date_format($date_dep, "l H:i");
+            $date_arr = date_format($date_arr, "l H:i");
             echo <<<FIN
-        <td>$trace->id</td>
-        <td>$trace->h_dep </td>
-        <td><a id="pdep$trace->id " href=# onclick="copier('pdep$trace->id ', 'Point GPS copié')">$trace->gps_dep</td>
-        <td>$trace->h_arr</td>
-        <td><a id="pdep$trace->id " href=# onclick="copier('pdep$trace->id ', 'Point GPS copié')">$trace->gps_arr</td>
-        <td><a href="pages/troncons/trace1.gpx" download>Télécharger</button></td>
+        <tr>
+            <td>$trace->id</td>
+            <td>$date_dep</td>
+            <td><a id="pdep$trace->id " href=# onclick="copier('pdep$trace->id ', 'Point GPS copié')">$trace->gps_dep</td>
+            <td>$date_arr</td>
+            <td><a id="pdep$trace->id " href=# onclick="copier('pdep$trace->id ', 'Point GPS copié')">$trace->gps_arr</td>
+            <td><a href=# onclick="changeView('table', 'carte'); add_gpx('pages/troncons/trace$trace->id.gpx', 1)">Visualiser</a></td>
+            <td><a href="pages/troncons/trace$trace->id.gpx" download>Télécharger</button></td>
+        </tr>
         FIN;
         }
         ?>
     </table>
+
+    <div id="carte">
+        <button onclick="changeView('carte', 'table')">Retourner à la liste</button>
+        <div id="map2"></div>
+    </div>
+
     <div id="cs-popup-area"></div>
 </div>
+
+
+
+<script src="../scripts/map.js"></script>
