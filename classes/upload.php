@@ -35,9 +35,7 @@ class Upload
 
 
           if (move_uploaded_file($file['tmp_name'], $this->dossier . $name)) {
-               $_SESSION["displayValid"] = 'Upload effectué avec succès !';
-               header("location:$this->finalUrl");
-               die();
+               $_SESSION["displayValid"] = "Upload effectué avec succès !";
           } else {
                $_SESSION["displayError"] =  'Echec de l\'upload !';
                header("location:$this->finalUrl");

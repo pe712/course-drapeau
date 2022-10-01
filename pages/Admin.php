@@ -4,12 +4,29 @@ if (!array_key_exists("section", $_GET) || !array_key_exists("pageModif", $_GET)
   die();
 }
 
-if (isset($_FILES['trace'])) {
-  $name = "première trace";
-  require("classes/upload.php");
-  $trace = new Upload(array(".gpx", ".GPX"), 3000000, "pages/troncons", "index.php?page=Admin&pageModif=Acceuil&section=3");
-  $trace->upload($name, "trace");
-}
+/* if (isset($_FILES['trace'])) {
+  $finalUrl = "index.php?page=Admin&pageModif=Acceuil&section=3";
+  preg_match("/\d+/", $_FILES['trace']['name'], $matches);
+  if (count($matches) == 0) {
+    $_SESSION["displayError"] = "le nom du fichier est incorrect, ce doit être trace15.gpx par exemple.";
+    header("location:$finalUrl");
+    die();
+  } else {
+    $num = $matches[0];
+    $dossier = "pages/troncons/";
+    $name = "trace$num.gpx";
+
+    require("classes/upload.php");
+    $trace = new Upload(array(".gpx", ".GPX"), 3000000, $dossier, $finalUrl);
+    $trace->upload($name, "trace");
+
+    require("classes/GPXmanagement.php");
+    GPX::update_GPXStartStop_DB($dossier . $name, $num);
+    header("location:$finalUrl");
+    die();
+  }
+} */
+var_dump($_FILES['trace']);
 
 $section = $_GET["section"];
 $pageModif = $_GET["pageModif"];
@@ -175,23 +192,17 @@ if (array_key_exists("contenu", $_POST)) {
   </div>
 
   <div id=GPXmanagement>
-    <?php
-    require("classes/GPXmanagement.php");
-    /* GPX::update_GPXStartStop_DB("../pages/troncons/trace1.GPX", 1); */
-    
 
-    ?>
-
-  <div class="formContainer">
-    <form enctype="multipart/form-data" action="index.php?page=Admin&pageModif=Acceuil&section=2" method="post">
-      <div class="mb-3">
-        <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
-        <label for="trace" class="form-label">Trace GPX numéroté (par exemple: trace10.gpx)</label>
-        <input type="file" class="form-control" name="trace" id="trace" />
-      </div>
-      <button type="submit" class="btn btn-primary">Envoyer</button>
-    </form>
-  </div>
+    <div class="formContainer">
+      <form enctype="multipart/form-data" action="index.php?page=Admin&pageModif=Acceuil&section=2" method="post">
+        <div class="mb-3">
+          <input type="hidden" name="MAX_FILE_SIZE" value="30000000" />
+          <label for="trace" class="form-label">Trace GPX numéroté (par exemple: trace10.gpx)</label>
+          <input type="file" class="form-control" name="trace" id="trace" />
+        </div>
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+      </form>
+    </div>
     GPXmanagement
   </div>
 </section>

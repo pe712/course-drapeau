@@ -18,7 +18,16 @@ class GPX
         $stop_gps = $stop["lat"] . " " . $stop["lon"];
 
         global $conn;
-        $update = $conn->prepare("insert into tracesGPX (id, gps_dep, gps_arr) values (?,?,?)");
-        $update->execute(array($num, $start_gps, $stop_gps));
+        $select = $conn->prepare("select * from tracesGPX where id=?");
+        $select->execute(array($num));
+        if ($select->rowCount()>0){
+            $update = $conn->prepare("update tracesGPX set gps_dep=?, gps_arr=? where id=?");
+            $update->execute(array($start_gps, $stop_gps, $num));
+        }
+        else {
+            $insert = $conn->prepare("insert into tracesGPX (id, gps_dep, gps_arr) values (?,?,?)");
+            $insert->execute(array($num, $start_gps, $stop_gps));
+        }
+        
     }
 }
