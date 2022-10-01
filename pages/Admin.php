@@ -1,32 +1,22 @@
 <?php
 if (!array_key_exists("section", $_GET) || !array_key_exists("pageModif", $_GET)) {
-  header("Location:../index.php?page=Admin&pageModif=Acceuil&section=1");
+  header("location:index.php?page=Admin&pageModif=Acceuil&section=1");
   die();
 }
 
-/* if (isset($_FILES['trace'])) {
-  $finalUrl = "index.php?page=Admin&pageModif=Acceuil&section=3";
-  preg_match("/\d+/", $_FILES['trace']['name'], $matches);
-  if (count($matches) == 0) {
-    $_SESSION["displayError"] = "le nom du fichier est incorrect, ce doit être trace15.gpx par exemple.";
-    header("location:$finalUrl");
-    die();
-  } else {
-    $num = $matches[0];
-    $dossier = "pages/troncons/";
-    $name = "trace$num.gpx";
+$finalUrl = "index.php?page=Admin&pageModif=Acceuil&section=1";
+require("classes/GPXmanagement.php");
+if (isset($_FILES['trace'])) {
+  GPX::uploadGPX_updateDB($_FILES["trace"]);
+  header("location:$finalUrl");
+  die();
+}
 
-    require("classes/upload.php");
-    $trace = new Upload(array(".gpx", ".GPX"), 3000000, $dossier, $finalUrl);
-    $trace->upload($name, "trace");
-
-    require("classes/GPXmanagement.php");
-    GPX::update_GPXStartStop_DB($dossier . $name, $num);
-    header("location:$finalUrl");
-    die();
-  }
-} */
-var_dump($_FILES['trace']);
+if (isset($_FILES['traces'])) {
+  GPX::uploadGPX_updateDB_multiple();
+  header("location:$finalUrl");
+  die();
+}
 
 $section = $_GET["section"];
 $pageModif = $_GET["pageModif"];
@@ -203,6 +193,24 @@ if (array_key_exists("contenu", $_POST)) {
         <button type="submit" class="btn btn-primary">Envoyer</button>
       </form>
     </div>
-    GPXmanagement
+
+    <div class="formContainer">
+      <form enctype="multipart/form-data" action="index.php?page=Admin&pageModif=Acceuil&section=2" method="post">
+        <div class="mb-3">
+          <input type="hidden" name="MAX_FILE_SIZE" value="30000000" />
+          <label for="loader" class="form-label">Dossier contenant toutes les traces GPX numérotées (par exemple: trace10.gpx)</label>
+          <input type="file" class="form-control" name="traces[]" id="loader" webkitdirectory multiple />
+        </div>
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+      </form>
+    </div>
+
+    <button>Supprimer toutes les traces enregistrées
+      Requete à configurer
+      <?php
+     /*  GPX::removeGPX(); */
+      ?>
+      
+    </button>
   </div>
 </section>

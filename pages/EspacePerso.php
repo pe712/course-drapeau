@@ -10,8 +10,12 @@ if (!is_dir($dossier))
 
 if (isset($_FILES['certificat'])) {
   require("classes/upload.php");
-  $certif = new Upload(array(".pdf", ".PDF"), 500000, $dossier, "index.php?page=EspacePerso");
-  $certif->upload($name, "certificat");
+  $finalUrl = "index.php?page=EspacePerso";
+  $certif = new Upload(array(".pdf", ".PDF"), 500000, $dossier, $finalUrl);
+  $file = $_FILES['certificat'];
+  $certif->upload($name, $file);
+  header("location:$finalUrl");
+  die();
 }
 ?>
 

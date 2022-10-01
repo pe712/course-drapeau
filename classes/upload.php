@@ -14,10 +14,8 @@ class Upload
           $this->finalUrl = $finalUrl;
      }
 
-     public function upload($name, $nameofFILES)
+     public function upload($finalName, $file)
      {
-          $file = $_FILES[$nameofFILES];
-
           $extension = strrchr($file['name'], '.');
           if (!in_array($extension, $this->extensions)) {
                $extension_name = $this->extensions[0];
@@ -34,16 +32,12 @@ class Upload
           }
 
 
-          if (move_uploaded_file($file['tmp_name'], $this->dossier . $name)) {
+          if (move_uploaded_file($file['tmp_name'], $this->dossier . $finalName)) {
                $_SESSION["displayValid"] = "Upload effectué avec succès !";
           } else {
                $_SESSION["displayError"] =  'Echec de l\'upload !';
                header("location:$this->finalUrl");
                die();
           }
-     }
-
-     public function renameCertificat()
-     {
      }
 }
