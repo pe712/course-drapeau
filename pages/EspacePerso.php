@@ -1,4 +1,5 @@
 <?php
+require("classes/usersManagement.php");
 
 /* $_SESSION[] */
 $nom = "BAVIERE Pierre-Emmanuel";
@@ -10,21 +11,35 @@ if (!is_dir($dossier))
 
 if (isset($_FILES['certificat'])) {
   require("classes/upload.php");
-  $finalUrl = "index.php?page=EspacePerso";
-  $certif = new Upload(array(".pdf", ".PDF"), 500000, $dossier, $finalUrl);
-  $file = $_FILES['certificat'];
-  $certif->upload($name, $file);
-  header("location:$finalUrl");
-  die();
+  Users::uploadCertificat($dossier, $name);
 }
+
+if (array_key_exists("firstname", $_POST)) {
+  Users::updateInfos();
+}
+
+if (array_key_exists("name", $_SESSION)) {
+  $prenom = " " . $_SESSION["name"];
+}
+
+$user = users::getUserPersonnalData();
+$x = $user->avancement();
+$val = round($x * 100) . "%";
+if ($x == 100)
+  $texte = "Bravo" . $prenom . ", tu as complété tout ton espace personnel.";
+
+else
+  $texte = "Bienvenue" . $prenom . ", tu en est à $val du remplissage de ton espace personnel.";
+
+
 ?>
 
 
 <div class="espacePersoMainContainer">
-  <p class="progression">Progression :</p>
+  <p class="progression"><?= $texte ?></p>
 
   <div class="progress">
-    <div class="progress-bar" role="progressbar" style="width: 18%;" aria-valuemin="0" aria-valuemax="100">18%</div>
+    <div id="espacePerso-progress-bar" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"><?= $val ?></div>
   </div>
 
   <div id="cards" class="espacePersoRowContainer">
@@ -32,7 +47,7 @@ if (isset($_FILES['certificat'])) {
     $text = array(
       "Mes informations personnelles" => "info",
       "Mon certificat médical" => "certif",
-      "Mes informations personnellss" => "infos",
+      "Paiement de la course" => "payement",
     );
 
     foreach ($text as $key => $value) {
@@ -48,13 +63,46 @@ if (isset($_FILES['certificat'])) {
     }
     ?>
   </div>
-  <br>
 
   <div>
     <div class="onglet" id="info">
-      infos
-      <button id="retour" class="btn btn-primary" onclick="changeView('info', 'cards', 'none', 'flex')">Retour</button>
+      <?php
+      if ($user->prenom == null)
+        echo '<div id="formPerso" class="formContainer">';
+      else {
+      ?>
+        <p class="infosPerso">Vous avez déjà complété cet onglet.</p>
+
+        <p class="infosPerso">Vous êtes <?php echo $user->prenom . " " . $user->nom . " de la promotion X" . $user->promotion ?></p>
+
+        <button id="modifyPerso" class="btn btn-primary">Modifier mes informations</button>
+
+        <div id="formPerso" class="formContainer" style="display:none">
+        <?php
+      }
+        ?>
+        <form class="ms-4" method="post" action="index.php?page=EspacePerso">
+          <div class="mb-3">
+            <label for="firstname" class="form-label">Prénom</label>
+            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Eric" required>
+          </div>
+          <div class="mb-3">
+            <label for="surname" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="surname" name="surname" placeholder="Labaye" required>
+          </div>
+          <div class="mb-3">
+            <label for="promo" class="form-label">Promotion X</label>
+            <input type="number" class="form-control" id="promo" name="promo" value=21 placeholder="21" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Valider</button>
+        </form>
+        </div>
+
+        <button id="retourFromInfo" class="btn btn-primary" onclick="changeView('info', 'cards', 'none', 'flex')">Retour</button>
+
     </div>
+
+
     <div class="onglet" id="certif">
       <div class="formContainer">
         <form enctype="multipart/form-data" action="index.php?page=EspacePerso" method="post">
@@ -63,11 +111,18 @@ if (isset($_FILES['certificat'])) {
             <label for="certif" class="form-label">Certificat médical de moins de 1 an</label>
             <input type="file" class="form-control" name="certificat" id="certif" />
           </div>
-          <button type="submit" class="btn btn-primary">Envoyer</button>
+          <button id="espacePerso-certif-button" type="submit" class="btn btn-primary">Envoyer</button>
         </form>
       </div>
-      <button id="retour" class="btn btn-primary" onclick="changeView('certif', 'cards', 'none', 'flex')">Retour</button>
+
+      <butto class="btn btn-primary" onclick="changeView('certif', 'cards', 'none', 'flex')">Retour</button>
+
+    </div>
+    <div class="onglet" id="payement">
+
+      <button class="btn btn-primary" onclick="changeView('payement', 'cards', 'none', 'flex')">Retour</button>
     </div>
   </div>
+
 
 </div>

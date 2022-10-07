@@ -11,14 +11,17 @@ class Users
     public $lastConn;
     public $nom;
     public $prenom;
-    public $age;
+    public $promotion;
+    public $paid;
+    public $certificat;
+    public $root;
 
     public static function connectUser()
     {
         global $conn;
         extract($_POST);
         $select = $conn->prepare("SELECT * FROM users WHERE mail=?");
-        $select->setFetchMode(PDO::FETCH_CLASS,'Users');
+        $select->setFetchMode(PDO::FETCH_CLASS, 'Users');
         $select->execute(array($mail));
         $n = $select->rowCount();
 
@@ -37,7 +40,10 @@ class Users
 
                 session_regenerate_id(true);
                 $_SESSION["id"] = $user->id;
-
+                $_SESSION["root"] = $user->root;
+                if ($user->prenom != null) {
+                    $_SESSION["name"] = $user->prenom;
+                }
                 $update = $conn->prepare("update users set lastConn=CURRENT_TIMESTAMP WHERE id=?");
                 $update->execute(array($user->id));
 
@@ -82,7 +88,7 @@ class Users
 
                 $select = $conn->prepare('SELECT id FROM users WHERE mail=?');
                 $select->execute(array($mail));
-                $select->setFetchMode(PDO::FETCH_CLASS,'Users');
+                $select->setFetchMode(PDO::FETCH_CLASS, 'Users');
                 $id = $select->fetch()->id;
 
                 $_SESSION["id"] = $id;
@@ -128,4 +134,47 @@ class Users
         return $ret;
     }
 
+    public static function uploadCertificat($dossier, $name)
+    {
+        global $conn;
+        $finalUrl = "index.php?page=EspacePerso";
+        $certif = new Upload(array(".pdf", ".PDF"), 500000, $dossier, $finalUrl);
+        $file = $_FILES['certificat'];
+        $certif->upload($name, $file);
+        $update = $conn->prepare("UPDATE users SET certificat=true WHERE id=?");
+        $update->execute(array($_SESSION["id"]));
+        header("location:$finalUrl");
+        die();
+    }
+
+    public static function updateInfos()
+    {
+        global $conn;
+        $id = $_SESSION["id"];
+        extract($_POST);
+        $update = $conn->prepare("UPDATE users SET prenom=?, nom=?, promotion=? WHERE id=?");
+        $update->execute(array($firstname, $surname, $promo, $id));
+        $_SESSION["name"] = $firstname;
+    }
+
+    public static function getUserPersonnalData()
+    {
+        global $conn;
+        $select = $conn->prepare("SELECT nom, prenom, promotion, paid, certificat FROM users WHERE id=?");
+        $select->setFetchMode(PDO::FETCH_CLASS, 'Users');
+        $select->execute(array($_SESSION["id"]));
+        return $select->fetch();
+    }
+
+    public function avancement()
+    {
+        $score = 0;
+        if ($this->prenom != null && $this->nom != null && $this->promotion != null)
+            $score += 1 / 3;
+        if ($this->paid)
+            $score += 1 / 3;
+        if ($this->certificat)
+            $score += 1 / 3;
+        return $score;
+    }
 }

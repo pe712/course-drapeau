@@ -1,24 +1,65 @@
 <nav>
-    <div class="container-fluid bg-dark">
-        <div class="row">
-            <div class="col-md-2"><a href="index.php?page=Acceuil">Accueil</a></div>
-            <div class="col-md-2"><a href="index.php?page=About">A propos</a></div>
-            <div class="col-md-2"><a href="index.php?page=Contact">Qui sommes-nous?</a></div>
-            <div class="col-md-2"><a href="index.php?page=Troncons">Tronçons</a></div>
-            <?php
-            if (array_key_exists("id", $_SESSION)) {
-            ?>
-                <div class="col-md-2" style="color: var(--bs-link-color)">Bienvenue</div>
-                <div class="col-md-2"><a href="index.php?page=EspacePerso">Espace Personnel</a></div>
-                <div class="col-md-2"><a href="index.php?page=Unconnect">Me déconnecter</a></div>
-            <?php } else {
-            ?>
-                <div class="col-md-2"><a href="index.php?page=Inscription">Inscription</a></div>
-                <div class="col-md-2"><a href="index.php?page=Connect">Me connecter</a></div>
-            <?php } ?>
-
+    <div class="nav-mainContainer">
+        <div class="nav-container">
+            <div id="Acceuil" class="nav-content">Accueil</div>
+            <div class="nav-bar nav-top"></div>
+            <div class="nav-bar nav-bot"></div>
         </div>
+        <div class="nav-container">
+            <div id="About" class="nav-content">A propos</div>
+            <div class="nav-bar nav-top"></div>
+            <div class="nav-bar nav-bot"></div>
+        </div>
+        <div class="nav-container">
+            <div id="Contact" class="nav-content">Qui sommes-nous?</div>
+            <div class="nav-bar nav-top"></div>
+            <div class="nav-bar nav-bot"></div>
+        </div>
+        <div class="nav-container">
+            <div id="Troncons" class="nav-content">Tronçons</div>
+            <div class="nav-bar nav-top"></div>
+            <div class="nav-bar nav-bot"></div>
+        </div>
+        <?php
+        if (array_key_exists("id", $_SESSION)) {
+            if (array_key_exists("root", $_SESSION) && $_SESSION["root"]) {
+                echo <<<FIN
+                    <div class="nav-container">
+                        <div id="Admin" class="nav-content">Administration</div>
+                        <div class="nav-bar nav-top"></div>
+                        <div class="nav-bar nav-bot"></div>
+                    </div>
+                    FIN;
+            }
+            echo <<<FIN
+                <div class="nav-container">
+                    <div id="EspacePerso" class="nav-content">Espace Personnel</div>
+                    <div class="nav-bar nav-top"></div>
+                    <div class="nav-bar nav-bot"></div>
+                </div>
+                <div class="nav-container">
+                    <div id="Unconnect" class="nav-content">Me déconnecter</div>
+                    <div class="nav-bar nav-top"></div>
+                    <div class="nav-bar nav-bot"></div>
+                </div>
+                FIN;
+        } else {
+        ?>
+            <div class="nav-container">
+                <div id="Inscription" class="nav-content">Inscription</div>
+                <div class="nav-bar nav-top"></div>
+                <div class="nav-bar nav-bot"></div>
+            </div>
+            <div class="nav-container">
+                <div id="Connect" class="nav-content">Me connecter</div>
+                <div class="nav-bar nav-top"></div>
+                <div class="nav-bar nav-bot"></div>
+            </div>
+        <?php
+        }
+        ?>
     </div>
+
 </nav>
 <header>
     <?php
@@ -42,6 +83,6 @@
 
     ?>
     <div class="bg-primary bg-gradient text-center">
-        <h1>Course Bordeaux-Polytechnique</h1>
+        <h1 class="nav-h1">Course Bordeaux-Polytechnique</h1>
     </div>
 </header>

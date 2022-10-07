@@ -4,6 +4,40 @@ function changeView(fromid, toid, from = "none", to = "inherit") {
     document.getElementById(toid).style.display = to;
 }
 
+$(document).ready(function () {
+    $("#admin-gpx-button").click(function () {
+        $.post("ajax/AdminRequest.php?todo=removeGPX", function (data) {
+            call_cs_popup(data, 1500);
+        });
+    })
+
+    $("#admin-horaires-button").click(function () {
+        $.post("ajax/AdminRequest.php?todo=calculHoraires", function (data) {
+            call_cs_popup(data, 1500);
+        });
+    })
+
+    $("#modifyPerso").click(function () {
+        $(this).hide();
+        $(".infosPerso").hide();
+        $("#formPerso").show();
+    });
+
+    $("#retourFromInfo").click(function () {
+        if (document.getElementById("modifyPerso")) {
+            $("#modifyPerso").show();
+            $(".infosPerso").show();
+            $("#formPerso").hide();
+        }
+    });
+
+    var bar = $("#espacePerso-progress-bar")
+    bar.css("width", bar.html());
+})
+
+
+
+
 /**************** Tree View *************************/
 $(document).ready(function () {
     var toggler = document.getElementsByClassName("caret");
@@ -97,3 +131,11 @@ function call_cs_popup(text, time) {
         }, time);
     }
 }
+
+/**************** Navbar *************************/
+$(document).ready(function () {
+    $(".nav-container").click(function () {
+        location.href = "index.php?page=" + $(this).children('.nav-content').attr("id");
+
+    });
+})

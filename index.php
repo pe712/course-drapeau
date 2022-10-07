@@ -20,12 +20,16 @@ if (!isset($title)) {
 }
 
 if (isset($admin) && $admin) {
-    $_SESSION["displayError"] = "Vous devez avoir les droits d'administrateur pour accéder à la page $name";
-    header("Location:index.php?page=Acceuil");
-    die();
+    require("includes/isRoot.php");
 }
 
-require("includes/sous_sections.php");
+require("classes/connectDB.php");
+$conn = Database::connect();
+
+if ($content) {
+    require("classes/contentManagement.php");
+    $sections = Content::content();
+}
 ?>
 
 <!DOCTYPE html>

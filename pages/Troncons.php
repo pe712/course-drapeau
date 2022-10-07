@@ -20,7 +20,7 @@
             <th>Point GPS de départ</th>
             <th>Heure arrivée</th>
             <th>Point GPS arrivée</th>
-            <th>Voir sur la carte</th>
+            <th id="troncons-column-visualize">Voir sur la carte</th>
             <th>Télécharger la trace</th>
         </tr>
         <?php
@@ -39,10 +39,20 @@
         <tr>
             <td>$trace->id</td>
             <td>$date_dep</td>
-            <td><a id="pdep$trace->id " href=# onclick="copier('pdep$trace->id ', 'Point GPS copié')">$trace->gps_dep</td>
+            <td id="pdep$trace->id">
+                $trace->gps_dep
+                <button class="troncons-button">
+                    <img id="troncons-icon" src="img/icons/clipboard.png" alt="copy to clipboard" onclick="copier('pdep$trace->id', 'Point GPS copié')">
+                </button>
+            </td>
             <td>$date_arr</td>
-            <td><a id="pdep$trace->id " href=# onclick="copier('pdep$trace->id ', 'Point GPS copié')">$trace->gps_arr</td>
-            <td><a href=# onclick="changeView('table', 'carte'); add_gpx('pages/troncons/trace$trace->id.gpx', 1)">Visualiser</a></td>
+            <td id="parr$trace->id">
+                $trace->gps_arr
+                <button class="troncons-button">
+                    <img id="troncons-icon" src="img/icons/clipboard.png" alt="copy to clipboard" onclick="copier('parr$trace->id', 'Point GPS copié')">
+                </button>
+            </td>
+            <td><button class="troncons-button" onclick="changeView('table', 'carte'); add_gpx('pages/troncons/trace$trace->id.gpx', 1)">Visualiser</button></td>
             <td><a href="pages/troncons/trace$trace->id.gpx" download>Télécharger</button></td>
         </tr>
         FIN;
@@ -56,6 +66,7 @@
     </div>
 
     <div id="cs-popup-area"></div>
+
 </div>
 
 

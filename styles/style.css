@@ -1,3 +1,4 @@
+
 /*******************************************************************/
 /* ABOUT */
 /*******************************************************************/
@@ -35,8 +36,8 @@
 }
 
 .mainfooter div {
-    padding-top: 2em;
-    padding-bottom: 1em;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
 }
 
 .mainfooter div div {
@@ -138,9 +139,13 @@ footer img {
     align-items: center;
     text-align: center;
 }
+.card-body h2{
+    font-size: 1.5rem;
+}
+
 
 .progression {
-    font-size: x-large;
+    font-size: 1.2rem;
 }
 
 .espacePersoMainContainer {
@@ -159,6 +164,11 @@ footer img {
 
 .onglet{
     display: none;
+    font-size: 1.2rem;
+}
+
+#espacePerso-certif-button{
+    margin-bottom: 200px;
 }
 
 /*******************************************************************/
@@ -213,12 +223,6 @@ ul,
     width: 0%;
 }
 
-
-.progress {
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
 .inscriptionForm {
     justify-content: space-around;
     margin-right: 0;
@@ -260,7 +264,22 @@ ul,
     margin-left: 10%;
 }
 
+.troncons-button{
+    border: none;
+    background-color: inherit;
+}
 
+.troncons-button:hover{
+    font-weight: bold;
+}
+
+ #troncons-column-visualize{
+    width: 100px;
+ }
+
+ #troncons-icon{
+    width: 28px;
+ }
 
 /*******************************************************************/
 /* Pop-up */
@@ -284,4 +303,74 @@ ul,
     padding: 16px;
     margin: auto;
     border: 1px solid #888;
+}
+
+
+/*******************************************************************/
+/* Navbar */
+/*******************************************************************/
+.nav-mainContainer {
+    justify-content: space-between;
+    display: inline-flex;
+    width: 100vw;
+    height: 80px;
+}
+.nav-container {
+    width: 25vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    background-color: rgba(20, 134, 170, 0.7);
+    align-items: center;    
+
+}
+
+.nav-container:hover {
+    background-color: rgba(20, 134, 170);
+    cursor: pointer;
+}
+
+.nav-content {
+    line-height: 80px;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.nav-container:hover .nav-content {
+    font-weight: 700;
+}
+
+.nav-bar {
+    z-index: 10;
+    position: fixed;
+    width: 10vw;
+    border-top: 6px solid black;
+    opacity: 0;
+}
+
+.nav-container:hover .nav-bar {
+    opacity: 1;
+    transition: all 0.5s;
+}
+
+.nav-bot {
+    margin-top: 74px;
+}
+
+.nav-top {
+    margin-top: 2px;
+}
+
+.nav-container:hover .nav-top {
+    margin-top: 20px;
+}
+
+.nav-container:hover .nav-bot {
+    margin-top: 63px;
+}
+
+.nav-h1{
+    line-height: 1.5;
 }

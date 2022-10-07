@@ -28,7 +28,7 @@ $page_list = array(
         "name" => "Admin",
         "title" => "Modifier les page",
         "sectionToRequire" => "pages/Admin.php",
-        "admin" => false,/* à mettre sur true sur le long terme */
+        "admin" => true,
         "content" => false,
     ),
     array(
@@ -54,6 +54,5 @@ $page_list = array(
         "title" => "Mon Espace Personnel",
         "sectionToRequire" => "pages/EspacePerso.php",
         "content" => true,
-        "content" => false,
     ),
 );

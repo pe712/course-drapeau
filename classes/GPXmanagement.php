@@ -8,8 +8,6 @@ class GPX
     public $gps_dep;
     public $gps_arr;
 
-    
-
     public static function uploadGPX_updateDB_multiple()
     {
         $file_post = $_FILES["traces"];
@@ -31,7 +29,7 @@ class GPX
     public static function uploadGPX_updateDB($file)
     {
         $finalUrl = "index.php?page=Admin&pageModif=Acceuil&section=3";
-        preg_match("/\d+/",$file['name'], $matches);
+        preg_match("/\d+/", $file['name'], $matches);
         if (count($matches) == 0) {
             $_SESSION["displayError"] = "le nom du fichier est incorrect, ce doit être trace15.gpx par exemple.";
         } else {
@@ -39,7 +37,6 @@ class GPX
             $dossier = "pages/troncons/";
             $name = "trace$num.gpx";
 
-            require_once("classes/upload.php");
             $trace = new Upload(array(".gpx", ".GPX"), 3000000, $dossier, $finalUrl);
             $trace->upload($name, $file);
 
@@ -53,8 +50,8 @@ class GPX
         $pts = $xml->trk->trkseg->trkpt;
         $start = $pts[0];
         $stop = $pts[count($pts) - 1];
-        $start_gps = $start["lat"] . " " . $start["lon"];
-        $stop_gps = $stop["lat"] . " " . $stop["lon"];
+        $start_gps = number_format(floatval($start["lat"]), 5) . " " . number_format(floatval($start["lon"]), 5);
+        $stop_gps = number_format(floatval($stop["lat"]), 5) . " " . number_format(floatval($stop["lon"]), 5);
 
         global $conn;
         $select = $conn->prepare("select * from tracesGPX where id=?");
@@ -68,17 +65,46 @@ class GPX
         }
     }
 
-    public static function removeGPX(){
-        $dossier = 'pages/troncons/trace';
-        
+    public static function removeGPX()
+    {
+        //cette fonction est toujours accédée depuis le dossier ajax
+        $dossier = '../pages/troncons/trace';
+
         global $conn;
         $select = $conn->query("SELECT * from tracesGPX");
         $n = $select->rowCount();
 
-        for ($i=1; $i <= $n; $i++) { 
-            unlink( $dossier.$i.".gpx" );
+        for ($i = 1; $i <= $n; $i++) {
+            unlink($dossier . $i . ".gpx");
         }
 
         $delete = $conn->query("DELETE from tracesGPX");
+        echo "traces GPX supprimées";
+    }
+
+    public static function calculHoraires()
+    {
+        global $conn;
+        $select = $conn->query("SELECT contenu, sous_section from content where page='Troncons' and section=1");
+        while ($horaire = $select->fetch()) {
+            if ($horaire["sous_section"] == 1)
+                $hdep = $horaire["contenu"];
+            else
+                $harr = $horaire["contenu"];
+        }
+        $duration = $harr - $hdep;
+        $select = $conn->query("SELECT * from tracesGPX");
+        $n = $select->rowCount();
+        if ($n == 0) {
+            echo "Il n'y a aucune trace pour le moment";
+        } else {
+            $delta = $duration / $n;
+            $current_delta = 0;
+            for ($i = 1; $i <= $n; $i++) {
+                $update = $conn->prepare("UPDATE tracesGPX set heure_dep=FROM_UNIXTIME(?), heure_arr=FROM_UNIXTIME(?) where id =?");
+                $update->execute(array($hdep + $current_delta, $hdep + $current_delta + $delta, $i));
+                $current_delta += $delta;
+            }
+        }
     }
 }
