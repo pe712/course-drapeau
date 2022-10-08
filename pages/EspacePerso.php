@@ -76,7 +76,7 @@ else
         <p class="infosPerso">Vous êtes <?php echo $user->prenom . " " . $user->nom . " de la promotion X" . $user->promotion ?></p>
 
         <button id="modifyPerso" class="btn btn-primary">Modifier mes informations</button>
-
+        <br>
         <div id="formPerso" class="formContainer" style="display:none">
         <?php
       }
@@ -119,7 +119,7 @@ else
 
     </div>
     <div class="onglet" id="payement">
-
+      <br>
       <button class="btn btn-primary" onclick="changeView('payement', 'cards', 'none', 'flex')">Retour</button>
     </div>
   </div>
