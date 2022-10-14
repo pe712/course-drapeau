@@ -86,7 +86,7 @@ class GPX
     {
         global $conn;
         $select = $conn->query("SELECT contenu, item from content where page='Troncons' and section=1");
-        $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Content');
+        $select->setFetchMode(PDO::FETCH_CLASS, 'Content');
         while ($horaire = $select->fetch()) {
             if ($horaire->item== 1)
                 $hdep = $horaire->contenu;

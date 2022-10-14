@@ -1,160 +1,75 @@
 <?php
-if (!array_key_exists("section", $_GET) || !array_key_exists("pageModif", $_GET)) {
-  header("location:index.php?page=Admin&pageModif=Acceuil&section=1");
-  die();
-}
 
-$finalUrl = "index.php?page=Admin&pageModif=Acceuil&section=1";
 require("classes/GPXmanagement.php");
 require_once("classes/upload.php");
 
 if (isset($_FILES['trace'])) {
   GPX::uploadGPX_updateDB($_FILES["trace"]);
-  header("location:$finalUrl");
-  die();
 }
 
 if (isset($_FILES['traces'])) {
   GPX::uploadGPX_updateDB_multiple();
-  header("location:$finalUrl");
-  die();
-}
-
-$section = $_GET["section"];
-$pageModif = $_GET["pageModif"];
-if (array_key_exists("contenu", $_POST)) {
-  extract($_POST);
-  $article = new Content(
-    $pageModif,
-    $section,
-    $item,
-    $contenu
-  );
-  $article->update_db();
 }
 ?>
-<div class="pageContainer">
-  <?php
-  foreach ($page_list as $page) {
-    if ($page["content"]) {
-      if ($_GET["pageModif"] == $page["name"]) {
-        echo "<div id=activeModif><div>";
-      } else
-        echo "<div><div>";
-  ?>
-      <a href="index.php?page=Admin&pageModif=<?= $page["name"] ?>&section=1"><?= $page["title"] ?></a>
-</div>
-</div>
-<?php
-    }
-  }
-?>
-</div>
 
 <section class="adminSection">
-  <?php
-  /* $select = $conn->prepare("SELECT COUNT(DISTINCT(section)) FROM content WHERE page=?");
-  $select->execute(array($pageModif));
-  $n_sec = $select->fetch()[0];
-
-  $select = $conn->prepare("SELECT * FROM content WHERE page=? and section=?");
-  $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Content');
-  $select->execute(array($pageModif, $section)); */
-  ?>
-
 
   <!-- Choix de la vue -->
   <div class="btn-group adminView" role="group" aria-label="Basic radio toggle button group">
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" onclick="changeView('AdminModification', 'AdminStructure')" checked>
-    <label class="btn btn-outline-primary" for="btnradio1">Structure</label>
+    <input type="radio" class="btn-check admin-onglet-button" name="btnradio" id="admin-contenu">
+    <label class="btn btn-outline-primary" for="admin-contenu">Contenu général</label>
 
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" onclick="changeView('AdminStructure', 'AdminModification')">
-    <label class="btn btn-outline-primary" for="btnradio2">Modification</label>
-  </div>
-
-  <!-- Vue Modif -->
-  <div id="AdminModification">
-    <div class="adminTitle">
-      <div>
-        <h2><b>Section <?= $section ?></b></h2>
-      </div>
-      <div>
-        <button>Créer une sous-section</button>
-        <form action="post"><input type="text">c'est pour créer une nouvelle sous-section</form>
-      </div>
-    </div>
-    <?php
-
-    
-
-    /* Impression du contenu de la section de la page demandée */
-    while ($article = $select->fetch()) {
-    ?>
-      <article>
-        <form action="index.php?page=Admin&pageModif=<?= $pageModif ?>&section=<?= $section ?>" method="post">
-          <p>
-            <label for="contenu">
-              <?= $article->description ?></label>
-          </p>
-          <textarea type="text" name="contenu" id="contenu"><?= $article->contenu ?></textarea>
-          <input type=number name=sous_section value=<?= $article->item ?> hidden>
-          <br>
-          <button type="submit">Modifier cette sous-section</button>
-        </form>
-      </article>
-      <br>
-    <?php
-    }
-    ?>
+    <input type="radio" class="btn-check admin-onglet-button" name="btnradio" id="admin-GPX">
+    <label class="btn btn-outline-primary" for="admin-GPX">Traces GPX</label>
   </div>
 
   <!-- Vue Structure -->
-  <div id="AdminStructure">
+  <div id="admin-contenu-onglet" class="admin-onglet">
+    <div class="btn-group adminView" role="group" aria-label="Basic radio toggle button group">
+      <?php
+      foreach ($page_list as $page) {
+        if ($page["content"]) {
+          $title = $page["title"];
+          $name = $page["name"];
+          echo <<<FIN
+          <input type="radio" class="btn-check admin-page-button" name="btnradio" id="admin-$name">
+          <label class="btn btn-outline-primary" for="admin-$name">$title</label>
+          FIN;
+        }
+      }
+      ?>
+    </div>
     Voici la structure
-    <?php
-    require("classes/contentManagement.php");
-    $sections = Content::content();
-    var_dump($sections);
-    $select = $conn->query("SELECT * FROM content ORDER BY page, section, item");
-    $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Content');
-    $page = null;
-    $section = null;
-    $firstP = true;
-    $parité = "pair";
-    echo "<ul id=myUL>";
-    while ($sub_section = $select->fetch()) {
-      $Npage = $sub_section->page;
-      $Nsection = $sub_section->section;
-      $desc = $sub_section->description;
-      if ($Npage != $page) {
-        $page = $Npage;
-        $firstS = true;
-        if ($parité == "pair")
-          $parité = "impair";
-        else
-          $parité = "pair";
-        if (!$firstP)
-          echo "</ul></li></ul></div>";
-        else
-          $firstP = false;
-        echo "<div class=$parité><li><span class='caret caret-down'> Page $Npage </span><ul class='nested active'>";
-      }
-      if ($Nsection != $section) {
-        $section = $Nsection;
-        if (!$firstS)
+    <div>
+      <?php
+      $parité = true;
+      require("classes/contentManagement.php");
+      $contenu_total = Content::contenu_total(true);
+      foreach ($contenu_total as $page) {
+        echo "<div class='parité$parité admin-structure-page' id='admin-structure-".$page["name"]."'><span class='caret caret-down'>Page " . $page["name"] . "</span><ul class='nested active'>";
+        foreach ($page["sections"] as $key => $section) {
+          echo "<li><span class='caret'> Section $key<br><span class=admin-sectionDesc>" . $section["desc"] . "</span></span><ul class='nested'>";
+          foreach ($section["items"] as $keyi => $item) {
+            echo "<li>Item " . ($keyi + 1) . " <button id=" . $page["name"] . "_" . $key . "_" . ($keyi + 1) . ' class="btn admin-modif"><b>voir/modifier</b></button></li>';
+            echo "<p id=content_" . $page["name"] . "_" . $key . "_" . ($keyi + 1) . " hidden>$item</p>";
+          }
           echo "</ul></li>";
-        else
-          $firstS = false;
-        echo "<li><span class='caret'> Section $section </span><ul class='nested'>";
+        }
+        echo "</ul></div>";
+        $parité = !$parité;
       }
-      echo "<li>$desc</li>";
-    }
-    echo "</ul>";
-    ?>
+      ?>
+    </div>
+    <div id="admin-modify">
+      <textarea type="text" id="admin-textarea"></textarea>
+      <button type="submit" class="btn btn-primary" id="admin-modify-button">Envoyer les modifications</button>
+      <div id="admin-modify-infos" hidden></div>
+    </div>
   </div>
 
-  <div id=GPXmanagement>
 
+  <!-- Vue GPX -->
+  <div id="admin-GPX-onglet" class="admin-onglet">
     <div class="formContainer">
       <form enctype="multipart/form-data" action="index.php?page=Admin&pageModif=Acceuil&section=2" method="post">
         <div class="mb-3">
@@ -181,7 +96,21 @@ if (array_key_exists("contenu", $_POST)) {
     <br><br>
     <button id="admin-horaires-button" class="btn btn-primary">Calculer les horaires de passage</button>
     <br><br>
-
   </div>
+
+
+  <!-- Vue sections -->
+  <div id="admin-section-onglet" class="admin-onglet">
+    <div class="adminTitle">
+      <div>
+        <h2><b>Section <?= $section ?></b></h2>
+      </div>
+      <div>
+        <button>Créer une sous-section</button>
+        <form action="post"><input type="text">c'est pour créer une nouvelle sous-section</form>
+      </div>
+    </div>
+  </div>
+
   <div id="cs-popup-area"></div>
 </section>

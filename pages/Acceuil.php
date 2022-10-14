@@ -1,4 +1,4 @@
-<?php $section = $sections[0]?>
+<?php $section = $sections[1]?>
 <section id="acceuil">
     <div class="fs-2"><?=$section[0]?></div>
     <div class="fs-2"><?=$section[1]?></div>

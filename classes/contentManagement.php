@@ -7,50 +7,64 @@ class Content
     public $contenu;
     public $description;
 
-    //les paramètres sont à null pour match la méthode sql de récupération de données
-    public function __construct(
-        $page = null,
-        $section = null,
-        $item = null,
-        $contenu = null,
-        $description = null
-    ) {
-        $this->page = $page;
-        $this->section = $section;
-        $this->item = $item;
-        $this->contenu = $contenu;
-        $this->description = $description;
-    }
-
-    public function update_db()
+    public static function update_db()
     {
         global $conn;
-        $update = $conn->prepare("update content set contenu=? WHERE page=? and section=? and item=?");
-        $update->execute(array($this->contenu, $this->page, $this->section, $this->item));
+        extract($_POST);
+        $select = $conn->query("SELECT id from content_section WHERE page='$page' and section='$section'");
+        $Sid = $select->fetch()[0];
+        var_dump($_POST);
+        $update = $conn->prepare("UPDATE content set contenu=? WHERE Sid=? and item=?");
+        $update->execute(array($contenu, $Sid, $item));
+        echo "Contenu mis à jour";
     }
 
-    public static function content($name=null)
+    public static function contenu_total($full = false)
     {
         global $conn;
-        $select = $conn->prepare("SELECT COUNT(section) FROM content_section WHERE page=?");
-        $select->execute(array($name));
-        $n_sec = $select->fetch()[0];
-
-        $sections = array();
-        for ($i = 0; $i < $n_sec; $i++) {
-            if ($name==null)
-                $query = "SELECT contenu, page, section FROM content JOIN content_section ON content.Sid=content_section.id WHERE section=$i+1 ORDER BY item";
-            else
-            $query = "SELECT contenu FROM content JOIN content_section ON content.Sid=content_section.id WHERE page=? AND section=$i+1 ORDER BY item";
-            $select = $conn->prepare($query);
-            $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Content');
-            $select->execute(array($name));
-            $section = array();
-            while ($item = $select->fetch()) {
-                array_push($section, $item->contenu);
-            }
-            array_push($sections, $section);
+        $select = $conn->query("SELECT DISTINCT(page) FROM content_section");
+        $select->setFetchMode(PDO::FETCH_CLASS, 'Content');
+        $contenu_total = array();
+        while ($page = $select->fetch()) {
+            array_push($contenu_total, Content::getPage($page->page, $full));
         }
-        return $sections;
+        return $contenu_total;
+    }
+
+    public static function getPage($page, $full = false)
+    {
+        global $conn;
+        $select = $conn->query("SELECT COUNT(section), description FROM content_section WHERE page='$page'");
+        $n_sec = $select->fetch()[0];
+        $page_array = array();
+        for ($i = 1; $i <= $n_sec; $i++) {
+            $page_array[$i]=Content::getSection($page, $i, $full);
+        }
+        if ($full)
+            return array(
+                "sections" => $page_array,
+                "name" => $page,
+            );
+        else
+            return $page_array;
+    }
+
+    public static function getSection($page, $section, $full = false)
+    {
+        global $conn;
+        $select = $conn->query("SELECT contenu, description FROM content JOIN content_section ON content.Sid=content_section.id WHERE page='$page' AND section='$section' ORDER BY item");
+        $select->setFetchMode(PDO::FETCH_CLASS, 'Content');
+        $section = array();
+        while ($item = $select->fetch()) {
+            array_push($section, $item->contenu);
+            $description = $item->description;
+        }
+        if ($full)
+            return array(
+                "items" => $section,
+                "desc" => $description
+            );
+        else
+            return $section;
     }
 }

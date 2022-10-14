@@ -29,7 +29,7 @@ $conn = Database::connect();
 
 if ($content) {
     require("classes/contentManagement.php");
-    $sections = Content::content($name);
+    $sections = Content::getPage($name);
 }
 ?>
 

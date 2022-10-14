@@ -33,6 +33,34 @@ $(document).ready(function () {
 
     var bar = $("#espacePerso-progress-bar")
     bar.css("width", bar.html());
+
+    $(".admin-modif").click(function () {
+        $("#admin-textarea").text(
+            $("#content_" + $(this).attr("id")).text()
+        );
+        $("#admin-modify").show();
+        document.getElementById("admin-textarea").scrollIntoView()
+        $("#admin-modify-infos").text($(this).attr("id"));
+    });
+
+    $("#admin-modify-button").click(function () {
+        postdata = $("#admin-modify-infos").text().split("_");
+        $.post("ajax/AdminRequest.php?todo=contentModif", {
+            contenu: document.getElementById("admin-textarea").value,
+            page: postdata[0],
+            section: postdata[1],
+            item: postdata[2],
+        }, function (data) {
+            call_cs_popup(data, 3000);
+        });
+    });
+
+    $(".admin-onglet-button").click(function () {
+        $(".admin-onglet").hide();
+        $("#" + $(this).attr("id") + "-onglet").show();
+
+    });
+
 })
 
 

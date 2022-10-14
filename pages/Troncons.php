@@ -1,4 +1,4 @@
-<div class="btn-group adminView" role="group" aria-label="Basic radio toggle button group">
+<div class="btn-group adminView" role="group" aria-label="Basic radio toggle button group" id="troncons-switch">
     <input type="radio" class="btn-check" name="btnradio" id="btnradio1" onclick="changeView('map', 'tronconsListe')" checked>
     <label class="btn btn-outline-primary" for="btnradio1">Liste</label>
 

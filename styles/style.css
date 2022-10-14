@@ -9,7 +9,7 @@
     margin-left: 20px;
 }
 
-#about-messageFin{
+#about-messageFin {
     margin-top: 30px;
 }
 
@@ -75,29 +75,6 @@ footer img {
     border: none;
 }
 
-.adminSection {
-    padding-top: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.adminSection article {
-    padding-top: 30px;
-}
-
-.adminSection article button {
-    margin-top: 15;
-}
-
-.adminSection article textarea {
-    width: 70%;
-    min-height: 100px;
-}
-
-#activeModif {
-    background-color: #26962698;
-}
-
 .adminTitle {
     display: flex;
     justify-content: space-between;
@@ -106,19 +83,39 @@ footer img {
 
 .adminView label {
     width: 300px;
+    margin-top: 30px;
 }
 
-#AdminStructure {
-    display: inherit;
-}
-
-#AdminModification {
-    display: none;
-}
 
 #modifyPerso {
     margin-bottom: 5px;
 }
+
+.admin-sectionDesc {
+    padding-left: 35px;
+    font-style: italic;
+}
+
+#admin-textarea {
+    width: 100%;
+}
+
+#admin-modify {
+    display: none;
+}
+
+.admin-onglet {
+    display: none;
+}
+
+#admin-contenu-onglet {
+    margin-bottom: 30px;
+}
+
+#admin-modify-button {
+    margin-bottom: 30px;
+}
+
 
 /*******************************************************************/
 /* ESPACE PERSO */
@@ -160,14 +157,16 @@ footer img {
     padding: 0 10% 0 10%;
 }
 
-.pair {
+.parité {
     background-color: rgba(128, 128, 128, 0.414);
-    padding: 0;
 }
 
-.impair {
+.parité1 {
     background-color: rgba(17, 73, 147, 0.381);
-    padding: 0;
+}
+
+.admin-structure-page{
+    padding-bottom: 20px;
 }
 
 .onglet {
@@ -226,6 +225,7 @@ ul,
 /* Hide the nested list */
 .nested {
     display: none;
+    margin: 0;
 }
 
 /* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
@@ -306,8 +306,12 @@ ul,
     width: 28px;
 }
 
-#troncons-table{
+#troncons-table {
     text-align: center;
+}
+
+#troncons-switch {
+    margin-top: 30px;
 }
 
 /*******************************************************************/
@@ -374,7 +378,7 @@ ul,
 
 .nav-bar {
     z-index: 10;
-    position: fixed;
+    position: absolute;
     width: 10vw;
     border-top: 6px solid black;
     opacity: 0;
