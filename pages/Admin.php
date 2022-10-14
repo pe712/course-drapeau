@@ -27,7 +27,7 @@ if (array_key_exists("contenu", $_POST)) {
   $article = new Content(
     $pageModif,
     $section,
-    $sous_section,
+    $item,
     $contenu
   );
   $article->update_db();
@@ -53,13 +53,13 @@ if (array_key_exists("contenu", $_POST)) {
 
 <section class="adminSection">
   <?php
-  $select = $conn->prepare("SELECT COUNT(DISTINCT(section)) FROM content WHERE page=?");
+  /* $select = $conn->prepare("SELECT COUNT(DISTINCT(section)) FROM content WHERE page=?");
   $select->execute(array($pageModif));
   $n_sec = $select->fetch()[0];
 
   $select = $conn->prepare("SELECT * FROM content WHERE page=? and section=?");
   $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Content');
-  $select->execute(array($pageModif, $section));
+  $select->execute(array($pageModif, $section)); */
   ?>
 
 
@@ -85,40 +85,7 @@ if (array_key_exists("contenu", $_POST)) {
     </div>
     <?php
 
-    /* bouton de choix de la section à modifier */
-    if ($n_sec != 0) {
-    ?>
-      <footer>
-        <div>Choix de section</div>
-        <nav aria-label="About pagination">
-          <ul class="pagination">
-            <?php
-            if ($section == 1)
-              $sectionP = $section;
-            if ($section == $n_sec)
-              $sectionS = $section;
-            if (!isset($sectionP))
-              $sectionP = $section - 1;
-            if (!isset($sectionS))
-              $sectionS = $section + 1;
-
-            echo <<<END
-          <li class="page-item"><a class="page-link" href="index.php?page=Admin&pageModif=$pageModif&section=$sectionP">Précédent</a></li>
-          END;
-            for ($k = 1; $k <= $n_sec; $k++) {
-              echo <<<END
-            <li class="page-item"><a class="page-link" href="index.php?page=Admin&pageModif=$pageModif&section=$k">$k</a></li>
-            END;
-            }
-            echo <<<END
-          <li class="page-item"><a class="page-link" href="index.php?page=Admin&pageModif=$pageModif&section=$sectionS">Suivant</a></li>
-          END;
-            ?>
-          </ul>
-        </nav>
-      </footer>
-    <?php
-    }
+    
 
     /* Impression du contenu de la section de la page demandée */
     while ($article = $select->fetch()) {
@@ -130,7 +97,7 @@ if (array_key_exists("contenu", $_POST)) {
               <?= $article->description ?></label>
           </p>
           <textarea type="text" name="contenu" id="contenu"><?= $article->contenu ?></textarea>
-          <input type=number name=sous_section value=<?= $article->sous_section ?> hidden>
+          <input type=number name=sous_section value=<?= $article->item ?> hidden>
           <br>
           <button type="submit">Modifier cette sous-section</button>
         </form>
@@ -146,7 +113,9 @@ if (array_key_exists("contenu", $_POST)) {
     Voici la structure
     <?php
     require("classes/contentManagement.php");
-    $select = $conn->query("SELECT * FROM content ORDER BY page, section, sous_section");
+    $sections = Content::content();
+    var_dump($sections);
+    $select = $conn->query("SELECT * FROM content ORDER BY page, section, item");
     $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Content');
     $page = null;
     $section = null;
@@ -211,6 +180,7 @@ if (array_key_exists("contenu", $_POST)) {
     <button id="admin-gpx-button" class="btn btn-primary">Supprimer toutes les traces enregistrées</button>
     <br><br>
     <button id="admin-horaires-button" class="btn btn-primary">Calculer les horaires de passage</button>
+    <br><br>
 
   </div>
   <div id="cs-popup-area"></div>

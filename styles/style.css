@@ -1,4 +1,3 @@
-
 /*******************************************************************/
 /* ABOUT */
 /*******************************************************************/
@@ -8,6 +7,10 @@
 
 .aboutH2 {
     margin-left: 20px;
+}
+
+#about-messageFin{
+    margin-top: 30px;
 }
 
 /*******************************************************************/
@@ -113,7 +116,7 @@ footer img {
     display: none;
 }
 
-#modifyPerso{
+#modifyPerso {
     margin-bottom: 5px;
 }
 
@@ -143,7 +146,8 @@ footer img {
     align-items: center;
     text-align: center;
 }
-.card-body h2{
+
+.card-body h2 {
     font-size: 1.5rem;
 }
 
@@ -166,14 +170,23 @@ footer img {
     padding: 0;
 }
 
-.onglet{
+.onglet {
     display: none;
     font-size: 1.2rem;
 }
 
-#espacePerso-certif-button{
+#espacePerso-certif-button {
     margin-bottom: 200px;
 }
+
+#espacePerso-messagePaiement {
+    display: none;
+}
+
+.espacePerso-firstLine {
+    margin-top: 30px;
+}
+
 
 /*******************************************************************/
 /* Tree View */
@@ -237,7 +250,14 @@ ul,
     margin-top: 3%;
 }
 
-.acceuilImg {
+/*******************************************************************/
+/* Acceuil */
+/*******************************************************************/
+#acceuil {
+    margin-left: 30px;
+}
+
+.acceuil-img {
     height: 300px;
 }
 
@@ -255,6 +275,7 @@ ul,
     height: 502.9px;
     width: 80%;
     margin-left: 10%;
+    margin-bottom: 20px;
 }
 
 #carte {
@@ -268,22 +289,26 @@ ul,
     margin-left: 10%;
 }
 
-.troncons-button{
+.troncons-button {
     border: none;
     background-color: inherit;
 }
 
-.troncons-button:hover{
+.troncons-button:hover {
     font-weight: bold;
 }
 
- #troncons-column-visualize{
+#troncons-column-visualize {
     width: 100px;
- }
+}
 
- #troncons-icon{
+#troncons-icon {
     width: 28px;
- }
+}
+
+#troncons-table{
+    text-align: center;
+}
 
 /*******************************************************************/
 /* Pop-up */
@@ -316,9 +341,10 @@ ul,
 .nav-mainContainer {
     justify-content: space-between;
     display: inline-flex;
-    width: 100vw;
+    width: 100%;
     height: 80px;
 }
+
 .nav-container {
     width: 25vw;
     overflow: hidden;
@@ -326,7 +352,7 @@ ul,
     justify-content: space-between;
     flex-direction: column;
     background-color: rgba(20, 134, 170, 0.7);
-    align-items: center;    
+    align-items: center;
 
 }
 
@@ -356,7 +382,7 @@ ul,
 
 .nav-container:hover .nav-bar {
     opacity: 1;
-    transition: all 0.5s;
+    transition: all 0.2s cubic-bezier(0.23, 0.91, 0.97, 1.09);
 }
 
 .nav-bot {
@@ -375,6 +401,14 @@ ul,
     margin-top: 63px;
 }
 
-.nav-h1{
+.nav-h1 {
     line-height: 1.5;
+    margin: 0;
+}
+
+/*******************************************************************/
+/* contact */
+/*******************************************************************/
+#contact-presentation {
+    margin: 30px 0 0 30px;
 }

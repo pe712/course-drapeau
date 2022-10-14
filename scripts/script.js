@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     $("#admin-horaires-button").click(function () {
         $.post("ajax/AdminRequest.php?todo=calculHoraires", function (data) {
-            call_cs_popup(data, 1500);
+            call_cs_popup(data, 3000);
         });
     })
 
@@ -139,3 +139,25 @@ $(document).ready(function () {
 
     });
 })
+
+
+/**************** Espace Perso *************************/
+
+$(document).ready(function () {
+    $("#espacePerso-lienPaiement").click(function () {
+        $("#espacePerso-messagePaiement").show();
+    });
+
+    $("#espacePerso-modifyCertif").click(function (e) {
+        e.preventDefault();
+        $("#espacePerso-certificatUpload").show();
+        $("#espacePerso-messageCertif").hide();
+    });
+
+    $("#espacePerso-retourFromCertif").click(function () {
+        if (document.getElementById("espacePerso-messageCertif")) {
+            $("#espacePerso-certificatUpload").hide();
+            $("#espacePerso-messageCertif").show();
+        }
+    });
+});

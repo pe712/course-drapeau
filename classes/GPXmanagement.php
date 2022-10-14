@@ -85,19 +85,20 @@ class GPX
     public static function calculHoraires()
     {
         global $conn;
-        $select = $conn->query("SELECT contenu, sous_section from content where page='Troncons' and section=1");
+        $select = $conn->query("SELECT contenu, item from content where page='Troncons' and section=1");
+        $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Content');
         while ($horaire = $select->fetch()) {
-            if ($horaire["sous_section"] == 1)
-                $hdep = $horaire["contenu"];
+            if ($horaire->item== 1)
+                $hdep = $horaire->contenu;
             else
-                $harr = $horaire["contenu"];
+                $harr = $horaire->contenu;
         }
         $duration = $harr - $hdep;
         $select = $conn->query("SELECT * from tracesGPX");
         $n = $select->rowCount();
-        if ($n == 0) {
-            echo "Il n'y a aucune trace pour le moment";
-        } else {
+        if ($n == 0)
+            echo "Il n'y aucune trace GPX pour le moment";
+        else {
             $delta = $duration / $n;
             $current_delta = 0;
             for ($i = 1; $i <= $n; $i++) {
@@ -105,6 +106,7 @@ class GPX
                 $update->execute(array($hdep + $current_delta, $hdep + $current_delta + $delta, $i));
                 $current_delta += $delta;
             }
+            echo "Les horaires des traces ont été mis à jour en fontion de l'heure de départ et d'arrivée";
         }
     }
 }

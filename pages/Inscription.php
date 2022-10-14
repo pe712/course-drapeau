@@ -1,6 +1,5 @@
 <?php
 if (array_key_exists("mail", $_POST)) {
-    require("classes/usersManagement.php");
     Users::newUser();
 } else {
 ?><div class="formContainer inscriptionForm">

@@ -3,7 +3,7 @@ class Content
 {
     public $page;
     public $section;
-    public $sous_section;
+    public $item;
     public $contenu;
     public $description;
 
@@ -11,13 +11,13 @@ class Content
     public function __construct(
         $page = null,
         $section = null,
-        $sous_section = null,
+        $item = null,
         $contenu = null,
         $description = null
     ) {
         $this->page = $page;
         $this->section = $section;
-        $this->sous_section = $sous_section;
+        $this->item = $item;
         $this->contenu = $contenu;
         $this->description = $description;
     }
@@ -25,28 +25,31 @@ class Content
     public function update_db()
     {
         global $conn;
-        $update = $conn->prepare("update content set contenu=? WHERE page=? and section=? and sous_section=?");
-        $update->execute(array($this->contenu, $this->page, $this->section, $this->sous_section));
+        $update = $conn->prepare("update content set contenu=? WHERE page=? and section=? and item=?");
+        $update->execute(array($this->contenu, $this->page, $this->section, $this->item));
     }
 
-    public static function content()
+    public static function content($name=null)
     {
         global $conn;
-        global $name;
-        $select = $conn->prepare("SELECT COUNT(DISTINCT(section)) FROM content WHERE page=?");
+        $select = $conn->prepare("SELECT COUNT(section) FROM content_section WHERE page=?");
         $select->execute(array($name));
         $n_sec = $select->fetch()[0];
 
         $sections = array();
         for ($i = 0; $i < $n_sec; $i++) {
-            $select = $conn->prepare("SELECT * FROM content WHERE page=? AND section=$i+1");
+            if ($name==null)
+                $query = "SELECT contenu, page, section FROM content JOIN content_section ON content.Sid=content_section.id WHERE section=$i+1 ORDER BY item";
+            else
+            $query = "SELECT contenu FROM content JOIN content_section ON content.Sid=content_section.id WHERE page=? AND section=$i+1 ORDER BY item";
+            $select = $conn->prepare($query);
             $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Content');
             $select->execute(array($name));
-            $sous_section = array();
-            while ($article = $select->fetch()) {
-                array_push($sous_section, $article->contenu);
+            $section = array();
+            while ($item = $select->fetch()) {
+                array_push($section, $item->contenu);
             }
-            array_push($sections, $sous_section);
+            array_push($sections, $section);
         }
         return $sections;
     }

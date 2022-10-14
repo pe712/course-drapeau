@@ -160,7 +160,7 @@ class Users
     public static function getUserPersonnalData()
     {
         global $conn;
-        $select = $conn->prepare("SELECT nom, prenom, promotion, paid, certificat FROM users WHERE id=?");
+        $select = $conn->prepare("SELECT nom, prenom, hash, promotion, paid, certificat FROM users WHERE id=?");
         $select->setFetchMode(PDO::FETCH_CLASS, 'Users');
         $select->execute(array($_SESSION["id"]));
         return $select->fetch();
@@ -176,5 +176,15 @@ class Users
         if ($this->certificat)
             $score += 1 / 3;
         return $score;
+    }
+
+    public static function isRoot()
+    {
+        global $name;
+        if (!array_key_exists("root", $_SESSION) || !$_SESSION["root"]) {
+            $_SESSION["displayError"] = "Vous devez avoir les droits d'administrateur pour accéder à la page $name";
+            header("Location:index.php?page=Acceuil");
+            die();
+        }
     }
 }

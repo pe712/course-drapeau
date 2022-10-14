@@ -1,7 +1,6 @@
 <?php
 if (array_key_exists("mail", $_POST)) {
     echo 'ok';
-    require("classes/usersManagement.php");
     Users::connectUser();
 } else {
 ?>

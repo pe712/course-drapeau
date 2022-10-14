@@ -13,9 +13,10 @@
 
 
 <div id=tronconsListe>
-    <table id="table" class="table table-striped table-hover">
+    <table id="troncons-table" class="table table-striped table-hover">
         <tr>
-            <th>Numéro troncon</th>
+            <th style="width:10px">Numéro troncon</th>
+            <th>Groupe de coureurs</th>
             <th>Heure de départ</th>
             <th>Point GPS de départ</th>
             <th>Heure arrivée</th>
@@ -38,16 +39,17 @@
             echo <<<FIN
         <tr>
             <td>$trace->id</td>
+            <td>A venir</td>
             <td>$date_dep</td>
             <td id="pdep$trace->id">
-                $trace->gps_dep
+                <a href="https://www.google.fr/maps/search/$trace->gps_dep" target="_blank">$trace->gps_dep</a>
                 <button class="troncons-button">
                     <img id="troncons-icon" src="img/icons/clipboard.png" alt="copy to clipboard" onclick="copier('pdep$trace->id', 'Point GPS copié')">
                 </button>
             </td>
             <td>$date_arr</td>
             <td id="parr$trace->id">
-                $trace->gps_arr
+            <a href="https://www.google.fr/maps/search/$trace->gps_arr" target="_blank">$trace->gps_arr</a>
                 <button class="troncons-button">
                     <img id="troncons-icon" src="img/icons/clipboard.png" alt="copy to clipboard" onclick="copier('parr$trace->id', 'Point GPS copié')">
                 </button>
@@ -61,7 +63,7 @@
     </table>
 
     <div id="carte">
-        <button onclick="changeView('carte', 'table')">Retourner à la liste</button>
+        <button class="btn btn-primary" onclick="changeView('carte', 'table')">Retourner à la liste</button>
         <div id="map2"></div>
     </div>
 

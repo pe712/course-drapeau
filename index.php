@@ -19,8 +19,9 @@ if (!isset($title)) {
     die();
 }
 
+require("classes/usersManagement.php");
 if (isset($admin) && $admin) {
-    require("includes/isRoot.php");
+    Users::isRoot();
 }
 
 require("classes/connectDB.php");
@@ -28,7 +29,7 @@ $conn = Database::connect();
 
 if ($content) {
     require("classes/contentManagement.php");
-    $sections = Content::content();
+    $sections = Content::content($name);
 }
 ?>
 
