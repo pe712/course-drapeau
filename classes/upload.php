@@ -16,7 +16,7 @@ class Upload
 
      public function upload($finalName, $file)
      {
-          $extension = strrchr($file['name'], '.');
+          $extension = strtolower(substr(strrchr($file['name'], "."), 1));
           if (!in_array($extension, $this->extensions)) {
                $extension_name = $this->extensions[0];
                $_SESSION["displayError"] = "Vous devez uploader un fichier de type $extension_name";
