@@ -156,10 +156,13 @@ if ($user->nom != null) {
   <div class="onglet" id="payement">
     <?php
     if (!$user->paid) {
-    ?>
+      $cagnotte_lydia = $sections[1][0];
+      echo <<<FIN
       <p>
-        La course coûte x€, vous pouvez régler <a href="https://lydia-app.com/collect/1742-raclet/fr?from=app" target="_blank" id="espacePerso-lienPaiement">ici</a>
+        La course coûte 50€, vous pouvez régler <a href="$cagnotte_lydia" target="_blank" id="espacePerso-lienPaiement">ici</a>
       </p>
+      FIN;
+      ?>
       <p id="espacePerso-messagePaiement">
         Dès que le paiement sera validé, vous recevrez un mail et cet onglet sera mis à jour.
       </p>
