@@ -1,7 +1,6 @@
 TODO
 
 --------------------------------------------------
-* Voir avec la kès pour les lien de paiement
 * Construire un archivage de la base de donnée et des documents personnels /pages/espacePerso
 * Onglets à rajouter:
 -suivi du concurrent
@@ -11,4 +10,6 @@ TODO
 empêcher l'inscription avec comparaison avec une liste excel
 + par le nombre d'inscrits
 
-
+--------------------------------------------------
+* Automatiser le contrôle de paiement à partir du csv obtenu avec Lydia
+->upload du csv et mise à jour automatique sur une comparaison multicritères (prenom+nom ou mail)
