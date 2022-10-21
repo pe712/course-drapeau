@@ -19,6 +19,9 @@ Espace personnel:
 -permettre le choix des trinomes et des chauffeurs par préférence
 --> système de demandes et d'acceptations
 
+Mettre un moyen plus efficace et moderne d'upload les fichiers xlsx et csv
+https://phpspreadsheet.readthedocs.io/en/latest/#getting-started
+
 About:
 -Comment se rendre au point de départ de la course?
 Chaque trinôme est associé à un chauffeur qui l'amènera à chaque départ et viendra le récupérer à l'arrivée. Puisque chaque chauffeur gère deux trinômes, il est possible que vous deviez attendre à l'arrivée. Tu peux regarder qui est le chauffeur qui t'es associé depuis ton espace personnel.
