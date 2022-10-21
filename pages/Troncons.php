@@ -54,7 +54,7 @@
                     <img id="troncons-icon" src="img/icons/clipboard.png" alt="copy to clipboard" onclick="copier('parr$trace->id', 'Point GPS copié')">
                 </button>
             </td>
-            <td><button class="troncons-button" onclick="changeView('table', 'carte'); add_gpx('pages/troncons/trace$trace->id.gpx', 1)">Visualiser</button></td>
+            <td><button class="troncons-button" onclick="changeView('troncons-table', 'carte'); add_gpx('pages/troncons/trace$trace->id.gpx', 1)">Visualiser</button></td>
             <td><a href="pages/troncons/trace$trace->id.gpx" download>Télécharger</button></td>
         </tr>
         FIN;
@@ -63,7 +63,7 @@
     </table>
 
     <div id="carte">
-        <button class="btn btn-primary" onclick="changeView('carte', 'table')">Retourner à la liste</button>
+        <button class="btn btn-primary" onclick="changeView('carte', 'troncons-table')">Retourner à la liste</button>
         <div id="map2"></div>
     </div>
 

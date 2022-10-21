@@ -27,10 +27,9 @@ if (isset($admin) && $admin) {
 require("classes/connectDB.php");
 $conn = Database::connect();
 
-if ($content) {
-    require("classes/contentManagement.php");
-    $sections = Content::getPage($name);
-}
+require("classes/contentManagement.php");
+$sections = Content::getPage($name);
+
 ?>
 
 <!DOCTYPE html>

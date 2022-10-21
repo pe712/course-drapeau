@@ -1,7 +1,7 @@
 <?php
 
 require("classes/GPXmanagement.php");
-require_once("classes/upload.php");
+require("classes/upload.php");
 
 if (isset($_FILES['trace'])) {
   GPX::uploadGPX_updateDB($_FILES["trace"]);
@@ -10,6 +10,17 @@ if (isset($_FILES['trace'])) {
 if (isset($_FILES['traces'])) {
   GPX::uploadGPX_updateDB_multiple();
 }
+
+if (array_key_exists("page", $_POST)) {
+  if (strlen($_POST["item_contenu"]) == 0) {
+    Content::addSection();
+  } else {
+    Content::addItem();
+  }
+}
+
+$contenu_total = Content::contenu_total(true);
+
 ?>
 
 <section class="adminSection">
@@ -27,28 +38,28 @@ if (isset($_FILES['traces'])) {
   <div id="admin-contenu-onglet" class="admin-onglet">
     <div class="btn-group adminView" role="group" aria-label="Basic radio toggle button group">
       <?php
-      foreach ($page_list as $page) {
-        if ($page["content"]) {
-          $title = $page["title"];
-          $name = $page["name"];
-          echo <<<FIN
-          <input type="radio" class="btn-check admin-page-button" name="btnradio" id="admin-$name">
-          <label class="btn btn-outline-primary" for="admin-$name">$title</label>
-          FIN;
+      foreach ($contenu_total as $page) {
+        $name = $page["name"];
+        foreach ($page_list as $pagetitle) {
+          if ($pagetitle["name"] == $page["name"])
+            $title = $pagetitle["title"];
         }
+        echo <<<FIN
+        <input type="radio" class="btn-check admin-page-button" name="btnradio" id="admin-$name">
+        <label class="btn btn-outline-primary" for="admin-$name">$title</label>
+        FIN;
       }
+
       ?>
     </div>
-    Voici la structure
+    <div>Voici la structure</div>
     <div>
       <?php
       $parité = true;
-      require("classes/contentManagement.php");
-      $contenu_total = Content::contenu_total(true);
       foreach ($contenu_total as $page) {
-        echo "<div class='parité$parité admin-structure-page' id='admin-structure-".$page["name"]."'><span class='caret caret-down'>Page " . $page["name"] . "</span><ul class='nested active'>";
+        echo "<div class='parité$parité admin-structure-page' id='admin-structure-" . $page["name"] . "'><span class='caret caret-down'>Page " . $page["name"] . "  </span><button class='admin-button-add' id='admin-add-section-" . $page["name"] . "'>Ajouter une section <img src='img/icons/plus.png' alt='ajouter une section' class='admin-icon'></button><ul class='nested active'>";
         foreach ($page["sections"] as $key => $section) {
-          echo "<li><span class='caret'> Section $key<br><span class=admin-sectionDesc>" . $section["desc"] . "</span></span><ul class='nested'>";
+          echo "<li class=admin-" . $page["name"] . "-section><span class='caret admin-section' id=" . $page["name"] . "_" . $key . "> Section $key</span><button class='admin-button-add' id='admin-add-item-" . $page["name"] . "-" . $key . "'>Ajouter un item <img src='img/icons/plus.png' alt='ajouter un item' class='admin-icon'></button><br><span class=admin-sectionDesc>" . $section["desc"] . "</span><ul class='nested'>";
           foreach ($section["items"] as $keyi => $item) {
             echo "<li>Item " . ($keyi + 1) . " <button id=" . $page["name"] . "_" . $key . "_" . ($keyi + 1) . ' class="btn admin-modif"><b>voir/modifier</b></button></li>';
             echo "<p id=content_" . $page["name"] . "_" . $key . "_" . ($keyi + 1) . " hidden>$item</p>";
@@ -60,11 +71,41 @@ if (isset($_FILES['traces'])) {
       }
       ?>
     </div>
-    <div id="admin-modify">
+
+    <br><br>
+    
+    <div id="admin-modify" class="admin-new-area">
+      <h4></h4>
       <textarea type="text" id="admin-textarea"></textarea>
       <button type="submit" class="btn btn-primary" id="admin-modify-button">Envoyer les modifications</button>
       <div id="admin-modify-infos" hidden></div>
     </div>
+
+    <div id="admin-add" class="admin-new-area">
+      <h4></h4>
+      <form action="index.php?page=Admin" method="post">
+        <input type="hidden" name="page" id="admin-submit-page">
+        <div>
+        <label for="admin-section-desc" class="admin-form form-label admin-section-desc">Description</label>
+        <input type="text" class="admin-form form-control admin-section-desc" id="admin-section-desc" name="section_description">
+        </div>
+        <div>
+        <label for="admin-section-num" class="admin-form form-label admin-section-num">Numéro de section</label>
+        <input type="number" class="admin-form form-control admin-section-num" id="admin-section-num" name="section_num">
+        </div>
+        <div>
+        <label for="admin-item-content" class="admin-form form-label admin-item-content">Contenu</label>
+        <input type="text" class="admin-form form-control admin-item-content" id="admin-item-content" name="item_contenu">
+        </div>
+        <div>
+        <label for="admin-item-num" class="admin-form form-label admin-item-num">Numéro d'item</label>
+        <input type="number" class="admin-form form-control admin-item-num" id="admin-item-num" name="item_num">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Créer</button>
+      </form>
+    </div>
+
   </div>
 
 
@@ -99,18 +140,6 @@ if (isset($_FILES['traces'])) {
   </div>
 
 
-  <!-- Vue sections -->
-  <div id="admin-section-onglet" class="admin-onglet">
-    <div class="adminTitle">
-      <div>
-        <h2><b>Section <?= $section ?></b></h2>
-      </div>
-      <div>
-        <button>Créer une sous-section</button>
-        <form action="post"><input type="text">c'est pour créer une nouvelle sous-section</form>
-      </div>
-    </div>
-  </div>
 
   <div id="cs-popup-area"></div>
 </section>

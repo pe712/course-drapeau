@@ -35,12 +35,15 @@ $(document).ready(function () {
     bar.css("width", bar.html());
 
     $(".admin-modif").click(function () {
+        var id = $(this).attr("id");
+        var item = id.split("_");
+        $("#admin-modify h4").html("Modifier l'item " + item[2] + " de la section " + item[1] + " de la page " + item[0])
         $("#admin-textarea").text(
-            $("#content_" + $(this).attr("id")).text()
+            $("#content_" + id).text()
         );
         $("#admin-modify").show();
         document.getElementById("admin-textarea").scrollIntoView()
-        $("#admin-modify-infos").text($(this).attr("id"));
+        $("#admin-modify-infos").text(id);
     });
 
     $("#admin-modify-button").click(function () {
@@ -60,6 +63,44 @@ $(document).ready(function () {
         $("#" + $(this).attr("id") + "-onglet").show();
 
     });
+
+    $(".admin-section").click(function () {
+        var page = $(this).attr("id").split("_")[0]
+        $("#admin-" + page).prop("checked", true);
+    });
+
+    $(".admin-page-button").click(function () {
+        var page = $(this).attr("id").split("-")[1]
+        $(".admin-" + page + "-section span").addClass("caret-down");
+        $(".admin-" + page + "-section ul").addClass("active");
+    });
+
+    $(".admin-button-add").click(function () {
+        var id = $(this).attr("id").split("-");
+        var action = id[2];
+        $("#admin-add").show();
+        $("#admin-add h4").show();
+        if (action == "section") {
+            $("#admin-submit-page").val(id[3]);
+            $(".admin-section-desc").show();
+            $(".admin-section-num").show();
+            $(".admin-item-content").hide();
+            $(".admin-item-num").hide();
+            $("#admin-add h4").html("Ajouter une section à la page " + id[3]);
+        } else {
+            $("#admin-submit-page").val(id[3]);
+            $("#admin-section-num").val(id[4]);
+            $(".admin-item-content").show();
+            $(".admin-item-num").show();
+            $(".admin-section-desc").hide();
+            $(".admin-section-num").hide();
+            $("#admin-add h4").html("Ajouter un item à la section " + id[4] + " de la page " + id[3]);
+        }
+        document.getElementById("admin-add").scrollIntoView();
+    });
+
+
+
 
 })
 
@@ -142,7 +183,7 @@ function unvalidate(id) {
 }
 
 /**************** Pop-up *************************/
-function call_cs_popup(text, time) {
+function call_cs_popup(text, time = 1000000) {
     var html_content = '<div id="cs-popup-container" class="cs-popup"><div class="cs-popup-content">' + text + '</div></div>';
     document.getElementById('cs-popup-area').innerHTML = html_content;
     var popup = document.getElementById('cs-popup-container');
@@ -187,5 +228,13 @@ $(document).ready(function () {
             $("#espacePerso-certificatUpload").hide();
             $("#espacePerso-messageCertif").show();
         }
+    });
+
+    $("#espacePerso-radio-chauffeur").click(function () {
+        $("#espacePerso-num_places").show()
+    });
+
+    $("#espacePerso-radio-courreur").click(function () {
+        $("#espacePerso-num_places").hide()
     });
 });

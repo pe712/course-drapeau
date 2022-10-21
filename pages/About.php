@@ -20,8 +20,8 @@ $numbers = array("Two", "Three", "Four", "Five", "Six", "Seven", "Height", "Nine
         <?php
         for ($k = 1; $k < $n; $k++) {
             $letter = $numbers[$k];
-            $q = $faq[2*$k-1];
-            $r = $faq[2*$k];
+            $q = $faq[2*$k];
+            $r = $faq[2*$k+1];
             echo <<<FIN
             <div class="accordion-item">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse$letter" aria-expanded="false" aria-controls="collapse$letter">

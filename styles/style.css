@@ -116,6 +116,28 @@ footer img {
     margin-bottom: 30px;
 }
 
+.admin-icon{
+    height: 15px;
+}
+
+.admin-button-add{
+    border: none;
+    background-color: transparent;
+    font-weight: bolder;
+    text-align: right;
+}
+
+#admin-add{
+    display: none;
+}
+
+.admin-form{
+    display: none;
+}
+
+.admin-new-area{
+    margin-left: 30px;   
+}
 
 /*******************************************************************/
 /* ESPACE PERSO */
@@ -186,6 +208,18 @@ footer img {
     margin-top: 30px;
 }
 
+.form-check{
+    display: inline-block;
+}
+
+#espacePerso-num_places{
+    display: none;
+}
+
+#espacePerso-form-desc{
+    font-size:medium;
+    font-style: italic;
+}
 
 /*******************************************************************/
 /* Tree View */

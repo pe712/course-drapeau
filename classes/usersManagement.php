@@ -138,7 +138,7 @@ class Users
     {
         global $conn;
         $finalUrl = "index.php?page=EspacePerso";
-        $certif = new Upload(array(".pdf", ".PDF"), 500000, $dossier, $finalUrl);
+        $certif = new Upload(array("pdf", "PDF"), 500000, $dossier, $finalUrl);
         $file = $_FILES['certificat'];
         $certif->upload($name, $file);
         $update = $conn->prepare("UPDATE users SET certificat=true WHERE id=?");
@@ -152,8 +152,13 @@ class Users
         global $conn;
         $id = $_SESSION["id"];
         extract($_POST);
-        $update = $conn->prepare("UPDATE users SET prenom=?, nom=?, promotion=? WHERE id=?");
-        $update->execute(array($firstname, $surname, $promo, $id));
+        if ($type == "chauffeur") {
+            $update = $conn->prepare("UPDATE users SET prenom=?, nom=?, promotion=?, chauffeur=?, num_places=?  WHERE id=?");
+            $update->execute(array($firstname, $surname, $promo, 1, $num_places, $id));
+        } else {
+            $update = $conn->prepare("UPDATE users SET prenom=?, nom=?, promotion=?, chauffeur=?  WHERE id=?");
+            $update->execute(array($firstname, $surname, $promo, 0, $id));
+        }
         $_SESSION["name"] = $firstname;
     }
 

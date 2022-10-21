@@ -13,7 +13,6 @@ class Content
         extract($_POST);
         $select = $conn->query("SELECT id from content_section WHERE page='$page' and section='$section'");
         $Sid = $select->fetch()[0];
-        var_dump($_POST);
         $update = $conn->prepare("UPDATE content set contenu=? WHERE Sid=? and item=?");
         $update->execute(array($contenu, $Sid, $item));
         echo "Contenu mis à jour";
@@ -38,7 +37,7 @@ class Content
         $n_sec = $select->fetch()[0];
         $page_array = array();
         for ($i = 1; $i <= $n_sec; $i++) {
-            $page_array[$i]=Content::getSection($page, $i, $full);
+            $page_array[$i] = Content::getSection($page, $i, $full);
         }
         if ($full)
             return array(
@@ -55,6 +54,7 @@ class Content
         $select = $conn->query("SELECT contenu, description FROM content JOIN content_section ON content.Sid=content_section.id WHERE page='$page' AND section='$section' ORDER BY item");
         $select->setFetchMode(PDO::FETCH_CLASS, 'Content');
         $section = array();
+        $description = "La description sera activée dès qu'il y aura un premier item dans la section";
         while ($item = $select->fetch()) {
             array_push($section, $item->contenu);
             $description = $item->description;
@@ -66,5 +66,42 @@ class Content
             );
         else
             return $section;
+    }
+
+    public static function addSection()
+    {
+        extract($_POST);
+        global $conn;
+        $insert = $conn->prepare("INSERT into content_section (page, section, description) values (?,?,?)");
+        $insert->execute(array($page, $section_num, $section_description));
+        $_SESSION["displayValid"] = "Section ajoutée avec succès !";
+        header("location:index.php?page=Admin");
+        die();
+    }
+
+    public static function addItem()
+    {
+        extract($_POST);
+        global $conn;
+        $select = $conn->query("SELECT id FROM content_section WHERE page='$page' and section='$section_num'");
+        $Sid = $select->fetch()[0];
+
+        $insert = $conn->prepare("INSERT into content (Sid, item, contenu) values (?,?,?)");
+        $insert->execute(array($Sid, $item_num,  $item_contenu));
+        $_SESSION["displayValid"] = "Item ajoutée avec succès !";
+        header("location:index.php?page=Admin");
+        die();
+    }
+
+    public static function deleteSection()
+    {
+        global $conn;
+        $delete = $conn->query("DELETE from content_section where page= id=");
+    }
+
+    public static function deleteItem()
+    {
+        global $conn;
+        $delete = $conn->query("DELETE from content where =");
     }
 }

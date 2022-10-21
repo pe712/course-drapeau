@@ -19,8 +19,11 @@ else
 
 /**************** variables du dossier d'upload *************************/
 if ($user->nom != null) {
-  $dossier = "pages/espacePerso/" . $user->hash . "/";
-  $name = "certificat " .$user->prenom." ". $user->nom . ".pdf";
+  //on ne veut pas donner directement l'id
+  $salt_begin = 1543;
+  $salt_end = 18497475;
+  $dossier = "pages/espacePerso/$salt_begin$user->id$salt_end/";
+  $name = "certificat " . $user->prenom . " " . $user->nom . ".pdf";
 
   if (!is_dir($dossier))
     mkdir($dossier);
@@ -93,6 +96,23 @@ if ($user->nom != null) {
             <label for="promo" class="form-label">Promotion X</label>
             <input type="number" class="form-control" id="promo" name="promo" value=21 placeholder="21" required>
           </div>
+          <div id="espacePerso-radio-courreur">
+            <label class="form-check-label" for="coureur">
+              Courreur
+            </label>
+            <input class="form-check-input" type="radio" name="type" id="coureur" value="coureur" checked>
+          </div>
+          <div id="espacePerso-radio-chauffeur">
+            <label class="form-check-label" for="chauffeur">
+              Chauffeur
+            </label>
+            <input class="form-check-input" type="radio" name="type" id="chauffeur" value="chauffeur">
+          </div>
+          <div class="mb-3" id="espacePerso-num_places">
+            <label for="num_places" class="form-label">Nombre de places disponibles <br><span id="espacePerso-form-desc">(4 pour une voiture de 5 par ex)</span></label>
+            <input type="number" class="form-control" id="num_places" name="num_places" value="4" required>
+          </div>
+          <br>
           <button type="submit" class="btn btn-primary">Valider</button>
         </form>
         </div>
