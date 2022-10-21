@@ -156,6 +156,7 @@ class Users
             $update = $conn->prepare("UPDATE users SET prenom=?, nom=?, promotion=?, chauffeur=?, num_places=?  WHERE id=?");
             $update->execute(array($firstname, $surname, $promo, 1, $num_places, $id));
         } else {
+            //je vérifie que c'est bien un coureur
             $update = $conn->prepare("UPDATE users SET prenom=?, nom=?, promotion=?, chauffeur=?  WHERE id=?");
             $update->execute(array($firstname, $surname, $promo, 0, $id));
         }

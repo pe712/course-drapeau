@@ -1,0 +1,14 @@
+TODO
+
+--------------------------------------------------
+* Voir avec la kès pour les lien de paiement
+* Construire un archivage de la base de donnée et des documents personnels /pages/espacePerso
+* Onglets à rajouter:
+-suivi du concurrent
+-don
+-photos
+
+empêcher l'inscription avec comparaison avec une liste excel
++ par le nombre d'inscrits
+
+
