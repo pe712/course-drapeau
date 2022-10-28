@@ -1,4 +1,8 @@
 <?php
+error_reporting(E_ALL);
+// session_set_cookie_params(2*60*60, '/', 'votresite.binets.fr', true, true);
+session_start();
+
 if (!array_key_exists("page", $_GET)) {
     header("Location:index.php?page=Acceuil");
     die();
@@ -10,17 +14,27 @@ foreach ($page_list as $page) {
         extract($page);
     }
 }
+
 if (!isset($title)) {
     header("Location:index.php?page=Acceuil");
     die();
 }
 
-session_start();
+require("classes/usersManagement.php");
 if (isset($admin) && $admin) {
-    $_SESSION["display"]="Vous devez avoir les droits d'administrateur pour accéder à la page $name";
-    header("Location:index.php?page=Acceuil");
-    die();
+    Users::isRoot();
 }
+
+if (isset($connected) && $connected) {
+    Users::isConnected();
+}
+
+require("classes/connectDB.php");
+$conn = Database::connect();
+
+require("classes/contentManagement.php");
+$sections = Content::getPage($name);
+
 ?>
 
 <!DOCTYPE html>
@@ -35,9 +49,13 @@ if (isset($admin) && $admin) {
 </head>
 
 <body>
+    <div class="mainContent">
+        <?php
+        require("includes/navbar.php");
+        require($sectionToRequire);
+        ?>
+    </div>
     <?php
-    require("includes/navbar.php");
-    require($sectionToRequire);
     require("includes/footer.php")
     ?>
 </body>

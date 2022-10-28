@@ -1,6 +1,6 @@
-<section>
-        <div class="fs-2">3 jours de course</div>
-        <div class="fs-2">Plus de 800 kms</div>
-        <div class="fs-2">Une organisation de folie</div>
-        <div><img src="img/course.jpg" alt="image de la course" height="300em"></div>
-    </section>
+<?php $section = $sections[1]?>
+<section id="acceuil">
+    <!-- <h2><?=$section[0]?></h2>
+    <h2><?=$section[1]?></h2>
+    <h2><?=$section[2]?></h2> -->
+</section>
