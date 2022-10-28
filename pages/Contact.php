@@ -9,8 +9,8 @@
         <li>Vice-président: Théodore Fougereux</li>
     </ul>
     </p>
-    <p>Vous pouvez nous contacter à : <br>
-    <a id="mail" href=# onclick="copier('mail', 'Mail copié')">course.bordeaux@binets.polytechnique.edu</a></p>
-    <p>Surtout n'hésitez pas à faire des propositions.</p>
+    <p>Vous pouvez nous contacter sur facebook <br>
+    <!-- <a id="mail" href=# onclick="copier('mail', 'Mail copié')">course.bordeaux@binets.polytechnique.edu</a></p>
+    <p>Surtout n'hésitez pas à faire des propositions.</p> -->
     <div id="cs-popup-area"></div>
 </section>
