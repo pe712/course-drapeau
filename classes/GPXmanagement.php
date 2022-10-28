@@ -52,6 +52,8 @@ class GPX
         $stop = $pts[count($pts) - 1];
         $start_gps = number_format(floatval($start["lat"]), 5) . " " . number_format(floatval($start["lon"]), 5);
         $stop_gps = number_format(floatval($stop["lat"]), 5) . " " . number_format(floatval($stop["lon"]), 5);
+        $start_gps = htmlspecialchars($start_gps);
+        $stop_gps = htmlspecialchars($stop_gps);
 
         global $conn;
         $select = $conn->prepare("select * from tracesGPX where id=?");

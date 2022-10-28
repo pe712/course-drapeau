@@ -19,7 +19,7 @@ if (array_key_exists("page", $_POST)) {
   }
 }
 
-$contenu_total = Content::contenu_total(true);
+$contenu_total = Content::contenu_total($full = true, $raw = true);
 
 ?>
 
@@ -59,10 +59,10 @@ $contenu_total = Content::contenu_total(true);
       foreach ($contenu_total as $page) {
         echo "<div class='parité$parité admin-structure-page' id='admin-structure-" . $page["name"] . "'><span class='caret caret-down'>Page " . $page["name"] . "  </span><button class='admin-button-add' id='admin-add-section-" . $page["name"] . "'>Ajouter une section <img src='img/icons/plus.png' alt='ajouter une section' class='admin-icon'></button><ul class='nested active'>";
         foreach ($page["sections"] as $key => $section) {
-          echo "<li class=admin-" . $page["name"] . "-section><span class='caret admin-section' id=" . $page["name"] . "_" . $key . "> Section $key</span><button class='admin-button-add' id='admin-add-item-" . $page["name"] . "-" . $key . "'>Ajouter un item <img src='img/icons/plus.png' alt='ajouter un item' class='admin-icon'></button><br><span class=admin-sectionDesc>" . htmlspecialchars($section["desc"]) . "</span><ul class='nested'>";
+          echo "<li class=admin-" . $page["name"] . "-section><span class='caret admin-section' id=" . $page["name"] . "_" . $key . "> Section $key</span><button class='admin-button-add' id='admin-add-item-" . $page["name"] . "-" . $key . "'>Ajouter un item <img src='img/icons/plus.png' alt='ajouter un item' class='admin-icon'></button><br><span class=admin-sectionDesc>" . $section["desc"] . "</span><ul class='nested'>";
           foreach ($section["items"] as $keyi => $item) {
             echo "<li>Item " . ($keyi + 1) . " <button id=" . $page["name"] . "_" . $key . "_" . ($keyi + 1) . ' class="btn admin-modif"><b>voir/modifier</b></button>';
-            echo "<span id=content_" . $page["name"] . "_" . $key . "_" . ($keyi + 1) . " hidden>".$item."</span></li>";
+            echo "<span id=content_" . $page["name"] . "_" . $key . "_" . ($keyi + 1) . " hidden>" . $item . "</span></li>";
           }
           echo "</ul></li>";
         }
@@ -73,9 +73,11 @@ $contenu_total = Content::contenu_total(true);
     </div>
 
     <br><br>
-    
+
     <div id="admin-modify" class="admin-new-area">
-      <h4><!-- will be written by client --></h4>
+      <h4>
+        <!-- will be written by client -->
+      </h4>
       <textarea id="admin-textarea"></textarea>
       <button type="submit" class="btn btn-primary" id="admin-modify-button">Envoyer les modifications</button>
       <div id="admin-modify-infos" hidden></div>
@@ -86,20 +88,20 @@ $contenu_total = Content::contenu_total(true);
       <form action="index.php?page=Admin" method="post">
         <input type="hidden" name="page" id="admin-submit-page">
         <div>
-        <label for="admin-section-desc" class="admin-form form-label admin-section-desc">Description</label>
-        <input type="text" class="admin-form form-control admin-section-desc" id="admin-section-desc" name="section_description">
+          <label for="admin-section-desc" class="admin-form form-label admin-section-desc">Description</label>
+          <input type="text" class="admin-form form-control admin-section-desc" id="admin-section-desc" name="section_description">
         </div>
         <div>
-        <label for="admin-section-num" class="admin-form form-label admin-section-num">Numéro de section</label>
-        <input type="number" class="admin-form form-control admin-section-num" id="admin-section-num" name="section_num">
+          <label for="admin-section-num" class="admin-form form-label admin-section-num">Numéro de section</label>
+          <input type="number" class="admin-form form-control admin-section-num" id="admin-section-num" name="section_num">
         </div>
         <div>
-        <label for="admin-item-content" class="admin-form form-label admin-item-content">Contenu</label>
-        <input type="text" class="admin-form form-control admin-item-content" id="admin-item-content" name="item_contenu">
+          <label for="admin-item-content" class="admin-form form-label admin-item-content">Contenu</label>
+          <input type="text" class="admin-form form-control admin-item-content" id="admin-item-content" name="item_contenu">
         </div>
         <div>
-        <label for="admin-item-num" class="admin-form form-label admin-item-num">Numéro d'item</label>
-        <input type="number" class="admin-form form-control admin-item-num" id="admin-item-num" name="item_num">
+          <label for="admin-item-num" class="admin-form form-label admin-item-num">Numéro d'item</label>
+          <input type="number" class="admin-form form-control admin-item-num" id="admin-item-num" name="item_num">
         </div>
         <br>
         <button type="submit" class="btn btn-primary">Créer</button>

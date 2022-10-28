@@ -75,7 +75,7 @@ if ($user->nom != null) {
       ?>
         <p class="infosPerso espacePerso-firstLine">Vous avez déjà complété cet onglet.</p>
 
-        <p class="infosPerso">Vous êtes <?php echo htmlspecialchars($user->prenom) . " " . htmlspecialchars($user->nom) . " de la promotion X" . $user->promotion ?></p>
+        <p class="infosPerso">Vous êtes <?php echo $user->prenom . " " . $user->nom . " de la promotion X" . $user->promotion ?></p>
 
         <button id="modifyPerso" class="btn btn-primary">Modifier mes informations</button>
         <br>
@@ -156,10 +156,12 @@ if ($user->nom != null) {
   <div class="onglet" id="payement">
     <?php
     if (!$user->paid) {
-      $cagnotte_lydia = htmlspecialchars($sections[1][0]);
+      $deb_msg = $sections[1][0];
+      $cagnotte_lydia = filter_var($sections[1][1], FILTER_VALIDATE_URL);
+      $msg = $sections[1][2];
       echo <<<FIN
       <p>
-        La course coûte 50€, vous pouvez régler <a href="$cagnotte_lydia" target="_blank" id="espacePerso-lienPaiement">ici</a>
+        $deb_msg <a href="$cagnotte_lydia" target="_blank" id="espacePerso-lienPaiement">$msg</a>
       </p>
       FIN;
       ?>

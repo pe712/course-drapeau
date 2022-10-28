@@ -25,6 +25,10 @@ if (isset($admin) && $admin) {
     Users::isRoot();
 }
 
+if (isset($connected) && $connected) {
+    Users::isConnected();
+}
+
 require("classes/connectDB.php");
 $conn = Database::connect();
 

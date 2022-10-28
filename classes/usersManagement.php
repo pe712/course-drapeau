@@ -73,6 +73,7 @@ class Users
             header("location:index.php?page=Inscription");
             die();
         } else {
+            $mail = htmlspecialchars($mail);
             $select = $conn->prepare('SELECT * FROM users WHERE mail=?');
             $select->execute(array($mail));
             if ($select->rowCount() > 0) {
@@ -151,6 +152,9 @@ class Users
     {
         global $conn;
         $id = $_SESSION["id"];
+        foreach ($_POST as $key => $value) {
+            $_POST[$key] = htmlspecialchars($value);
+        }
         extract($_POST);
         if ($type == "chauffeur") {
             $update = $conn->prepare("UPDATE users SET prenom=?, nom=?, promotion=?, chauffeur=?, num_places=?  WHERE id=?");
@@ -189,6 +193,14 @@ class Users
         global $name;
         if (!array_key_exists("root", $_SESSION) || !$_SESSION["root"]) {
             $_SESSION["displayError"] = "Vous devez avoir les droits d'administrateur pour accéder à la page $name";
+            header("Location:index.php?page=Acceuil");
+            die();
+        }
+    }
+    public static function isConnected(){
+        global $name;
+        if (!array_key_exists("id", $_SESSION)) {
+            $_SESSION["displayError"] = "Vous devez être connecté pour accéder à la page $name";
             header("Location:index.php?page=Acceuil");
             die();
         }

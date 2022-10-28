@@ -47,5 +47,6 @@ $page_list = array(
         "name" => "EspacePerso",
         "title" => "Mon Espace Personnel",
         "sectionToRequire" => "pages/EspacePerso.php",
+        "connected" => true,
     ),
 );
