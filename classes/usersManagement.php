@@ -1,4 +1,3 @@
-
 <?php
 
 class Users
@@ -197,7 +196,9 @@ class Users
             die();
         }
     }
-    public static function isConnected(){
+
+    public static function isConnected()
+    {
         global $name;
         if (!array_key_exists("id", $_SESSION)) {
             $_SESSION["displayError"] = "Vous devez être connecté pour accéder à la page $name";

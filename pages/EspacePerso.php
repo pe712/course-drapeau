@@ -20,9 +20,7 @@ else
 /**************** variables du dossier d'upload *************************/
 if ($user->nom != null) {
   //on ne veut pas donner directement l'id
-  $salt_begin = 1543;
-  $salt_end = 18497475;
-  $dossier = "pages/espacePerso/$salt_begin$user->id$salt_end/";
+  $dossier = "pages/espacePerso/";
   $name = "certificat_" . $user->prenom . "_" . $user->nom . ".pdf";
 
   if (!is_dir($dossier))
@@ -146,7 +144,7 @@ if ($user->nom != null) {
       if ($user->certificat) {
         $path = $dossier . $name;
         echo <<<FIN
-        <p id="espacePerso-messageCertif" class="espacePerso-firstLine">Vous avez déjà mis votre certificat médical. Cliquez <a href="$path" download>ici</a> pour le voir et <a href="" id="espacePerso-modifyCertif">ici</a> pour le modifier</p>
+        <p id="espacePerso-messageCertif" class="espacePerso-firstLine">Vous avez déjà mis votre certificat médical. Cliquez <a href="" id="espacePerso-download" download><span hidden>$path</span>ici</a> pour le voir et <a href="" id="espacePerso-modifyCertif">ici</a> pour le modifier</p>
         FIN;
       } ?>
 

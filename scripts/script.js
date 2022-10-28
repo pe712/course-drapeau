@@ -211,6 +211,20 @@ $(document).ready(function () {
 
 
 /**************** Espace Perso *************************/
+var setHref = function (event) {
+    event.preventDefault()
+
+    var path = $("#espacePerso-download").children().text()
+    console.log(path)
+
+    $.post("ajax/AdminRequest.php?todo=download", {
+        path: path,
+    }, function (data) {
+        $("#espacePerso-download").attr("href", data)
+    });
+    $(event.currentTarget).data('isConfirming', true);
+    event.currentTarget.click();
+};
 
 $(document).ready(function () {
     $("#espacePerso-lienPaiement").click(function () {
@@ -222,6 +236,25 @@ $(document).ready(function () {
         $("#espacePerso-certificatUpload").show();
         $("#espacePerso-messageCertif").hide();
     });
+
+    /* $("#espacePerso-download").delegate("[download]", "click", setHref); */
+    $("#espacePerso-download").click(function (event) {
+        if ($(event.currentTarget).data('isOk')) return;
+        event.preventDefault()
+
+        var path = $("#espacePerso-download").children().text()
+        console.log(path)
+
+        $.post("ajax/AdminRequest.php?todo=download", {
+            path: path,
+        }, function (data) {
+            console.log(data)
+            $("#espacePerso-download").attr("href", data)
+            $(event.currentTarget).data('isOk', true);
+            event.currentTarget.click();
+        });
+    });
+
 
     $("#espacePerso-retourFromCertif").click(function () {
         if (document.getElementById("espacePerso-messageCertif")) {

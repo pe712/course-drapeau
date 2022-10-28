@@ -32,4 +32,5 @@ Admin:
 -l'ajout d'un item recharge la page, ce qui est pénible, il faut le faire en asynchronous
 
 --------------------------------------------------
-Refaire le download proprement
+définir un cronjob pour supprimer les fichiers temporaires
+
