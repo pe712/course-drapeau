@@ -38,7 +38,7 @@ $(document).ready(function () {
         var id = $(this).attr("id");
         var item = id.split("_");
         $("#admin-modify h4").html("Modifier l'item " + item[2] + " de la section " + item[1] + " de la page " + item[0])
-        $("#admin-textarea").text(
+        $("#admin-textarea").val(
             $("#content_" + id).text()
         );
         $("#admin-modify").show();
