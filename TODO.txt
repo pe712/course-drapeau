@@ -36,4 +36,4 @@ question:
 Comment faire pour assurer la sécurité de About où il faudrait normalement mettre un hmtlspecialchar mais où je veux pouvoir passer des liens...
 
 --------------------------------------------------
-Refaire le download proprement
+Refaire le download proprement 
