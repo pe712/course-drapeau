@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 21 oct. 2022 à 18:02
+-- Généré le : ven. 28 oct. 2022 à 15:14
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -43,16 +43,34 @@ INSERT INTO `content` (`Sid`, `item`, `contenu`) VALUES
 (1, 1, 'Pourquoi partir de Bordeaux ?'),
 (1, 2, 'Parce que c\'est là que se trouvait le drapeau de polytechnique pendant la seconde guerre mondiale. Alors que Bordeaux était en zone occupée, trois étudiants ont franchis la ligne pour ramener le drapeau à Lyon où se situait l\'école à l\'époque.'),
 (1, 3, 'Quelle distance ?'),
-(1, 4, 'Il y a 860 kms de course divisés en tronçons de 12km. Chaque tronçon est prévu pour être couru à 10km/h pour que chaque trinôme puisse tenir le rythme.\n.'),
+(1, 4, 'Il y a 860 kms de course divisés en tronçons de 11.5km. Chaque tronçon est prévu pour être couru à 11.5km/h soit 5min13/km pour que chaque trinôme puisse tenir le rythme. Chaque trinôme court un tronçon, se repose et recourt un tronçon dans la journée avant d\'aller se reposer.\n.'),
 (1, 5, 'Comment me rendre au point de départ ?'),
-(1, 6, 'Des mini-bus seront chargés de vous emmener aux points de départ et de vous reprendre à chaque fin de course. Ils vous emmeneront aussi aux zones de récupération où vous pourrez dormir.'),
+(1, 6, 'Chaque trinôme est associé à un chauffeur qui l\'amènera à chaque départ et viendra le récupérer à l\'arrivée pour t\'emmener à l\'hébergement. Puisque chaque chauffeur gère deux trinômes, il est possible que vous deviez attendre à l\'arrivée. Tu peux regarder qui est le chauffeur qui t\'es associé depuis ton espace personnel.\n'),
 (1, 7, 'Quand pourrons-nous dormir ?'),
 (1, 8, 'Dès que vous ne serez pas en course, un chauffeur vous emmènera vers le point d\'hébergement. Là vous pourrez vous reposer et manger avant de repartir.'),
+(1, 9, 'Pourquoi cette date ?'),
+(1, 10, 'Nous avons cherché à faire coïncider la date d\'arrivée avec le jour de la sainte Barbe. C\'est une des saintes patronnes des militaires. Il est traditionnel à l\'X d\'organiser un cross à cette date.'),
+(1, 11, 'Nous allons courrir de nuit ?'),
+(1, 12, 'Oui bien sûr, le relai se fait 24h sur 24. Mais il y aura un roulement pour que les créneaux d\'un groupe ne tombent pas systématiquement à la même heure.'),
+(1, 13, 'Comment je sais où je dois être et quand ?'),
+(1, 14, 'Dans mon espace personnel, il est indiqué tous les tronçons que je dois courir avec les points de départ, d\'arrivée et les horaires. '),
+(1, 15, 'Quel matériel emporter ?'),
+(1, 16, 'Il y a une liste à cet effet dans mon espace personnel <a href=\"index.php?page=EspacePerso\">ici</a>.'),
+(1, 17, 'Dois-je emporter de quoi manger ?'),
+(1, 18, 'Des repas seront servis sur les hébergements presque toute la journée. Il y aura aussi des pique-nique à emporter pour ceux qui auront besoin. Je peux néanmoins emmener des barres énergétiques si je veux.'),
+(1, 19, 'Comment puis-je suivre l\'avancement de la course ?'),
+(1, 20, 'Il y a un onglet dédié à cela <a href=http://sitebordaux-x/index.php?page=Suivi>ici</a>.'),
+(1, 21, 'J\'ai un problème avec mon compte'),
+(1, 22, 'Contacte-nous directement <a href=http://sitebordaux-x/index.php?page=Contact>ici</a>.'),
 (2, 1, '3 jours de course'),
-(2, 2, 'Plus de 800 kms\n'),
+(2, 2, 'Plus de 800 km\n'),
 (2, 3, 'Une organisation de folie'),
 (4, 1, '1664625600'),
-(4, 2, '1664798400');
+(4, 2, '1664798400'),
+(11, 1, 'Il y a un onglet dédié à cela <a href=http://sitebordaux-x/index.php?page=Suivi>ici</a>.'),
+(14, 1, 'La course coûte 50€, vous pouvez régler '),
+(14, 2, 'https://collecte.io/course-au-drapeau-bordeaux-x-2056401/fr'),
+(14, 3, 'ici');
 
 -- --------------------------------------------------------
 
@@ -213,7 +231,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `mail`, `hash`, `creationTime`, `valid`, `lastConn`, `nom`, `prenom`, `promotion`, `chauffeur`, `num_places`, `paid`, `certificat`, `root`) VALUES
-(4, 'pe.baviere@gmail.com', '$2y$14$Vpc3sXyA0o7Ntzur1N0CuOKa4HPTAm8mGOrO9aygICx0mfik.yuLq', '2022-09-16 09:09:49', 0, '2022-10-21 11:55:01', 'er', 'Pierre-Emmanuel', 21, 1, 7, 1, 1, 1);
+(4, 'pe.baviere@gmail.com', '$2y$14$Vpc3sXyA0o7Ntzur1N0CuOKa4HPTAm8mGOrO9aygICx0mfik.yuLq', '2022-09-16 09:09:49', 0, '2022-10-28 14:51:39', 'er', 'Pierre-Emmanuel', 21, 1, 7, 0, 1, 1);
 
 --
 -- Contraintes pour les tables déchargées
