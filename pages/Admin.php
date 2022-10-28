@@ -1,7 +1,7 @@
 <?php
 
 require("classes/GPXmanagement.php");
-require("classes/upload.php");
+require("classes/fileManagement.php");
 
 if (isset($_FILES['trace'])) {
   GPX::uploadGPX_updateDB($_FILES["trace"]);
@@ -59,10 +59,10 @@ $contenu_total = Content::contenu_total(true);
       foreach ($contenu_total as $page) {
         echo "<div class='parité$parité admin-structure-page' id='admin-structure-" . $page["name"] . "'><span class='caret caret-down'>Page " . $page["name"] . "  </span><button class='admin-button-add' id='admin-add-section-" . $page["name"] . "'>Ajouter une section <img src='img/icons/plus.png' alt='ajouter une section' class='admin-icon'></button><ul class='nested active'>";
         foreach ($page["sections"] as $key => $section) {
-          echo "<li class=admin-" . $page["name"] . "-section><span class='caret admin-section' id=" . $page["name"] . "_" . $key . "> Section $key</span><button class='admin-button-add' id='admin-add-item-" . $page["name"] . "-" . $key . "'>Ajouter un item <img src='img/icons/plus.png' alt='ajouter un item' class='admin-icon'></button><br><span class=admin-sectionDesc>" . $section["desc"] . "</span><ul class='nested'>";
+          echo "<li class=admin-" . $page["name"] . "-section><span class='caret admin-section' id=" . $page["name"] . "_" . $key . "> Section $key</span><button class='admin-button-add' id='admin-add-item-" . $page["name"] . "-" . $key . "'>Ajouter un item <img src='img/icons/plus.png' alt='ajouter un item' class='admin-icon'></button><br><span class=admin-sectionDesc>" . htmlspecialchars($section["desc"]) . "</span><ul class='nested'>";
           foreach ($section["items"] as $keyi => $item) {
-            echo "<li>Item " . ($keyi + 1) . " <button id=" . $page["name"] . "_" . $key . "_" . ($keyi + 1) . ' class="btn admin-modif"><b>voir/modifier</b></button></li>';
-            echo "<p id=content_" . $page["name"] . "_" . $key . "_" . ($keyi + 1) . " hidden>$item</p>";
+            echo "<li>Item " . ($keyi + 1) . " <button id=" . $page["name"] . "_" . $key . "_" . ($keyi + 1) . ' class="btn admin-modif"><b>voir/modifier</b></button>';
+            echo "<span id=content_" . $page["name"] . "_" . $key . "_" . ($keyi + 1) . " hidden>".$item."</span></li>";
           }
           echo "</ul></li>";
         }
@@ -75,8 +75,8 @@ $contenu_total = Content::contenu_total(true);
     <br><br>
     
     <div id="admin-modify" class="admin-new-area">
-      <h4></h4>
-      <textarea type="text" id="admin-textarea"></textarea>
+      <h4><!-- will be written by client --></h4>
+      <textarea id="admin-textarea"></textarea>
       <button type="submit" class="btn btn-primary" id="admin-modify-button">Envoyer les modifications</button>
       <div id="admin-modify-infos" hidden></div>
     </div>

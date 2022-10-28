@@ -12,6 +12,11 @@ Les libraires externes sont regroupées dans le dossier /lib. Il y a à la fois 
 
 /img contient les médias.
 
+La modification du contenu du site se fait depuis l'onglet administration, accessible après connexion avec un login root. Si vous êtes le gestionnaire de la base de donnée, il est facile de créer un login root dans la base. Sinon il faut contacter votre prédécesseur pour qu'il vous passe les accès.
+Il est possible de modifier le contenu de chaque item, d'en créer de nouveau ou de les supprimer, pareil pour chaque section. Dans le code php, chaque item peut être accédé directement sur la page voulue avec $sections[num_section][num_item] où num_section>=1 et num_item>=0
+
+Pour créer une nouvelle page, il suffit de la placer dans le dossier pages et de remplir le tableau de includes/pagelist.php
+
 
 ## Utiliser le site
 

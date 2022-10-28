@@ -19,28 +19,21 @@ Espace personnel:
 -permettre le choix des trinomes et des chauffeurs par préférence
 --> système de demandes et d'acceptations
 
+
+--------------------------------------------------
 Mettre un moyen plus efficace et moderne d'upload les fichiers xlsx et csv
 https://phpspreadsheet.readthedocs.io/en/latest/#getting-started
-
-About:
--Comment se rendre au point de départ de la course?
-Chaque trinôme est associé à un chauffeur qui l'amènera à chaque départ et viendra le récupérer à l'arrivée. Puisque chaque chauffeur gère deux trinômes, il est possible que vous deviez attendre à l'arrivée. Tu peux regarder qui est le chauffeur qui t'es associé depuis ton espace personnel.
--Pourquoi cette date ?
-Nous avons cherché à faire coïncider la date d'arrivée avec le jour de la sainte Barbe. C'est une des saintes patronnes des militaires. Il est traditionnel à l'X d'organiser un cross à cette date.
--Nous allons courrir de nuit ?
-Oui bien sûr, le relai se fait 24h sur 24. Mais il y aura un roulement pour que les créneaux d'un groupe ne tombent pas systématiquement à la même heure.
--A quelle allure faut-il courrir ?
-Il faut courrir à 11km/h soit 5min30/km. C'est important de ne pas être plus lent pour ne pas prendre de retard. Mais il ne faut pas non plus être en avance pour ne pas perturber l'organisation. Si vous êtes à l'aise, tant mieux!!
--Comment je sais où je dois être et quand ?
-Dans mon espace personnel, il est indiqué tous les troncons que je dois courrir avec les points de départ, d'arrivée et les horaires. 
--Quel matériel emporter ?
-Il y a une liste à cet effet dans mon espace personnel <a href="index.php?page=EspacePerso">ici</a>.
--Dois-je emporter de quoi manger ?
-Des repas seront servis sur les hébergements presque toute la journée. Il y aura aussi des pique-nique à emporter pour ceux qui auront besoin. Je peux néanmoins emmener des barres énergétiques si je veux.
--Comment puis-je suivre l'avancement de la course ?
-Il y a un onglet dédié à cela <a href="index.php?page=Suivi">ici</a>.
--J'ai un problème avec mon compte
-Contacte-nous directement <a href="index.php?page=Contact">ici</a>
---------------------------------------------------
 * Automatiser le contrôle de paiement à partir du csv obtenu avec Lydia
 ->upload du csv et mise à jour automatique sur une comparaison multicritères (prenom+nom ou mail)
+
+--------------------------------------------------
+Admin:
+-une modification d'un item ne permet plus de voir tous les items
+-l'ajout d'un item recharge la page, ce qui est pénible, il faut le faire en asynchronous
+
+--------------------------------------------------
+question:
+Comment faire pour assurer la sécurité de About où il faudrait normalement mettre un hmtlspecialchar mais où je veux pouvoir passer des liens...
+
+--------------------------------------------------
+Refaire le download proprement

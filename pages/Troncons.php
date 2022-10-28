@@ -36,26 +36,30 @@
             $date_arr->setTimestamp($trace->heure_arr);
             $date_dep = date_format($date_dep, "l H:i");
             $date_arr = date_format($date_arr, "l H:i");
+            $gps_dep = htmlspecialchars($trace->gps_dep);
+            $url_gps_dep = urlencode($gps_dep);
+            $gps_arr = htmlspecialchars($trace->gps_arr);
+            $url_gps_arr = urlencode($gps_arr);
             echo <<<FIN
         <tr>
             <td>$trace->id</td>
             <td>A venir</td>
             <td>$date_dep</td>
             <td id="pdep$trace->id">
-                <a href="https://www.google.fr/maps/search/$trace->gps_dep" target="_blank">$trace->gps_dep</a>
+                <a href="https://www.google.fr/maps/search/$url_gps_dep" target="_blank">$gps_dep</a>
                 <button class="troncons-button">
-                    <img id="troncons-icon" src="img/icons/clipboard.png" alt="copy to clipboard" onclick="copier('pdep$trace->id', 'Point GPS copié')">
+                    <img class="troncons-icon" src="img/icons/clipboard.png" alt="copy to clipboard" onclick="copier('pdep$trace->id', 'Point GPS copié dans le presse-papier')">
                 </button>
             </td>
             <td>$date_arr</td>
             <td id="parr$trace->id">
-            <a href="https://www.google.fr/maps/search/$trace->gps_arr" target="_blank">$trace->gps_arr</a>
+            <a href="https://www.google.fr/maps/search/$url_gps_arr" target="_blank">$gps_arr</a>
                 <button class="troncons-button">
-                    <img id="troncons-icon" src="img/icons/clipboard.png" alt="copy to clipboard" onclick="copier('parr$trace->id', 'Point GPS copié')">
+                    <img class="troncons-icon" src="img/icons/clipboard.png" alt="copy to clipboard" onclick="copier('parr$trace->id', 'Point GPS copié dans le presse-papier')">
                 </button>
             </td>
             <td><button class="troncons-button" onclick="changeView('troncons-table', 'carte'); add_gpx('pages/troncons/trace$trace->id.gpx', 1)">Visualiser</button></td>
-            <td><a href="pages/troncons/trace$trace->id.gpx" download>Télécharger</button></td>
+            <td><a href="pages/troncons/trace$trace->id.gpx" download>Télécharger</a></td>
         </tr>
         FIN;
         }

@@ -20,7 +20,7 @@ $numbers = array("Two", "Three", "Four", "Five", "Six", "Seven", "Height", "Nine
         <?php
         for ($k = 1; $k < $n; $k++) {
             $letter = $numbers[$k];
-            $q = $faq[2*$k];
+            $q = htmlspecialchars($faq[2*$k]);
             $r = $faq[2*$k+1];
             echo <<<FIN
             <div class="accordion-item">

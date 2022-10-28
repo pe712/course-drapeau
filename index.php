@@ -1,5 +1,6 @@
 <?php
 error_reporting(E_ALL);
+// session_set_cookie_params(2*60*60, '/', 'votresite.binets.fr', true, true);
 session_start();
 
 if (!array_key_exists("page", $_GET)) {

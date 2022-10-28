@@ -8,7 +8,7 @@ if (array_key_exists("mail", $_POST)) {
         <form method="post" action="index.php?page=Connect">
             <div class="mb-3">
                 <label for="mail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="mail" aria-describedby="emailHelp" name="mail" placeholder="eric.labaye@polytechnique.edu" required>
+                <input type="email" class="form-control" id="mail" name="mail" placeholder="eric.labaye@polytechnique.edu" required>
             </div>
             <div class="mb-3">
                 <label for="pwd1" class="form-label">Mot de passe</label>

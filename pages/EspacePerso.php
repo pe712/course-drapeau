@@ -23,13 +23,13 @@ if ($user->nom != null) {
   $salt_begin = 1543;
   $salt_end = 18497475;
   $dossier = "pages/espacePerso/$salt_begin$user->id$salt_end/";
-  $name = "certificat " . $user->prenom . " " . $user->nom . ".pdf";
+  $name = "certificat_" . $user->prenom . "_" . $user->nom . ".pdf";
 
   if (!is_dir($dossier))
     mkdir($dossier);
 
   if (isset($_FILES['certificat'])) {
-    require("classes/upload.php");
+    require("classes/fileManagement.php");
     Users::uploadCertificat($dossier, $name);
   }
 }
@@ -75,7 +75,7 @@ if ($user->nom != null) {
       ?>
         <p class="infosPerso espacePerso-firstLine">Vous avez déjà complété cet onglet.</p>
 
-        <p class="infosPerso">Vous êtes <?php echo $user->prenom . " " . $user->nom . " de la promotion X" . $user->promotion ?></p>
+        <p class="infosPerso">Vous êtes <?php echo htmlspecialchars($user->prenom) . " " . htmlspecialchars($user->nom) . " de la promotion X" . $user->promotion ?></p>
 
         <button id="modifyPerso" class="btn btn-primary">Modifier mes informations</button>
         <br>
@@ -135,8 +135,8 @@ if ($user->nom != null) {
         <form enctype="multipart/form-data" action="index.php?page=EspacePerso" method="post">
           <div class="mb-3">
             <input type="hidden" name="MAX_FILE_SIZE" value="500000" />
-            <label for="certif" class="form-label">Certificat médical de moins de 1 an</label>
-            <input type="file" class="form-control" name="certificat" id="certif" />
+            <label for="certif_uploaded" class="form-label">Certificat médical de moins de 1 an</label>
+            <input type="file" class="form-control" name="certificat" id="certif_uploaded" />
           </div>
           <button id="espacePerso-certif-button" type="submit" class="btn btn-primary">Envoyer</button>
         </form>
@@ -150,13 +150,13 @@ if ($user->nom != null) {
         FIN;
       } ?>
 
-  <butto class="btn btn-primary" onclick="changeView('certif', 'cards', 'none', 'flex')" id="espacePerso-retourFromCertif">Retour</button>
+  <button class="btn btn-primary" onclick="changeView('certif', 'cards', 'none', 'flex')" id="espacePerso-retourFromCertif">Retour</button>
 
   </div>
   <div class="onglet" id="payement">
     <?php
     if (!$user->paid) {
-      $cagnotte_lydia = $sections[1][0];
+      $cagnotte_lydia = htmlspecialchars($sections[1][0]);
       echo <<<FIN
       <p>
         La course coûte 50€, vous pouvez régler <a href="$cagnotte_lydia" target="_blank" id="espacePerso-lienPaiement">ici</a>

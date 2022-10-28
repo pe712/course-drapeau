@@ -1,4 +1,6 @@
 <?php
+// name est la valeur à passer au paramètre page en méthode GET 
+// sectionToRequire est le chemin de la page
 $page_list = array(
     array(
         "name" => "Acceuil",
