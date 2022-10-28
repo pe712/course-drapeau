@@ -1,45 +1,42 @@
 <?php
-$n = 3;
-$numbers = array("Two", "Three", "Four");
+$faq = $sections[1]; //je récupère la première section
+$n = sizeof($faq)/2;
+$numbers = array("Two", "Three", "Four", "Five", "Six", "Seven", "Height", "Nine", "Ten", "Eleven", "Twelve");
 ?>
 
 <section>
+    <h2 class="aboutH2">Foire Aux Questions</h2>
     <div class="accordion">
-        <?php
-        echo <<<END
         <div class="accordion-item">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Pourquoi partir de Bordeaux ?
+                <?= $faq[0] ?>
             </button>
         </div>
-        <div id="collapseOne" class="accordion-collapse collapse border show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div id="collapseOne" class="accordion-collapse collapse border show" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-                Parce que c'est là que se trouvait le drapeau de polytechnique pendant la seconde guerre mondiale. Alors que Bordeaux était en zone occupée, trois étudiants ont franchis la ligne pour ramener le drapeau à Lyon où se situait l'école à l'époque.
+                <?= $faq[1] ?>
             </div>
         </div>
-        END;
-
-        for ($k = 0; $k < $n; $k++) {
-            $letters = $numbers[$k];
-            echo <<<END
+        <?php
+        for ($k = 1; $k < $n; $k++) {
+            $letter = $numbers[$k];
+            $q = $faq[2*$k];
+            $r = $faq[2*$k+1];
+            echo <<<FIN
             <div class="accordion-item">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse$letters" aria-expanded="false" aria-controls="collapse$letters">
-                    $k
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse$letter" aria-expanded="false" aria-controls="collapse$letter">
+                    $q
                 </button>
-                <div id="collapse$letters" class="accordion-collapse collapse border" aria-labelledby="heading$letters" data-bs-parent="#accordionExample">
+                <div id="collapse$letter" class="accordion-collapse collapse border" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        Des mini-bus seront chargés de vous emmener aux points de départ et de vous reprendre à chaque fin de course. Ils vous emmeneront aussi aux zones de récupération où vous pourrez dormir.
+                     $r
                     </div>
                 </div>
             </div>
-            END;
+            FIN;
         }
         ?>
     </div>
+    
+    <p id="about-messageFin">Tu n'a pas trouvé ta réponse, n'hésites pas à <a href="index.php?page=Contact">nous contacter.</a></p>
 </section>
-
-Quelle distance ?
-        Il y a 860 kms de course divisés en tronçons de 12km. Chaque tronçon est prévu pour être couru à 10km/h pour que chaque trinôme puisse tenir le rythme.
-
-        Comment me rendre au point de départ ?
-        Des mini-bus seront chargés de vous emmener aux points de départ et de vous reprendre à chaque fin de course. Ils vous emmeneront aussi aux zones de récupération où vous pourrez dormir.

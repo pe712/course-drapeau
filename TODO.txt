@@ -1,0 +1,36 @@
+TODO
+
+--------------------------------------------------
+* Construire un archivage de la base de donnée et des documents personnels /pages/espacePerso
+* Onglets à rajouter:
+-suivi du concurrent
+-don
+-photos
+
+Voir avec Chronoconsult et blanchard@chronoconsult.fr pour les balise et l'intégration du suivi des concurrents
+
+empêcher l'inscription avec comparaison avec une liste excel
++ par le nombre d'inscrits
+
+Donner l'accès aux lieux d'hébergements:
+-emplacements et consignes
+
+Espace personnel:
+-permettre le choix des trinomes et des chauffeurs par préférence
+--> système de demandes et d'acceptations
+
+
+--------------------------------------------------
+Mettre un moyen plus efficace et moderne d'upload les fichiers xlsx et csv
+https://phpspreadsheet.readthedocs.io/en/latest/#getting-started
+* Automatiser le contrôle de paiement à partir du csv obtenu avec Lydia
+->upload du csv et mise à jour automatique sur une comparaison multicritères (prenom+nom ou mail)
+
+--------------------------------------------------
+Admin:
+-une modification d'un item ne permet plus de voir tous les items
+-l'ajout d'un item recharge la page, ce qui est pénible, il faut le faire en asynchronous
+
+--------------------------------------------------
+définir un cronjob pour supprimer les fichiers temporaires
+
