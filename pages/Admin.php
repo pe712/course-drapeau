@@ -19,6 +19,7 @@ if (array_key_exists("page", $_POST)) {
   } else {
     Content::addItem();
   }
+  require("pages/Display.php");
 }
 
 $contenu_total = Content::contenu_total($full = true, $raw = true);
