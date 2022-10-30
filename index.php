@@ -3,23 +3,13 @@ error_reporting(E_ALL);
 // session_set_cookie_params(2*60*60, '/', 'votresite.binets.fr', true, true);
 session_start();
 
-if (!array_key_exists("page", $_GET)) {
-    header("Location:index.php?page=Accueil");
-    die();
-}
-$name = $_GET["page"];
-require("includes/pagelist.php");
-foreach ($page_list as $page) {
-    if ($name == $page["name"]) {
-        extract($page);
-        break;
-    }
-}
+if (!array_key_exists("page", $_GET))
+    $name = "Accueil";
+else
+    $name = $_GET["page"];
 
-if (!isset($title)) {
-    header("Location:index.php?page=Accueil");
-    die();
-}
+require("classes/pageManagement.php");
+extract(Pages::findPage($name));
 
 require("classes/usersManagement.php");
 if (isset($admin) && $admin) {
