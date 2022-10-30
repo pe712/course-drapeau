@@ -285,16 +285,16 @@ ul,
 }
 
 /*******************************************************************/
-/* Acceuil */
+/* Accueil */
 /*******************************************************************/
-#acceuil {
+#accueil {
     margin-left: 30vw;
     background-image: url(../img/logo_BX.png);
     background-repeat:no-repeat;
     min-height: 550px;
 }
 
-.acceuil-img {
+.accueil-img {
     height: 300px;
 }
 

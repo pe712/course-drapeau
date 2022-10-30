@@ -8,7 +8,7 @@ if (array_key_exists("name", $_SESSION)) {
 }
 
 $user = users::getUserPersonnalData();
-/**************** Message d'acceuil *************************/
+/**************** Message d'accueil *************************/
 $x = $user->avancement();
 $val = round($x * 100) . "%";
 if ($x == 1)

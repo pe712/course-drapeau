@@ -34,3 +34,6 @@ Admin:
 --------------------------------------------------
 définir un cronjob pour supprimer les fichiers temporaires
 
+--------------------------------------------------
+Penser à exporter dans la database le nom "accueil" correctement orthographié
+

@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 session_start();
 
 if (!array_key_exists("page", $_GET)) {
-    header("Location:index.php?page=Acceuil");
+    header("Location:index.php?page=Accueil");
     die();
 }
 $name = $_GET["page"];
@@ -12,11 +12,12 @@ require("includes/pagelist.php");
 foreach ($page_list as $page) {
     if ($name == $page["name"]) {
         extract($page);
+        break;
     }
 }
 
 if (!isset($title)) {
-    header("Location:index.php?page=Acceuil");
+    header("Location:index.php?page=Accueil");
     die();
 }
 

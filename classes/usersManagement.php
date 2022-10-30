@@ -47,7 +47,7 @@ class Users
                 $update->execute(array($user->id));
 
                 $_SESSION["displayValid"] = "Vous êtes bien connecté";
-                header("location:index.php?page=Acceuil");
+                header("location:index.php?page=Accueil");
                 die();
             } else {
                 $_SESSION["displayError"] = "Mot de passe incorrect, veuillez réessayer";
@@ -77,7 +77,7 @@ class Users
             $select->execute(array($mail));
             if ($select->rowCount() > 0) {
                 $_SESSION["displayError"] = "Il y a déjà un compte associé à ce mail.";
-                header("location:index.php?page=Acceuil.php");
+                header("location:index.php?page=Accueil.php");
                 die();
             } else {
                 $options = ["cost" => 14,];
@@ -94,7 +94,7 @@ class Users
                 $_SESSION["id"] = $id;
 
                 $_SESSION["displayValid"] = "Votre compte a bien été créé.";
-                header("location:index.php?page=Acceuil");
+                header("location:index.php?page=Accueil");
                 die();
             }
         }
@@ -192,7 +192,7 @@ class Users
         global $name;
         if (!array_key_exists("root", $_SESSION) || !$_SESSION["root"]) {
             $_SESSION["displayError"] = "Vous devez avoir les droits d'administrateur pour accéder à la page $name";
-            header("Location:index.php?page=Acceuil");
+            header("Location:index.php?page=Accueil");
             die();
         }
     }
@@ -202,7 +202,7 @@ class Users
         global $name;
         if (!array_key_exists("id", $_SESSION)) {
             $_SESSION["displayError"] = "Vous devez être connecté pour accéder à la page $name";
-            header("Location:index.php?page=Acceuil");
+            header("Location:index.php?page=Accueil");
             die();
         }
     }

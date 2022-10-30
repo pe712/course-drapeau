@@ -3,9 +3,9 @@
 // sectionToRequire est le chemin de la page
 $page_list = array(
     array(
-        "name" => "Acceuil",
+        "name" => "Accueil",
         "title" => "Course Bordeaux-Polytechnique",
-        "sectionToRequire" => "pages/Acceuil.php",
+        "sectionToRequire" => "pages/Accueil.php",
     ),
     array(
         "name" => "About",

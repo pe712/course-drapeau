@@ -114,7 +114,7 @@ $contenu_total = Content::contenu_total($full = true, $raw = true);
   <!-- Vue GPX -->
   <div id="admin-GPX-onglet" class="admin-onglet">
     <div class="formContainer">
-      <form enctype="multipart/form-data" action="index.php?page=Admin&pageModif=Acceuil&section=2" method="post">
+      <form enctype="multipart/form-data" action="index.php?page=Admin&pageModif=Accueil&section=2" method="post">
         <div class="mb-3">
           <input type="hidden" name="MAX_FILE_SIZE" value="30000000" />
           <label for="trace" class="form-label">Trace GPX numéroté (par exemple: trace10.gpx)</label>
@@ -125,7 +125,7 @@ $contenu_total = Content::contenu_total($full = true, $raw = true);
     </div>
 
     <div class="formContainer">
-      <form enctype="multipart/form-data" action="index.php?page=Admin&pageModif=Acceuil&section=2" method="post">
+      <form enctype="multipart/form-data" action="index.php?page=Admin&pageModif=Accueil&section=2" method="post">
         <div class="mb-3">
           <input type="hidden" name="MAX_FILE_SIZE" value="30000000" />
           <label for="loader" class="form-label">Dossier contenant toutes les traces GPX numérotées (par exemple: trace10.gpx)</label>

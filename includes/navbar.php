@@ -1,7 +1,7 @@
 <nav>
     <div class="nav-mainContainer">
         <div class="nav-container">
-            <div id="Acceuil" class="nav-content">Accueil</div>
+            <div id="Accueil" class="nav-content">Accueil</div>
             <div class="nav-bar nav-top"></div>
             <div class="nav-bar nav-bot"></div>
         </div>

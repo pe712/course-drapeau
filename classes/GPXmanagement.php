@@ -28,7 +28,7 @@ class GPX
 
     public static function uploadGPX_updateDB($file)
     {
-        $finalUrl = "index.php?page=Admin&pageModif=Acceuil&section=3";
+        $finalUrl = "index.php?page=Admin&pageModif=Accueil&section=3";
         preg_match("/\d+/", $file['name'], $matches);
         if (count($matches) == 0) {
             $_SESSION["displayError"] = "le nom du fichier est incorrect, ce doit être trace15.gpx par exemple.";
