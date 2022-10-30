@@ -47,7 +47,7 @@ $contenu_total = Content::contenu_total($full = true, $raw = true);
         echo <<<FIN
         <input type="radio" class="btn-check admin-page-button" name="btnradio" id="admin-$name">
         <label class="btn btn-outline-primary" for="admin-$name">$title</label>
-        FIN;
+FIN;
       }
 
       ?>

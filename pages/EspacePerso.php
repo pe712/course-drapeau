@@ -145,7 +145,7 @@ if ($user->nom != null) {
         $path = $dossier . $name;
         echo <<<FIN
         <p id="espacePerso-messageCertif" class="espacePerso-firstLine">Vous avez déjà mis votre certificat médical. Cliquez <a href="" id="espacePerso-download" download><span hidden>$path</span>ici</a> pour le voir et <a href="" id="espacePerso-modifyCertif">ici</a> pour le modifier</p>
-        FIN;
+FIN;
       } ?>
 
   <button class="btn btn-primary" onclick="changeView('certif', 'cards', 'none', 'flex')" id="espacePerso-retourFromCertif">Retour</button>

@@ -61,7 +61,7 @@
             <td><button class="troncons-button" onclick="changeView('troncons-table', 'carte'); add_gpx('pages/troncons/trace$trace->id.gpx', 1)">Visualiser</button></td>
             <td><a href="pages/troncons/trace$trace->id.gpx" download>Télécharger</a></td>
         </tr>
-        FIN;
+FIN;
         }
         ?>
     </table>

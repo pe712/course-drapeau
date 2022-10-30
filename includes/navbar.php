@@ -29,7 +29,7 @@
                         <div class="nav-bar nav-top"></div>
                         <div class="nav-bar nav-bot"></div>
                     </div>
-                    FIN;
+FIN;
             }
             echo <<<FIN
                 <div class="nav-container">
@@ -42,7 +42,7 @@
                     <div class="nav-bar nav-top"></div>
                     <div class="nav-bar nav-bot"></div>
                 </div>
-                FIN;
+FIN;
         } else {
         ?>
             <div class="nav-container">
@@ -73,7 +73,7 @@
         <div class="bg-warning bg-gradient">
             <h2>$msg</h2>
         </div>
-        END;
+END;
     } elseif (array_key_exists("displayValid", $_SESSION)) {
         $msg = $_SESSION["displayValid"];
         unset($_SESSION["displayValid"]);
@@ -81,7 +81,7 @@
         <div class="bg-success bg-gradient">
             <h2>$msg</h2>
         </div>
-        END;
+END;
     }
     ?>
 </header>

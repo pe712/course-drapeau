@@ -33,7 +33,7 @@ $numbers = array("Two", "Three", "Four", "Five", "Six", "Seven", "Height", "Nine
                     </div>
                 </div>
             </div>
-            FIN;
+FIN;
         }
         ?>
     </div>
