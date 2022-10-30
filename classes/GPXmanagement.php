@@ -22,13 +22,13 @@ class GPX
         }
 
         foreach ($files as $file) {
-            GPX::uploadGPX_updateDB($file);
+            if (!GPX::uploadGPX_updateDB($file))
+                break;
         }
     }
 
     public static function uploadGPX_updateDB($file)
     {
-        $finalUrl = "index.php?page=Admin&pageModif=Accueil&section=3";
         preg_match("/\d+/", $file['name'], $matches);
         if (count($matches) == 0) {
             $_SESSION["displayError"] = "le nom du fichier est incorrect, ce doit être trace15.gpx par exemple.";
@@ -37,10 +37,12 @@ class GPX
             $dossier = "pages/troncons/";
             $name = "trace$num.gpx";
 
-            $trace = new Upload(array(".gpx", ".GPX"), 3000000, $dossier, $finalUrl);
-            $trace->upload($name, $file);
-
-            GPX::update_GPXStartStop_DB($dossier . $name, $num);
+            $trace = new Upload(array("gpx", "GPX"), 3000000, $dossier);
+            if ($trace->upload($name, $file)) {
+                GPX::update_GPXStartStop_DB($dossier . $name, $num);
+                return true;
+            } else
+                return false;
         }
     }
 
@@ -90,7 +92,7 @@ class GPX
         $select = $conn->query("SELECT contenu, item from content where page='Troncons' and section=1");
         $select->setFetchMode(PDO::FETCH_CLASS, 'Content');
         while ($horaire = $select->fetch()) {
-            if ($horaire->item== 1)
+            if ($horaire->item == 1)
                 $hdep = $horaire->contenu;
             else
                 $harr = $horaire->contenu;

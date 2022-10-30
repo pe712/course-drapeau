@@ -29,11 +29,12 @@ if ($user->nom != null) {
   if (isset($_FILES['certificat'])) {
     require("classes/fileManagement.php");
     Users::uploadCertificat($dossier, $name);
+    require("pages/Display.php");
   }
 }
 
-?>
 
+?>
 
 <div class="espacePersoMainContainer">
   <p class="progression"><?= $texte ?></p>

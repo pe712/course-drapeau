@@ -5,10 +5,12 @@ require("classes/fileManagement.php");
 
 if (isset($_FILES['trace'])) {
   GPX::uploadGPX_updateDB($_FILES["trace"]);
+  require("pages/Display.php");
 }
 
 if (isset($_FILES['traces'])) {
   GPX::uploadGPX_updateDB_multiple();
+  require("pages/Display.php");
 }
 
 if (array_key_exists("page", $_POST)) {

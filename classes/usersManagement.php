@@ -137,14 +137,12 @@ class Users
     public static function uploadCertificat($dossier, $name)
     {
         global $conn;
-        $finalUrl = "index.php?page=EspacePerso";
-        $certif = new Upload(array("pdf", "PDF"), 500000, $dossier, $finalUrl);
+        $certif = new Upload(array("pdf", "PDF"), 500000, $dossier);
         $file = $_FILES['certificat'];
-        $certif->upload($name, $file);
-        $update = $conn->prepare("UPDATE users SET certificat=true WHERE id=?");
-        $update->execute(array($_SESSION["id"]));
-        header("location:$finalUrl");
-        die();
+        if ($certif->upload($name, $file)){
+            $update = $conn->prepare("UPDATE users SET certificat=true WHERE id=?");
+            $update->execute(array($_SESSION["id"]));
+        }
     }
 
     public static function updateInfos()

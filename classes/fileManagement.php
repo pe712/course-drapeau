@@ -4,14 +4,12 @@ class Upload
      public $extensions;
      public $taille_maxi;
      public $dossier;
-     public $finalUrl;
 
-     public function __construct($extensions, $taille_maxi, $dossier, $finalUrl)
+     public function __construct($extensions, $taille_maxi, $dossier)
      {
           $this->extensions = $extensions;
           $this->taille_maxi = $taille_maxi;
           $this->dossier = $dossier;
-          $this->finalUrl = $finalUrl;
      }
 
      public function upload($finalName, $file)
@@ -20,24 +18,21 @@ class Upload
           if (!in_array($extension, $this->extensions)) {
                $extension_name = $this->extensions[0];
                $_SESSION["displayError"] = "Vous devez uploader un fichier de type $extension_name";
-               header("location:$this->finalUrl");
-               die();
+               return false;
           }
-
+          
           $taille = filesize($file['tmp_name']);
           if ($taille > $this->taille_maxi || $file["error"] == 2) {
                $_SESSION["displayError"] = 'Le fichier est trop gros...';
-               header("location:$this->finalUrl");
-               die();
+               return false;
           }
-
-
+          
           if (move_uploaded_file($file['tmp_name'], $this->dossier . $finalName)) {
                $_SESSION["displayValid"] = "Upload effectué avec succès !";
+               return true;
           } else {
                $_SESSION["displayError"] =  'Echec de l\'upload !';
-               header("location:$this->finalUrl");
-               die();
+               return false;
           }
      }
 }
