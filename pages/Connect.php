@@ -1,7 +1,12 @@
 <?php
 if (array_key_exists("mail", $_POST)) {
-    echo 'ok';
-    Users::connectUser();
+    $ret = Users::connectUser();
+    require("pages/Display.php");
+    if ($ret) {
+        $sections = Content::getPage("Accueil");
+        require("pages/Accueil.php");
+    } else
+        require("pages/Connect.php");
 } else {
 ?>
     <div class="formContainer">

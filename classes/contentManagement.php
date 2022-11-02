@@ -79,8 +79,6 @@ class Content
         $insert = $conn->prepare("INSERT into content_section (page, section, description) values (?,?,?)");
         $insert->execute(array($page, htmlspecialchars($section_num), htmlspecialchars($section_description)));
         $_SESSION["displayValid"] = "Section ajoutée avec succès !";
-        header("location:index.php?page=Admin");
-        die();
     }
 
     public static function addItem()
@@ -94,8 +92,6 @@ class Content
         $item_contenu = Content::creationLien(htmlspecialchars($item_contenu));
         $insert->execute(array($Sid, htmlspecialchars($item_num),  $item_contenu));
         $_SESSION["displayValid"] = "Item ajoutée avec succès !";
-        header("location:index.php?page=Admin");
-        die();
     }
 
     private static function reverseCreationLien($string)

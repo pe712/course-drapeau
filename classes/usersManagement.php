@@ -27,16 +27,13 @@ class Users
         if ($n == 0) {
             //Il n'y a pas de mail comme celui-ci dans la BDD
             $_SESSION["displayError"] = "Erreur de connexion, il n'y a pas de compte associé à ce mail";
-            header("location:index.php?page=Connect");
-            die();
+            return false;
         } elseif ($n > 1) {
             $_SESSION["displayError"] = "Erreur côté serveur contacter l'admin";
-            header("location:index.php?page=Connect");
-            die();
+            return false;
         } else {
             $user = $select->fetch();
             if (password_verify($mdp, $user->hash)) {
-
                 session_regenerate_id(true);
                 $_SESSION["id"] = $user->id;
                 $_SESSION["root"] = $user->root;
@@ -47,12 +44,10 @@ class Users
                 $update->execute(array($user->id));
 
                 $_SESSION["displayValid"] = "Vous êtes bien connecté";
-                header("location:index.php?page=Accueil");
-                die();
+                return true;
             } else {
                 $_SESSION["displayError"] = "Mot de passe incorrect, veuillez réessayer";
-                header("location:index.php?page=Connect");
-                die();
+                return false;
             }
         }
     }
@@ -63,22 +58,16 @@ class Users
         extract($_POST);
         if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
             $_SESSION["displayError"] = "Le mail n'est pas valide. Veuillez vérifier votre mail.";
-            header("location:index.php?page=Inscription");
-            die();
         }
         extract(Users::CorrectPWD($mdp1, $mdp2)); /* on récupère $corr et $msg */
         if (!$corr) {
             $_SESSION["displayError"] = $msg;
-            header("location:index.php?page=Inscription");
-            die();
         } else {
             $mail = htmlspecialchars($mail);
             $select = $conn->prepare('SELECT * FROM users WHERE mail=?');
             $select->execute(array($mail));
             if ($select->rowCount() > 0) {
                 $_SESSION["displayError"] = "Il y a déjà un compte associé à ce mail.";
-                header("location:index.php?page=Accueil.php");
-                die();
             } else {
                 $options = ["cost" => 14,];
                 $hash = password_hash($mdp1, PASSWORD_BCRYPT, $options);
@@ -94,8 +83,6 @@ class Users
                 $_SESSION["id"] = $id;
 
                 $_SESSION["displayValid"] = "Votre compte a bien été créé.";
-                header("location:index.php?page=Accueil");
-                die();
             }
         }
     }
@@ -137,14 +124,12 @@ class Users
     public static function uploadCertificat($dossier, $name)
     {
         global $conn;
-        $finalUrl = "index.php?page=EspacePerso";
-        $certif = new Upload(array("pdf", "PDF"), 500000, $dossier, $finalUrl);
+        $certif = new Upload(array("pdf", "PDF"), 500000, $dossier);
         $file = $_FILES['certificat'];
-        $certif->upload($name, $file);
-        $update = $conn->prepare("UPDATE users SET certificat=true WHERE id=?");
-        $update->execute(array($_SESSION["id"]));
-        header("location:$finalUrl");
-        die();
+        if ($certif->upload($name, $file)) {
+            $update = $conn->prepare("UPDATE users SET certificat=true WHERE id=?");
+            $update->execute(array($_SESSION["id"]));
+        }
     }
 
     public static function updateInfos()
@@ -192,9 +177,9 @@ class Users
         global $name;
         if (!array_key_exists("root", $_SESSION) || !$_SESSION["root"]) {
             $_SESSION["displayError"] = "Vous devez avoir les droits d'administrateur pour accéder à la page $name";
-            header("Location:index.php?page=Accueil");
-            die();
-        }
+            return false;
+        } else
+            return true;
     }
 
     public static function isConnected()
@@ -202,8 +187,8 @@ class Users
         global $name;
         if (!array_key_exists("id", $_SESSION)) {
             $_SESSION["displayError"] = "Vous devez être connecté pour accéder à la page $name";
-            header("Location:index.php?page=Accueil");
-            die();
-        }
+            return false;
+        } else
+            return true;
     }
 }

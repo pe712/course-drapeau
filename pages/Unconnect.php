@@ -1,6 +1,7 @@
 <?php
 session_unset();
 $_SESSION["displayValid"] = "Vous avez correctement été déconnecté.";
-header("location:index.php?page=Accueil");
-die();
+require("pages/Display.php");
+$sections = Content::getPage("Accueil");
+require("pages/Accueil.php");
 ?>

@@ -5,10 +5,12 @@ require("classes/fileManagement.php");
 
 if (isset($_FILES['trace'])) {
   GPX::uploadGPX_updateDB($_FILES["trace"]);
+  require("pages/Display.php");
 }
 
 if (isset($_FILES['traces'])) {
   GPX::uploadGPX_updateDB_multiple();
+  require("pages/Display.php");
 }
 
 if (array_key_exists("page", $_POST)) {
@@ -17,6 +19,7 @@ if (array_key_exists("page", $_POST)) {
   } else {
     Content::addItem();
   }
+  require("pages/Display.php");
 }
 
 $contenu_total = Content::contenu_total($full = true, $raw = true);
@@ -40,10 +43,7 @@ $contenu_total = Content::contenu_total($full = true, $raw = true);
       <?php
       foreach ($contenu_total as $page) {
         $name = $page["name"];
-        foreach ($page_list as $pagetitle) {
-          if ($pagetitle["name"] == $page["name"])
-            $title = $pagetitle["title"];
-        }
+        $title = Pages::findPage($name)["title"];
         echo <<<FIN
         <input type="radio" class="btn-check admin-page-button" name="btnradio" id="admin-$name">
         <label class="btn btn-outline-primary" for="admin-$name">$title</label>
