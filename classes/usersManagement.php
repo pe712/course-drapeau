@@ -58,22 +58,16 @@ class Users
         extract($_POST);
         if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
             $_SESSION["displayError"] = "Le mail n'est pas valide. Veuillez vérifier votre mail.";
-            header("location:index.php?page=Inscription");
-            die();
         }
         extract(Users::CorrectPWD($mdp1, $mdp2)); /* on récupère $corr et $msg */
         if (!$corr) {
             $_SESSION["displayError"] = $msg;
-            header("location:index.php?page=Inscription");
-            die();
         } else {
             $mail = htmlspecialchars($mail);
             $select = $conn->prepare('SELECT * FROM users WHERE mail=?');
             $select->execute(array($mail));
             if ($select->rowCount() > 0) {
                 $_SESSION["displayError"] = "Il y a déjà un compte associé à ce mail.";
-                header("location:index.php?page=Accueil.php");
-                die();
             } else {
                 $options = ["cost" => 14,];
                 $hash = password_hash($mdp1, PASSWORD_BCRYPT, $options);
@@ -89,8 +83,6 @@ class Users
                 $_SESSION["id"] = $id;
 
                 $_SESSION["displayValid"] = "Votre compte a bien été créé.";
-                header("location:index.php?page=Accueil");
-                die();
             }
         }
     }

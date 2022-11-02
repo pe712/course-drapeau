@@ -1,8 +1,11 @@
 <?php
 if (array_key_exists("mail", $_POST)) {
     Users::newUser();
-} else {
-?><div class="formContainer inscriptionForm">
+    require("pages/Display.php");
+}
+
+?>
+<div class="formContainer inscriptionForm">
         <form class="ms-4" method="post" action="index.php?page=Inscription">
             <div class="mb-3">
                 <label for="mail" class="form-label">Email</label>
@@ -39,5 +42,4 @@ if (array_key_exists("mail", $_POST)) {
             </div>
         </div>
     </div>
-<?php
-}
+
