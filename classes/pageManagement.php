@@ -104,9 +104,13 @@ class Page
     public $msg_erreur;
     public $load;
 
-    public function buffer($file)
+    public function __construct($sections) {
+        $this->content = $this->buffer($sections);
+    }
+
+    public function buffer($sections)
     {
-        $path = "pages/".get_class($this)."/content/$file.php";
+        $path = "pages/".get_class($this)."/".get_class($this)."Content.php";
         ob_start();
         require($path);
         $html = ob_get_contents();
