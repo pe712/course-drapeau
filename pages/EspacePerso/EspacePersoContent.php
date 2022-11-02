@@ -3,9 +3,10 @@ if (array_key_exists("firstname", $_POST)) {
     Users::updateInfos();
 }
 
-if (array_key_exists("name", $_SESSION)) {
+if (array_key_exists("name", $_SESSION))
     $prenom = " " . $_SESSION["name"];
-}
+else
+    $prenom = "";
 
 $user = Users::getUserPersonnalData();
 /**************** Message d'accueil *************************/
@@ -158,7 +159,7 @@ FIN;
     </div>
 
     <div class="onglet" id="restoration">
-        <<!-- form method="post" action="index.php?page=Connect">
+        <!-- form method="post" action="index.php?page=Connect">
             <div class="mb-3">
                 <label for="mail" class="form-label">Email</label>
                 <input type="email" class="form-control" id="mail" name="mail" placeholder="eric.labaye@polytechnique.edu" required>
@@ -170,7 +171,7 @@ FIN;
             <button type="submit" class="btn btn-primary">Me connecter</button>
         </form> -->
         Ici apparaîtra le sondage sur la partie restauration.
-        <br>
+        <br><br>
         <button class="btn btn-primary" onclick="changeView('restoration', 'cards', 'none', 'flex')">Retour</button>
     </div>
 </div>
