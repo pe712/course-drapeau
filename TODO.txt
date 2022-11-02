@@ -1,5 +1,4 @@
 TODO
-
 --------------------------------------------------
 * Construire un archivage de la base de donnée et des documents personnels /pages/espacePerso
 * Onglets à rajouter:
@@ -9,22 +8,15 @@ TODO
 
 Voir avec Chronoconsult et blanchard@chronoconsult.fr pour les balise et l'intégration du suivi des concurrents
 
-empêcher l'inscription avec comparaison avec une liste excel
-+ par le nombre d'inscrits
-
-Donner l'accès aux lieux d'hébergements:
--emplacements et consignes
-
-Espace personnel:
--permettre le choix des trinomes et des chauffeurs par préférence
---> système de demandes et d'acceptations
-
-
 --------------------------------------------------
 Mettre un moyen plus efficace et moderne d'upload les fichiers xlsx et csv
 https://phpspreadsheet.readthedocs.io/en/latest/#getting-started
+
 * Automatiser le contrôle de paiement à partir du csv obtenu avec Lydia
 ->upload du csv et mise à jour automatique sur une comparaison multicritères (prenom+nom ou mail)
+
+* empêcher l'inscription avec comparaison avec une liste excel
++ par le nombre d'inscrits
 
 --------------------------------------------------
 Admin:
@@ -34,10 +26,25 @@ Admin:
 --------------------------------------------------
 Mettre dans l'arborescence de Admin le "title" des pages et non son "name"
 
-
 --------------------------------------------------
 Setup:
 -vérifier qu'il n'y a pas de fichier superflu en ligne
 -upload la db
 -mettre le db_username et le db_mdp dans un fichier .key au dessus du dossier hmtl
 définir un cronjob pour supprimer les fichiers temporaires
+-redéfinir les limites d'upload
+
+--------------------------------------------------
+Espace personnel:
+Donner l'accès aux lieux d'hébergements:
+-emplacements et consignes
+
+-permettre le choix des trinomes et des chauffeurs par préférence
+--> système de demandes et d'acceptations
+
+creer un mail
+un groupe sigma
+migrer sur l'hébergement du BR
+
+le copiage du point GPS copie beaucoup de blancs
+            

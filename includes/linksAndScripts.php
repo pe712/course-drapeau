@@ -1,4 +1,4 @@
-<link rel="icon" href="img/favicon.jpg">
+<link rel="icon" href="img/logo_raid.png">
 
 <link href="lib/bootstrap-5.2.0/css/bootstrap.css" rel="stylesheet">
 <script src="lib/bootstrap-5.2.0/js/bootstrap.bundle.js"></script>
