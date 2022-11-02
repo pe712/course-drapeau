@@ -3,6 +3,7 @@ class Database
 {
     public static function connect()
     {
+        //read from key file
         $db = "bordeauxx";
         $host = "localhost";
         $dsn = "mysql:dbname=$db; host=$host";

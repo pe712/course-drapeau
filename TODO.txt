@@ -32,17 +32,12 @@ Admin:
 -l'ajout d'un item recharge la page, ce qui est pénible, il faut le faire en asynchronous
 
 --------------------------------------------------
-définir un cronjob pour supprimer les fichiers temporaires
-
---------------------------------------------------
 Mettre dans l'arborescence de Admin le "title" des pages et non son "name"
 
---------------------------------------------------
-Changer le nom de la table tracesGPX en tracesgpx
 
 --------------------------------------------------
-Réorganiser le contenu en fonctions:
-return:
-page to display // contenu
-
-puis lancer la navbar qui inclut le display puis la page
+Setup:
+-vérifier qu'il n'y a pas de fichier superflu en ligne
+-upload la db
+-mettre le db_username et le db_mdp dans un fichier .key au dessus du dossier hmtl
+définir un cronjob pour supprimer les fichiers temporaires

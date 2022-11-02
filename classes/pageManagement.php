@@ -80,11 +80,11 @@ class PageListing
         } else return true;
     }
 
-    public static function load($page_info)
+    public static function load($name)
     {
-        $name = $page_info["name"];
-        $sections = Content::getPage($name);
         require("pages/$name/$name.php");
+        
+        $sections = Content::getPage($name);
         $page = new $name($sections);
         if ($page->erreur)
             echo $msg_erreur;
@@ -108,8 +108,9 @@ class Page
         $this->content = $this->buffer($sections);
     }
 
-    public function buffer($sections)
+    public function buffer($sections=null)
     {
+        global $conn;
         $path = "pages/".get_class($this)."/".get_class($this)."Content.php";
         ob_start();
         require($path);
