@@ -44,6 +44,7 @@ if ($user->nom != null) {
             "Mes informations personnelles" => "info",
             "Mon certificat médical" => "certif",
             "Paiement de la course" => "payement",
+            "Sondage alimentation" => "restoration",
         );
 
         foreach ($text as $key => $value) {
@@ -140,17 +141,37 @@ if ($user->nom != null) {
             if ($user->certificat) {
                 $path = $dossier . $name;
                 echo <<<FIN
-        <p id="espacePerso-messageCertif" class="espacePerso-firstLine">Vous avez déjà mis votre certificat médical. Cliquez <a href="" id="espacePerso-download" download><span hidden>$path</span>ici</a> pour le voir et <a href="" id="espacePerso-modifyCertif">ici</a> pour le modifier</p>
+        <p id="espacePerso-messageCertif" class="espacePerso-firstLine">Vous avez déjà mis votre certificat médical. Cliquez 
+        <a href="" id="espacePerso-download" download><span hidden>$path</span>ici</a> pour le voir et 
+        <a href="" id="espacePerso-modifyCertif">ici</a> pour le modifier</p>
 FIN;
             } ?>
 
     <button class="btn btn-primary" onclick="changeView('certif', 'cards', 'none', 'flex')" id="espacePerso-retourFromCertif">Retour</button>
 
     </div>
+
     <div class="onglet" id="payement">
         <p>Le paiement sera ultérieur</p>
         <br>
         <button class="btn btn-primary" onclick="changeView('payement', 'cards', 'none', 'flex')">Retour</button>
+    </div>
+
+    <div class="onglet" id="restoration">
+        <<!-- form method="post" action="index.php?page=Connect">
+            <div class="mb-3">
+                <label for="mail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="mail" name="mail" placeholder="eric.labaye@polytechnique.edu" required>
+            </div>
+            <div class="mb-3">
+                <label for="pwd1" class="form-label">Mot de passe</label>
+                <input type="password" class="form-control" id="pwd1" name="mdp" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Me connecter</button>
+        </form> -->
+        Ici apparaîtra le sondage sur la partie restauration.
+        <br>
+        <button class="btn btn-primary" onclick="changeView('restoration', 'cards', 'none', 'flex')">Retour</button>
     </div>
 </div>
 
