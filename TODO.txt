@@ -43,3 +43,6 @@ Mettre dans l'arborescence de Admin le "title" des pages et non son "name"
 --------------------------------------------------
 Mettre à jour la navbar en cas de déconnexion
 
+--------------------------------------------------
+Changer le nom de la table tracesGPX en tracesgpx
+
