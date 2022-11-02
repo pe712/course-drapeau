@@ -3,26 +3,16 @@ error_reporting(E_ALL);
 // session_set_cookie_params(2*60*60, '/', 'votresite.binets.fr', true, true);
 session_start();
 
-if (!array_key_exists("page", $_GET))
-    $name = "Accueil";
-else
-    $name = $_GET["page"];
-
-require("classes/pageManagement.php");
-extract(Pages::findPage($name));
-
-require("classes/usersManagement.php");
-// root or connected access needed
-if ((isset($admin) && $admin && !Users::isRoot())||(isset($connected) && $connected&&!Users::isConnected())){
-    extract(Pages::findPage("Accueil"));
+$files = glob('classes/*.php');
+foreach ($files as $file) {
+    require($file);
 }
 
-require("classes/connectDB.php");
 $conn = Database::connect();
 
-require("classes/contentManagement.php");
-$sections = Content::getPage($name);
-
+$page_info = PageListing::getCurrent();
+//name, title, connected, root
+extract($page_info);
 ?>
 
 <!DOCTYPE html>
@@ -39,9 +29,7 @@ $sections = Content::getPage($name);
     <body>
         <div class="mainContent">
             <?php
-        require("includes/navbar.php");
-        require("pages/Display.php");
-        require($sectionToRequire);
+            PageListing::load($page_info);
         ?>
     </div>
     <?php

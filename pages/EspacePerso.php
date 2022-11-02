@@ -27,7 +27,6 @@ if ($user->nom != null) {
     mkdir($dossier);
 
   if (isset($_FILES['certificat'])) {
-    require("classes/fileManagement.php");
     Users::uploadCertificat($dossier, $name);
     require("pages/Display.php");
   }

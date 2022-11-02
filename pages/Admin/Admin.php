@@ -1,8 +1,5 @@
 <?php
 
-require("classes/GPXmanagement.php");
-require("classes/fileManagement.php");
-
 if (isset($_FILES['trace'])) {
   GPX::uploadGPX_updateDB($_FILES["trace"]);
   require("pages/Display.php");
@@ -43,7 +40,7 @@ $contenu_total = Content::contenu_total($full = true, $raw = true);
       <?php
       foreach ($contenu_total as $page) {
         $name = $page["name"];
-        $title = Pages::findPage($name)["title"];
+        $title = PageListing::findPage($name)["title"];
         echo <<<FIN
         <input type="radio" class="btn-check admin-page-button" name="btnradio" id="admin-$name">
         <label class="btn btn-outline-primary" for="admin-$name">$title</label>

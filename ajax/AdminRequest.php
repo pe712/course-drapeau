@@ -2,13 +2,13 @@
 // session_set_cookie_params(2*60*60, '/', 'votresite.binets.fr', true, true);
 session_start();
 
-require("../classes/connectDB.php");
+$files = glob('../classes/*.php');
+foreach ($files as $file) {
+    require($file);   
+}
+
 $conn = Database::connect();
-require("../classes/usersManagement.php");
 Users::isRoot();
-require("../classes/GPXmanagement.php");
-require("../classes/contentManagement.php");
-require("../classes/fileManagement.php");
 
 if (array_key_exists("todo", $_GET)) {
     if ($_GET["todo"] == "removeGPX")

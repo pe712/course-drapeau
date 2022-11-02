@@ -25,7 +25,6 @@
             <th>Télécharger la trace</th>
         </tr>
         <?php
-        require("classes/GPXmanagement.php");
         $select = $conn->prepare("SELECT id, UNIX_TIMESTAMP(heure_dep) as heure_dep, UNIX_TIMESTAMP(heure_arr) as heure_arr,gps_dep, gps_arr FROM tracesgpx");
         $select->setFetchMode(PDO::FETCH_CLASS, 'GPX');
         $select->execute();

@@ -66,3 +66,7 @@ FIN;
         <h1 class="nav-h1">Course Bordeaux-Polytechnique</h1>
     </div>
 </header>
+
+<?php
+require("includes/Display.php");
+?>
