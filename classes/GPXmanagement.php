@@ -34,7 +34,7 @@ class GPX
             $_SESSION["displayError"] = "le nom du fichier est incorrect, ce doit être trace15.gpx par exemple.";
         } else {
             $num = $matches[0];
-            $dossier = "pages/troncons/";
+            $dossier = "pages/Troncons/traces/";
             $name = "trace$num.gpx";
 
             $trace = new Upload(array("gpx", "GPX"), 3000000, $dossier);
@@ -72,7 +72,7 @@ class GPX
     public static function removeGPX()
     {
         //cette fonction est toujours accédée depuis le dossier ajax
-        $dossier = '../pages/troncons/trace';
+        $dossier = '../pages/Troncons/traces/trace';
 
         global $conn;
         $select = $conn->query("SELECT * from tracesgpx");

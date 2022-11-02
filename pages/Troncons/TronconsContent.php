@@ -2,7 +2,7 @@
     <input type="radio" class="btn-check" name="btnradio" id="btnradio1" onclick="changeView('map', 'tronconsListe')" checked>
     <label class="btn btn-outline-primary" for="btnradio1">Liste</label>
 
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" onclick="changeView('tronconsListe', 'map'); add_gpx('pages/troncons/trace_complete.gpx', 0)">
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" onclick="changeView('tronconsListe', 'map'); add_gpx('pages/Troncons/traces/trace_complete.gpx', 0)">
     <label class="btn btn-outline-primary" for="btnradio2">Visualisation parcours complet</label>
 </div>
 
@@ -57,8 +57,8 @@
                     <img class="troncons-icon" src="img/icons/clipboard.png" alt="copy to clipboard" onclick="copier('parr$trace->id', 'Point GPS copié dans le presse-papier')">
                 </button>
             </td>
-            <td><button class="troncons-button" onclick="changeView('troncons-table', 'carte'); add_gpx('pages/troncons/trace$trace->id.gpx', 1)">Visualiser</button></td>
-            <td><a href="pages/troncons/trace$trace->id.gpx" download>Télécharger</a></td>
+            <td><button class="troncons-button" onclick="changeView('troncons-table', 'carte'); add_gpx('pages/Troncons/traces/trace$trace->id.gpx', 1)">Visualiser</button></td>
+            <td><a href="pages/Troncons/traces/trace$trace->id.gpx" download>Télécharger</a></td>
         </tr>
 FIN;
         }

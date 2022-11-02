@@ -34,7 +34,7 @@ class PageListing
         array(
             "name" => "Troncons",
             "title" => "Tronçons sur le parcours",
-            "sectionToRequire" => "pages/Troncons.php",
+            "sectionToRequire" => "pages/Troncons/traces.php",
         ),
         array(
             "name" => "Connect",
@@ -88,8 +88,12 @@ class PageListing
         $page = new $name($sections);
         if ($page->erreur)
             echo $msg_erreur;
-        elseif ($page->load != null)
-            PageListing::load($page->load);
+        elseif ($page->load != null){
+            $name = $page->load;
+            $page_info = PageListing::findPage($name);
+            extract($page_info);
+            PageListing::load($name);
+        }
         else {
             require("includes/navbar.php");
             echo $page->content;
