@@ -58,13 +58,13 @@ class GPX
         $stop_gps = htmlspecialchars($stop_gps);
 
         global $conn;
-        $select = $conn->prepare("select * from traces_gpx where id=?");
+        $select = $conn->prepare("select * from tracesgpx where id=?");
         $select->execute(array($num));
         if ($select->rowCount() > 0) {
-            $update = $conn->prepare("update traces_gpx set gps_dep=?, gps_arr=? where id=?");
+            $update = $conn->prepare("update tracesgpx set gps_dep=?, gps_arr=? where id=?");
             $update->execute(array($start_gps, $stop_gps, $num));
         } else {
-            $insert = $conn->prepare("insert into traces_gpx (id, gps_dep, gps_arr) values (?,?,?)");
+            $insert = $conn->prepare("insert into tracesgpx (id, gps_dep, gps_arr) values (?,?,?)");
             $insert->execute(array($num, $start_gps, $stop_gps));
         }
     }
@@ -75,14 +75,14 @@ class GPX
         $dossier = '../pages/troncons/trace';
 
         global $conn;
-        $select = $conn->query("SELECT * from traces_gpx");
+        $select = $conn->query("SELECT * from tracesgpx");
         $n = $select->rowCount();
 
         for ($i = 1; $i <= $n; $i++) {
             unlink($dossier . $i . ".gpx");
         }
 
-        $delete = $conn->query("DELETE from traces_gpx");
+        $delete = $conn->query("DELETE from tracesgpx");
         echo "traces GPX supprimées";
     }
 
@@ -98,7 +98,7 @@ class GPX
                 $harr = $horaire->contenu;
         }
         $duration = $harr - $hdep;
-        $select = $conn->query("SELECT * from traces_gpx");
+        $select = $conn->query("SELECT * from tracesgpx");
         $n = $select->rowCount();
         if ($n == 0)
             echo "Il n'y aucune trace GPX pour le moment";
@@ -106,7 +106,7 @@ class GPX
             $delta = $duration / $n;
             $current_delta = 0;
             for ($i = 1; $i <= $n; $i++) {
-                $update = $conn->prepare("UPDATE traces_gpx set heure_dep=FROM_UNIXTIME(?), heure_arr=FROM_UNIXTIME(?) where id =?");
+                $update = $conn->prepare("UPDATE tracesgpx set heure_dep=FROM_UNIXTIME(?), heure_arr=FROM_UNIXTIME(?) where id =?");
                 $update->execute(array($hdep + $current_delta, $hdep + $current_delta + $delta, $i));
                 $current_delta += $delta;
             }
