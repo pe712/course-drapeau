@@ -43,9 +43,12 @@ Donner l'accès aux lieux d'hébergements:
 -permettre le choix des trinomes et des chauffeurs par préférence
 --> système de demandes et d'acceptations
 
+-mettre les sondage sur les préférences alimentaires
+
+-mettre la liste des affaires à emporter
+
 creer un mail
 un groupe sigma
 migrer sur l'hébergement du BR
 
 le copiage du point GPS copie beaucoup de blancs
-            
