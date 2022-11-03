@@ -36,7 +36,7 @@ class Users
         } else {
             $user = $select->fetch();
             if (password_verify($mdp, $user->hash)) {
-                session_regenerate_id(true);
+                session_unset();
                 $_SESSION["id"] = $user->id;
                 $_SESSION["root"] = $user->root;
                 if ($user->prenom != null) {

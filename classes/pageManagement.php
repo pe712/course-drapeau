@@ -112,7 +112,7 @@ class Page
         $this->content = $this->buffer($sections);
     }
 
-    public function buffer($sections=null)
+    public function buffer($sections)
     {
         global $conn;
         $path = "pages/".get_class($this)."/".get_class($this)."Content.php";
