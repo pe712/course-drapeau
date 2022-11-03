@@ -89,7 +89,7 @@ class GPX
     public static function calculHoraires()
     {
         global $conn;
-        $select = $conn->query("SELECT contenu, item from content where page='Troncons' and section=1");
+        $select = $conn->query("SELECT contenu, item from content JOIN content_section ON content.Sid=content_section.id where page='Troncons' and section=1");
         $select->setFetchMode(PDO::FETCH_CLASS, 'Content');
         while ($horaire = $select->fetch()) {
             if ($horaire->item == 1)

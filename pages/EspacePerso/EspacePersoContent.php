@@ -15,10 +15,10 @@ if ($user->nom != null) {
     //on ne veut pas donner directement l'id
     $dossier = "pages/EspacePerso/upload/";
     $name = "certificat_" . $user->prenom . "_" . $user->nom . ".pdf";
-    
+
     if (!is_dir($dossier))
-    mkdir($dossier);
-    
+        mkdir($dossier);
+
     if (isset($_FILES['certificat'])) {
         Users::uploadCertificat($dossier, $name);
         $user = Users::getUserPersonnalData();
@@ -150,7 +150,7 @@ else
                 <p id="espacePerso-messageCertif" class="espacePerso-firstLine">Vous avez déjà mis votre certificat médical. Cliquez 
                 <a href="" id="espacePerso-download" download><span hidden>$path</span>ici</a> pour le voir et 
                 <a href="" id="espacePerso-modifyCertif">ici</a> pour le modifier</p>
-                FIN;
+FIN;
                 }
             } ?>
 
@@ -159,7 +159,12 @@ else
     </div>
 
     <div class="onglet" id="payement">
-        <p>Le paiement sera ultérieur</p>
+        <?php
+        if ($user->chauffeur)
+            echo '<p>Vous n\'avez pas besoin de payer la course</p>';
+        else
+            echo '<p>Le paiement sera ultérieur</p>';
+        ?>
         <br>
         <button class="btn btn-primary" onclick="changeView('payement', 'cards', 'none', 'flex')">Retour</button>
     </div>

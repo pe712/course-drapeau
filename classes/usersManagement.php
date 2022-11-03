@@ -60,16 +60,19 @@ class Users
         extract($_POST);
         if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
             $_SESSION["displayError"] = "Le mail n'est pas valide. Veuillez vérifier votre mail.";
+            return false;
         }
         extract(Users::CorrectPWD($mdp1, $mdp2)); /* on récupère $corr et $msg */
         if (!$corr) {
             $_SESSION["displayError"] = $msg;
+            return false;
         } else {
             $mail = htmlspecialchars($mail);
             $select = $conn->prepare('SELECT * FROM users WHERE mail=?');
             $select->execute(array($mail));
             if ($select->rowCount() > 0) {
                 $_SESSION["displayError"] = "Il y a déjà un compte associé à ce mail.";
+                return false;
             } else {
                 $options = ["cost" => 14,];
                 $hash = password_hash($mdp1, PASSWORD_BCRYPT, $options);
@@ -85,6 +88,7 @@ class Users
                 $_SESSION["id"] = $id;
 
                 $_SESSION["displayValid"] = "Votre compte a bien été créé.";
+                return true;
             }
         }
     }
@@ -165,12 +169,17 @@ class Users
     public function avancement()
     {
         $score = 0;
+        if (!$this->chauffeur)
+            $n = 4; // nombre d'onglets
+        else
+            $n = 2;
+        $x = 1 / $n;
         if ($this->prenom != null && $this->nom != null && $this->promotion != null)
-            $score += 1 / 3;
+            $score += $x;
         if ($this->paid)
-            $score += 1 / 3;
+            $score += $x;
         if ($this->certificat)
-            $score += 1 / 3;
+            $score += $x;
         return $score;
     }
 

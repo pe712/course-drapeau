@@ -1,5 +1,5 @@
 <section id="contact-presentation">
-    <h2>Presentation:</h2>
+    <h2>Présentation:</h2>
     <p>
     Le binet a été créé en 2022 sur une initiative du raid 21.
     <br>
