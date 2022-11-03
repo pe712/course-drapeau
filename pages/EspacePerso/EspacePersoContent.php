@@ -47,36 +47,37 @@ else
         <div id="espacePerso-progress-bar" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"><?= $val ?></div>
     </div>
 
-    <?php
-    $lines = array(
-        array(
-            "Mes informations personnelles" => "info",
-            "Mon certificat médical" => "certif",
-            "Paiement de la course" => "payement"
-        ),
-        array(
-            "Sondage alimentation" => "restoration",
-            "Liste d'affaires à emmener" => "affaires",
-            "Hébergement" => "hebergement",
-        )
-    );
-    foreach ($lines as $line) {
-        echo '<div id="cards" class="espacePersoRowContainer">';
-        foreach ($line as $key => $value) {
-    ?>
-            <div class="card">
-                <div class="card-body">
-                    <h2>
-                        <a href=# class="stretched-link" onclick="changeView('cards', '<?= $value ?>')"><?= $key ?></a>
-                    </h2>
+    <div id="cards">
+        <?php
+        $lines = array(
+            array(
+                "Mes informations personnelles" => "info",
+                "Mon certificat médical" => "certif",
+                "Paiement de la course" => "payement"
+            ),
+            array(
+                "Sondage alimentation" => "restoration",
+                "Liste d'affaires à emmener" => "affaires",
+                "Hébergement" => "hebergement",
+            )
+        );
+        foreach ($lines as $line) {
+            echo '<div class="espacePersoRowContainer">';
+            foreach ($line as $key => $value) {
+        ?>
+                <div class="card">
+                    <div class="card-body">
+                        <h2>
+                            <a href=# class="stretched-link" onclick="changeView('cards', '<?= $value ?>')"><?= $key ?></a>
+                        </h2>
+                    </div>
                 </div>
-            </div>
-    <?php
+        <?php
+            }
+            echo "</div>";
         }
-        echo "</div>";
-    }
-    ?>
-
+        ?>
+    </div>
 </div>
 
 <div>
@@ -130,7 +131,7 @@ else
             </form>
             </div>
 
-            <button id="retourFromInfo" class="btn btn-primary" onclick="changeView('info', 'cards', 'none', 'flex')">Retour</button>
+            <button id="retourFromInfo" class="btn btn-primary" onclick="changeView('info', 'cards')">Retour</button>
 
     </div>
 
@@ -167,7 +168,7 @@ FIN;
             }
         } ?>
 
-<button class="btn btn-primary" onclick="changeView('certif', 'cards', 'none', 'flex')" id="espacePerso-retourFromCertif">Retour</button>
+<button class="btn btn-primary" onclick="changeView('certif', 'cards')" id="espacePerso-retourFromCertif">Retour</button>
 
 </div>
 
@@ -179,7 +180,7 @@ FIN;
         echo '<p>Le paiement sera ultérieur</p>';
     ?>
     <br>
-    <button class="btn btn-primary" onclick="changeView('payement', 'cards', 'none', 'flex')">Retour</button>
+    <button class="btn btn-primary" onclick="changeView('payement', 'cards')">Retour</button>
 </div>
 
 <div class="onglet" id="restoration">
@@ -237,19 +238,19 @@ FIN;
         <button type="submit" class="btn btn-primary">Soumettre mes préférences</button>
     </form>
     <br>
-    <button class="btn btn-primary" onclick="changeView('restoration', 'cards', 'none', 'flex')">Retour</button>
+    <button class="btn btn-primary" onclick="changeView('restoration', 'cards')">Retour</button>
 </div>
 
 <div class="onglet" id="affaires">
 
     <br>
-    <button class="btn btn-primary" onclick="changeView('affaires', 'cards', 'none', 'flex')">Retour</button>
+    <button class="btn btn-primary" onclick="changeView('affaires', 'cards')">Retour</button>
 </div>
 
 <div class="onglet" id="hebergement">
 
     <br>
-    <button class="btn btn-primary" onclick="changeView('hebergement', 'cards', 'none', 'flex')">Retour</button>
+    <button class="btn btn-primary" onclick="changeView('hebergement', 'cards')">Retour</button>
 </div>
 </div>
 
