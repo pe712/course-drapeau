@@ -25,7 +25,8 @@ Admin:
 
 --------------------------------------------------
 Mettre dans l'arborescence de Admin le "title" des pages et non son "name"
-
+Supprimer les chiffres en anglais de AboutContent s'ils ne sont nécessaires (c'est probable)
+Supprimer les section pagetorequire de la page_list
 --------------------------------------------------
 Setup:
 -vérifier qu'il n'y a pas de fichier superflu en ligne
@@ -47,7 +48,4 @@ un groupe sigma
 migrer sur l'hébergement du BR
 
 le copiage du point GPS copie beaucoup de blancs
-
-pas d'upload des certificats pour les chauffeurs
-l'upload du certificat ne mets pas à jour la page...
             

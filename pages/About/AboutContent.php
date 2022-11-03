@@ -1,7 +1,7 @@
 <?php
 $faq = $sections[1]; //je récupère la première section
 $n = sizeof($faq)/2;
-$numbers = array("Two", "Three", "Four", "Five", "Six", "Seven", "Height", "Nine", "Ten", "Eleven", "Twelve");
+$numbers = array("Two", "Three", "Four", "Five", "Six", "Seven", "Height", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fiveteen");
 ?>
 
 <section>
