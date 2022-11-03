@@ -16,6 +16,9 @@ class Users
     public $paid;
     public $certificat;
     public $root;
+    public $vegetarian;
+    public $prepa_repas;
+    public $allergie;
 
     public static function connectUser()
     {
@@ -146,21 +149,34 @@ class Users
             $_POST[$key] = htmlspecialchars($value);
         }
         extract($_POST);
-        if ($type == "chauffeur") {
-            $update = $conn->prepare("UPDATE users SET prenom=?, nom=?, promotion=?, chauffeur=?, num_places=?  WHERE id=?");
-            $update->execute(array($firstname, $surname, $promo, 1, $num_places, $id));
-        } else {
-            //je vérifie que c'est bien un coureur
-            $update = $conn->prepare("UPDATE users SET prenom=?, nom=?, promotion=?, chauffeur=?  WHERE id=?");
-            $update->execute(array($firstname, $surname, $promo, 0, $id));
-        }
+        $chauffeur = (int) ($type == "chauffeur");
+        if (!$chauffeur)
+            $num_places = null;
+        $update = $conn->prepare("UPDATE users SET prenom=?, nom=?, promotion=?, chauffeur=?, num_places=?  WHERE id=?");
+        $update->execute(array($firstname, $surname, $promo, $chauffeur, $num_places, $id));
         $_SESSION["name"] = $firstname;
+    }
+
+    public static function updateAlimentation()
+    {
+        global $conn;
+        $id = $_SESSION["id"];
+        foreach ($_POST as $key => $value) {
+            $_POST[$key] = htmlspecialchars($value);
+        }
+        extract($_POST);
+        $vegetarian = (int) ($vegetarian == "vege");
+        $prepa_repas = (int) ($prepa_repas == "prepa");
+        if ($allergie == "")
+            $allergie  = null;
+        $update = $conn->prepare("UPDATE users SET vegetarian=?, prepa_repas=?, allergie=?  WHERE id=?");
+        $update->execute(array($vegetarian, $prepa_repas, $allergie, $id));
     }
 
     public static function getUserPersonnalData()
     {
         global $conn;
-        $select = $conn->prepare("SELECT nom, prenom, hash, promotion, chauffeur, paid, certificat FROM users WHERE id=?");
+        $select = $conn->prepare("SELECT nom, prenom, hash, promotion, chauffeur, paid, certificat, vegetarian, prepa_repas, allergie FROM users WHERE id=?");
         $select->setFetchMode(PDO::FETCH_CLASS, 'Users');
         $select->execute(array($_SESSION["id"]));
         return $select->fetch();
@@ -179,6 +195,8 @@ class Users
         if ($this->paid)
             $score += $x;
         if ($this->certificat)
+            $score += $x;
+        if ($this->vegetarian != null && $this->prepa_repas != null)
             $score += $x;
         return $score;
     }

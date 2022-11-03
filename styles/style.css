@@ -221,6 +221,14 @@ footer img {
     font-style: italic;
 }
 
+#formPerso{
+    margin-top: 0;
+}
+
+#espacePerso-input-allergie{
+    display: none;
+}
+
 /*******************************************************************/
 /* Tree View */
 /*******************************************************************/

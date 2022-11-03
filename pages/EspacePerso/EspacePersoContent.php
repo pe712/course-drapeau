@@ -3,6 +3,10 @@ if (array_key_exists("firstname", $_POST)) {
     Users::updateInfos();
 }
 
+if (array_key_exists("vegetarian", $_POST)) {
+    Users::updateAlimentation();
+}
+
 if (array_key_exists("name", $_SESSION))
     $prenom = " " . $_SESSION["name"];
 else
@@ -78,7 +82,7 @@ else
                 <p class="infosPerso">Vous êtes <?php echo $user->prenom . " " . $user->nom . " de la promotion X" . $user->promotion ?></p>
 
                 <button id="modifyPerso" class="btn btn-primary">Modifier mes informations</button>
-                <br>
+                <br><br>
                 <div id="formPerso" class="formContainer" style="display:none">
                 <?php
             }
@@ -98,9 +102,9 @@ else
                     </div>
                     <div id="espacePerso-radio-courreur">
                         <label class="form-check-label" for="coureur">
-                            Courreur
+                            Coureur
                         </label>
-                        <input class="form-check-input" type="radio" name="type" id="coureur" value="coureur" checked>
+                        <input class="form-check-input" type="radio" name="type" id="coureur" checked>
                     </div>
                     <div id="espacePerso-radio-chauffeur">
                         <label class="form-check-label" for="chauffeur">
@@ -170,19 +174,60 @@ FIN;
     </div>
 
     <div class="onglet" id="restoration">
-        <!-- form method="post" action="index.php?page=Connect">
+        <form method="post" action="index.php?page=EspacePerso">
+            <br>
             <div class="mb-3">
-                <label for="mail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="mail" name="mail" placeholder="eric.labaye@polytechnique.edu" required>
+                Souhaites-tu manger végétarien ?
+                <span>
+                    <label class="form-check-label" for="vege">
+                        Oui
+                    </label>
+                    <input class="form-check-input" type="radio" name="vegetarian" id="vege" value="vege" checked>
+                </span>
+                <span>
+                    <label class="form-check-label" for="not_vege">
+                        Non
+                    </label>
+                    <input class="form-check-input" type="radio" name="vegetarian" id="not_vege">
+                </span>
             </div>
             <div class="mb-3">
-                <label for="pwd1" class="form-label">Mot de passe</label>
-                <input type="password" class="form-control" id="pwd1" name="mdp" required>
+                Veux tu aider à la préparation des repas ?
+                <span>
+                    <label class="form-check-label" for="prepa">
+                        Oui
+                    </label>
+                    <input class="form-check-input" type="radio" name="prepa_repas" id="prepa" value="prepa" checked>
+                </span>
+                <span>
+                    <label class="form-check-label" for="not_prepa">
+                        Non
+                    </label>
+                    <input class="form-check-input" type="radio" name="prepa_repas" id="not_prepa">
+                </span>
             </div>
-            <button type="submit" class="btn btn-primary">Me connecter</button>
-        </form> -->
-        Ici apparaîtra le sondage sur la partie restauration.
-        <br><br>
+            <div class="mb-3">
+                As-tu des allergies ?
+                <span id="espacePerso-allergie">
+                    <label class="form-check-label" for="allergie">
+                        Oui
+                    </label>
+                    <input class="form-check-input" type="radio" name="has-allergie" id="allergie">
+                </span>
+                <span id="espacePerso-not_allergie">
+                    <label class="form-check-label" for="not_allergie">
+                        Non
+                    </label>
+                    <input class="form-check-input" type="radio" name="has-allergie" id="not_allergie" checked>
+                </span>
+            </div>
+            <div class="mb-3" id="espacePerso-input-allergie">
+                <label for="espacePerso-alergie" class="form-label">Lesquelles?</label>
+                <input type="text" class="form-control" id="espacePerso-alergie" name="allergie">
+            </div>
+            <button type="submit" class="btn btn-primary">Soumettre mes préférences</button>
+        </form>
+        <br>
         <button class="btn btn-primary" onclick="changeView('restoration', 'cards', 'none', 'flex')">Retour</button>
     </div>
 </div>

@@ -270,4 +270,12 @@ $(document).ready(function () {
     $("#espacePerso-radio-courreur").click(function () {
         $("#espacePerso-num_places").hide()
     });
+
+    $("#espacePerso-allergie").click(function () {
+        $("#espacePerso-input-allergie").show()
+    });
+
+    $("#espacePerso-not_allergie").click(function () {
+        $("#espacePerso-input-allergie").hide()
+    });
 });
