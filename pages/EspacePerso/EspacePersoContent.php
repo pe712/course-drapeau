@@ -9,6 +9,22 @@ else
     $prenom = "";
 
 $user = Users::getUserPersonnalData();
+
+/**************** variables du dossier d'upload *************************/
+if ($user->nom != null) {
+    //on ne veut pas donner directement l'id
+    $dossier = "pages/EspacePerso/upload/";
+    $name = "certificat_" . $user->prenom . "_" . $user->nom . ".pdf";
+    
+    if (!is_dir($dossier))
+    mkdir($dossier);
+    
+    if (isset($_FILES['certificat'])) {
+        Users::uploadCertificat($dossier, $name);
+        $user = Users::getUserPersonnalData();
+    }
+}
+
 /**************** Message d'accueil *************************/
 $x = $user->avancement();
 $val = round($x * 100) . "%";
@@ -18,19 +34,7 @@ if ($x == 1)
 else
     $texte = "Bienvenue" . $prenom . ", tu en est à $val du remplissage de ton espace personnel.";
 
-/**************** variables du dossier d'upload *************************/
-if ($user->nom != null) {
-    //on ne veut pas donner directement l'id
-    $dossier = "pages/EspacePerso/upload/";
-    $name = "certificat_" . $user->prenom . "_" . $user->nom . ".pdf";
 
-    if (!is_dir($dossier))
-        mkdir($dossier);
-
-    if (isset($_FILES['certificat'])) {
-        Users::uploadCertificat($dossier, $name);
-    }
-}
 ?>
 <div class="espacePersoMainContainer">
     <p class="progression"><?= $texte ?></p>
@@ -121,6 +125,8 @@ if ($user->nom != null) {
             <?php
             if ($user->nom == null) {
                 echo '<p class="espacePerso-firstLine">Vous devez d\'abord remplir la catégorie informations personnelles.</p>';
+            } elseif ($user->chauffeur) {
+                echo '<p class="espacePerso-firstLine">Vous n\'avez pas besoin de renseigner de certificat.</p>';
             } else {
                 if ($user->certificat) {
                     echo '<div class="formContainer" style="display: none;" id="espacePerso-certificatUpload">';
@@ -138,14 +144,14 @@ if ($user->nom != null) {
                 </form>
         </div>
     <?php
-            }
-            if ($user->certificat) {
-                $path = $dossier . $name;
-                echo <<<FIN
-        <p id="espacePerso-messageCertif" class="espacePerso-firstLine">Vous avez déjà mis votre certificat médical. Cliquez 
-        <a href="" id="espacePerso-download" download><span hidden>$path</span>ici</a> pour le voir et 
-        <a href="" id="espacePerso-modifyCertif">ici</a> pour le modifier</p>
-FIN;
+                if ($user->certificat) {
+                    $path = $dossier . $name;
+                    echo <<<FIN
+                <p id="espacePerso-messageCertif" class="espacePerso-firstLine">Vous avez déjà mis votre certificat médical. Cliquez 
+                <a href="" id="espacePerso-download" download><span hidden>$path</span>ici</a> pour le voir et 
+                <a href="" id="espacePerso-modifyCertif">ici</a> pour le modifier</p>
+                FIN;
+                }
             } ?>
 
     <button class="btn btn-primary" onclick="changeView('certif', 'cards', 'none', 'flex')" id="espacePerso-retourFromCertif">Retour</button>

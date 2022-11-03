@@ -11,6 +11,8 @@ class Users
     public $nom;
     public $prenom;
     public $promotion;
+    public $chauffeur;
+    public $num_places;
     public $paid;
     public $certificat;
     public $root;
@@ -154,7 +156,7 @@ class Users
     public static function getUserPersonnalData()
     {
         global $conn;
-        $select = $conn->prepare("SELECT nom, prenom, hash, promotion, paid, certificat FROM users WHERE id=?");
+        $select = $conn->prepare("SELECT nom, prenom, hash, promotion, chauffeur, paid, certificat FROM users WHERE id=?");
         $select->setFetchMode(PDO::FETCH_CLASS, 'Users');
         $select->execute(array($_SESSION["id"]));
         return $select->fetch();
