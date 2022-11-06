@@ -79,7 +79,7 @@ FIN;
 
     <div id="admin-add" class="admin-new-area">
       <h4></h4>
-      <form action="index.php?page=Admin" method="post">
+      <form action="?page=Admin" method="post">
         <input type="hidden" name="page" id="admin-submit-page">
         <div>
           <label for="admin-section-desc" class="admin-form form-label admin-section-desc">Description</label>
@@ -108,7 +108,7 @@ FIN;
   <!-- Vue GPX -->
   <div id="admin-GPX-onglet" class="admin-onglet">
     <div class="formContainer">
-      <form enctype="multipart/form-data" action="index.php?page=Admin&pageModif=Accueil&section=2" method="post">
+      <form enctype="multipart/form-data" action="?page=Admin&pageModif=Accueil&section=2" method="post">
         <div class="mb-3">
           <input type="hidden" name="MAX_FILE_SIZE" value="30000000" />
           <label for="trace" class="form-label">Trace GPX numéroté (par exemple: trace10.gpx)</label>
@@ -119,7 +119,7 @@ FIN;
     </div>
 
     <div class="formContainer">
-      <form enctype="multipart/form-data" action="index.php?page=Admin&pageModif=Accueil&section=2" method="post">
+      <form enctype="multipart/form-data" action="?page=Admin&pageModif=Accueil&section=2" method="post">
         <div class="mb-3">
           <input type="hidden" name="MAX_FILE_SIZE" value="30000000" />
           <label for="loader" class="form-label">Dossier contenant toutes les traces GPX numérotées (par exemple: trace10.gpx)</label>

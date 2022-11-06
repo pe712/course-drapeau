@@ -5,7 +5,7 @@
         </div>
         <div class="row">
             <div class="col-6 offset-3">
-                <a href="index.php?page=Contact">Nous contacter</a>
+                <a href="?page=Contact">Nous contacter</a>
             </div>
         </div>
     </div>

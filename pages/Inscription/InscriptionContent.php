@@ -1,5 +1,5 @@
 <div class="formContainer inscriptionForm">
-    <form class="ms-4" method="post" action="index.php?page=Inscription">
+    <form class="ms-4" method="post" action="?page=Inscription">
         <div class="mb-3">
             <label for="mail" class="form-label">Email</label>
             <input type="email" class="form-control" id="mail" aria-describedby="emailHelp" name="mail" placeholder="eric.labaye@polytechnique.edu" required>

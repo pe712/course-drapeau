@@ -1,5 +1,5 @@
 <div class="formContainer">
-        <form method="post" action="index.php?page=Connect">
+        <form method="post" action="?page=Connect">
             <div class="mb-3">
                 <label for="mail" class="form-label">Email</label>
                 <input type="email" class="form-control" id="mail" name="mail" placeholder="eric.labaye@polytechnique.edu" required>

@@ -96,7 +96,7 @@ else
                 <?php
             }
                 ?>
-                <form class="ms-4" method="post" action="index.php?page=EspacePerso">
+                <form class="ms-4" method="post" action="?page=EspacePerso">
                     <div class="mb-3">
                         <label for="firstname" class="form-label">Prénom</label>
                         <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Eric" required>
@@ -147,7 +147,7 @@ else
                     echo '<div class="formContainer" id="espacePerso-certificatUpload">';
                 }
             ?>
-                <form enctype="multipart/form-data" action="index.php?page=EspacePerso" method="post">
+                <form enctype="multipart/form-data" action="?page=EspacePerso" method="post">
                     <div class="mb-3">
                         <input type="hidden" name="MAX_FILE_SIZE" value="500000" />
                         <label for="certif_uploaded" class="form-label">Certificat médical de moins de 1 an</label>
@@ -183,7 +183,7 @@ FIN;
     </div>
 
     <div class="onglet" id="restoration">
-        <form method="post" action="index.php?page=EspacePerso">
+        <form method="post" action="?page=EspacePerso">
             <br>
             <div class="mb-3">
                 Souhaites-tu manger végétarien ?
