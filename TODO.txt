@@ -51,4 +51,7 @@ migrer sur l'hébergement du BR
 
 le copiage du point GPS copie beaucoup de blancs
 
--gérer une double autenthification public et x 
+-gérer une double autenthification public et x
+-git clone sur le serveur ostzian
+-utiliser le fichier config.php pour les credentials
+

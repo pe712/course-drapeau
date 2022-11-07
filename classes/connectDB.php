@@ -16,7 +16,7 @@ class Database
                 $user,
                 $password,
                 array(
-                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8", /* définit l'encodage pour récupérer et envoyer des données */
+                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4", /* définit l'encodage pour récupérer et envoyer des données */
                     PDO::ATTR_PERSISTENT => true
                 )
             );
