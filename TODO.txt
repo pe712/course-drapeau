@@ -42,15 +42,10 @@ Donner l'accès aux lieux d'hébergements:
 -permettre le choix des trinomes et des chauffeurs par préférence
 --> système de demandes et d'acceptations
 
--mettre la liste des affaires à emporter
-
-creer un mail
-un groupe sigma
-migrer sur l'hébergement du BR
-
 le copiage du point GPS copie beaucoup de blancs
 
 -gérer une double autenthification public et x
 -git clone sur le serveur ostzian
--utiliser le fichier config.php pour les credentials
+
+
 
