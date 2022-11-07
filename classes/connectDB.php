@@ -3,12 +3,7 @@ class Database
 {
     public static function connect()
     {
-        //read from key file
-        $db = "bordeauxx";
-        $host = "localhost";
-        $dsn = "mysql:dbname=$db; host=$host";
-        $user = "root";
-        $password = "";
+        require("config.php");
         $conn = null;
         try {
             $conn = new PDO(

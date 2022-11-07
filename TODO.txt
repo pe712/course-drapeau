@@ -31,7 +31,6 @@ Supprimer les section pagetorequire de la page_list
 Setup:
 -vérifier qu'il n'y a pas de fichier superflu en ligne
 -upload la db
--mettre le db_username et le db_mdp dans un fichier .key au dessus du dossier hmtl
 définir un cronjob pour supprimer les fichiers temporaires
 -redéfinir les limites d'upload
 
