@@ -4,7 +4,7 @@ if (array_key_exists("firstname", $_POST)) {
 }
 
 if (array_key_exists("vegetarian", $_POST)) {
-    Users::updateAlimentation();
+    Users::updateLogistique();
 }
 
 if (array_key_exists("name", $_SESSION))
@@ -56,7 +56,7 @@ else
                 "Paiement de la course" => "payement"
             ),
             array(
-                "Sondage alimentation" => "restoration",
+                "Logistique" => "restoration",
                 "Liste d'affaires à emmener" => "affaires",
                 "Hébergement" => "hebergement",
             )
@@ -83,7 +83,7 @@ else
         <div class="onglet" id="info">
             <?php
             if ($user->prenom == null)
-                echo '<div id="formPerso" class="formContainer">';
+                echo '<div id="formPerso" class="centerer-container">';
             else {
             ?>
                 <p class="infosPerso espacePerso-firstLine">Vous avez déjà complété cet onglet.</p>
@@ -92,7 +92,7 @@ else
 
                 <button id="modifyPerso" class="btn btn-primary">Modifier mes informations</button>
                 <br><br>
-                <div id="formPerso" class="formContainer" style="display:none">
+                <div id="formPerso" class="centerer-container" style="display:none">
                 <?php
             }
                 ?>
@@ -142,9 +142,9 @@ else
                 echo '<p class="espacePerso-firstLine">Vous n\'avez pas besoin de renseigner de certificat.</p>';
             } else {
                 if ($user->certificat) {
-                    echo '<div class="formContainer" style="display: none;" id="espacePerso-certificatUpload">';
+                    echo '<div class="centerer-container" style="display: none;" id="espacePerso-certificatUpload">';
                 } else {
-                    echo '<div class="formContainer" id="espacePerso-certificatUpload">';
+                    echo '<div class="centerer-container" id="espacePerso-certificatUpload">';
                 }
             ?>
                 <form enctype="multipart/form-data" action="?page=EspacePerso" method="post">
@@ -234,14 +234,59 @@ FIN;
                 <label for="espacePerso-alergie" class="form-label">Lesquelles?</label>
                 <input type="text" class="form-control" id="espacePerso-alergie" name="allergie">
             </div>
-            <button type="submit" class="btn btn-primary">Soumettre mes préférences</button>
+            <div class="mb-3">
+                As-tu un permis B ?
+                <span id="espacePerso-permis">
+                    <label class="form-check-label" for="permis">
+                        Oui
+                    </label>
+                    <input class="form-check-input" type="radio" name="permis" id="permis">
+                </span>
+                <span id="espacePerso-not_permis">
+                    <label class="form-check-label" for="not_permis">
+                        Non
+                    </label>
+                    <input class="form-check-input" type="radio" name="permis" id="not_permis" checked>
+                </span>
+            </div>
+            <div class="mb-3" class="espacePerso-input-permis">
+                Es-tu jeune conducteur ?
+                <span>
+                    <label class="form-check-label" for="jeune_conducteur">
+                        Oui
+                    </label>
+                    <input class="form-check-input" type="radio" name="jeune_conducteur" id="jeune_conducteur">
+                </span>
+                <span>
+                    <label class="form-check-label" for="not_jeune_conducteur">
+                        Non
+                    </label>
+                    <input class="form-check-input" type="radio" name="jeune_conducteur" id="not_jeune_conducteur" checked>
+                </span>
+            </div>
+            <div class="mb-3" class="espacePerso-input-permis">
+                Avec boite manuelle ?
+                <span>
+                    <label class="form-check-label" for="boite_manuelle">
+                        Oui
+                    </label>
+                    <input class="form-check-input" type="radio" name="boite_manuelle" id="boite_manuelle">
+                </span>
+                <span>
+                    <label class="form-check-label" for="not_boite_manuelle">
+                        Non
+                    </label>
+                    <input class="form-check-input" type="radio" name="boite_manuelle" id="not_boite_manuelle" checked>
+                </span>
+            </div>
+            <button type="submit" class="btn btn-primary">Soumettre mes réponses</button>
         </form>
         <br>
         <button class="btn btn-primary" onclick="changeView('restoration', 'cards')">Retour</button>
     </div>
 
     <div class="onglet" id="affaires">
-    <p class="espacePerso-firstLine">
+        <p class="espacePerso-firstLine">
             Liste d'affaires à emmener:
         </p>
         <ul>
@@ -263,8 +308,8 @@ FIN;
             Il y aura deux hébergements sur le parcours pour la totalité de la course:
         </p>
         <ul>
-            <li>Courdemanche 72150 (<a href="https://www.google.fr/maps/place/72150+Courdemanche/">voir sur la carte</a>)</li>
             <li>Magnac-sur-Touvre 16600 (<a href="https://www.google.fr/maps/place/16600+Magnac-sur-Touvre/">voir sur la carte</a>)</li>
+            <li>Courdemanche 72150 (<a href="https://www.google.fr/maps/place/72150+Courdemanche/">voir sur la carte</a>)</li>
         </ul>
         <br>
         <button class="btn btn-primary" onclick="changeView('hebergement', 'cards')">Retour</button>
