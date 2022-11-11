@@ -3,7 +3,7 @@ class Database
 {
     public static function connect()
     {
-        require("config.php");
+        require("../config.php");
         $conn = null;
         try {
             $conn = new PDO(
