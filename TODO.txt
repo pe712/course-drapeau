@@ -46,7 +46,7 @@ le copiage du point GPS copie beaucoup de blancs
 
 ALTER TABLE `users` ADD `allergie` BOOLEAN NULL AFTER `allergie`, ADD `permis` BOOLEAN NULL AFTER `allergie`, ADD `jeune_conducteur` BOOLEAN NULL AFTER `permis`;
 
-CREATE USER 'course_drapeau_user'@'%' IDENTIFIED WITH mysql_native_password AS 'r788UHOfd658';GRANT SELECT, INSERT, UPDATE, DELETE, FILE ON *.* TO 'docpasse_user2'@'%' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 1000 MAX_CONNECTIONS_PER_HOUR 1000 MAX_UPDATES_PER_HOUR 1000 MAX_USER_CONNECTIONS 100;
+-utilisateur qui ait les droit de tables ??
 
 -gérer une double autenthification public et x
 -git clone sur le serveur ostzian
