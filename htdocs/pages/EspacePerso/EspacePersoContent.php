@@ -272,7 +272,7 @@ FIN;
                     <input class="form-check-input" type="radio" name="permis" id="not_permis" checked>
                 </span>
             </div>
-            <div class="mb-3" class="espacePerso-input-permis">
+            <div class="mb-3 espacePerso-input-permis">
                 Es-tu jeune conducteur ?
                 <span>
                     <label class="form-check-label" for="jeune_conducteur">
