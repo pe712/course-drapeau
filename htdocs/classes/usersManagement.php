@@ -68,15 +68,19 @@ class Users
         $this->boite_manuelle = $boite_manuelle;
     }
 
-    public static function connectX($auth=null, $nom=null, $prenom=null, $mail=null, $promo = null)
+    public static function connectX($auth = null, $nom = null, $prenom = null, $mail = null, $promotion = null)
     {
         global $conn;
-        if ($auth!=null){
+        if ($auth != null) {
             $nom = $auth["nom"];
-            $prenom =$auth["prenom"];
+            $prenom = $auth["prenom"];
             $mail = $auth["email"];
             $memberOf = $auth["memberOf"];
-            $promo = Users::whatPromo($memberOf);
+            $promotion = Users::whatPromo($memberOf);
+            if (!$promotion){
+                $_SESSION["displayError"] = "Vous n'êtes pas dans le cycle ingénieur";
+                return false;
+            }
         }
         $select = $conn->prepare("SELECT * FROM users WHERE mail=?");
         $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Users');
@@ -84,21 +88,21 @@ class Users
         // create account if first time
         if ($select->rowCount() == 0) {
             $insert = $conn->prepare("insert into users (mail, hash, nom, prenom, promotion) values (?,?,?,?,?)");
-            $insert->execute(array($mail, "none", $nom, $prenom, $promo));
-            return Users::connectX(null, $nom, $prenom, $mail, $promo);
+            $insert->execute(array($mail, "none", $nom, $prenom, $promotion));
+            return Users::connectX(null, $nom, $prenom, $mail, $promotion);
         } else {
             $user = $select->fetch();
-            $user = new Users(null, $mail, null, null, null, null, $nom, $prenom, $promo);
             $user->connect();
             return true;
         }
     }
 
-    private static function whatPromo($memberOf){
+    private static function whatPromo($memberOf)
+    {
         foreach ($memberOf as $group) {
             $groupName = preg_split("/[=,]/", $group)[1];
-            if (substr($groupName,0, 7)=="promo_x"){
-                return substr($groupName,7, 11);
+            if (substr($groupName, 0, 7) == "promo_x") {
+                return substr($groupName, 9, 11);
             }
         }
         return false;
@@ -243,7 +247,7 @@ class Users
         if (!$chauffeur)
             $num_places = null;
         $update = $conn->prepare("UPDATE users SET prenom=?, nom=?, promotion=?, chauffeur=?, num_places=?  WHERE id=?");
-        $update->execute(array($firstname, $surname, $promo, $chauffeur, $num_places, $id));
+        $update->execute(array($firstname, $surname, $promotion, $chauffeur, $num_places, $id));
         $_SESSION["name"] = $firstname;
     }
 
@@ -279,12 +283,12 @@ class Users
     public function avancement()
     {
         $score = 0;
-        if (!$this->chauffeur)
+        if ($this->chauffeur == null || !$this->chauffeur)
             $n = 4; // nombre d'onglets
         else
             $n = 2;
         $x = 1 / $n;
-        if ($this->prenom != null && $this->nom != null && $this->promotion != null)
+        if ($this->prenom != null && $this->nom != null && $this->promotion != null && $this->chauffeur!=null)
             $score += $x;
         if ($this->paid)
             $score += $x;

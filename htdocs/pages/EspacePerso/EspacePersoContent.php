@@ -13,33 +13,32 @@ else
     $prenom = "";
 
 $user = Users::getUserPersonnalData();
-
 /**************** variables du dossier d'upload *************************/
 if ($user->nom != null) {
     //on ne veut pas donner directement l'id
     $dossier = "pages/EspacePerso/upload/";
     $name = "certificat_" . $user->prenom . "_" . $user->nom . ".pdf";
-
+    
     if (!is_dir($dossier))
-        mkdir($dossier);
-
+    mkdir($dossier);
+    
     if (isset($_FILES['certificat'])) {
         Users::uploadCertificat($dossier, $name);
         $user = Users::getUserPersonnalData();
     }
 }
-
 /**************** Message d'accueil *************************/
+
 $x = $user->avancement();
 $val = round($x * 100) . "%";
 if ($x == 1)
-    $texte = "Bravo" . $prenom . ", tu as complété tout ton espace personnel.";
+$texte = "Bravo" . $prenom . ", tu as complété tout ton espace personnel.";
 
 else
     $texte = "Bienvenue" . $prenom . ", tu en est à $val du remplissage de ton espace personnel.";
+    
 
-
-?>
+    ?>
 <div class="espacePersoMainContainer">
     <p class="progression"><?= $texte ?></p>
 
@@ -82,7 +81,7 @@ else
     <div>
         <div class="onglet" id="info">
             <?php
-            if ($user->prenom == null)
+            if ($user->chauffeur == null)
                 echo '<div id="formPerso" class="centerer-container">';
             else {
             ?>
@@ -95,19 +94,22 @@ else
                 <div id="formPerso" class="centerer-container" style="display:none">
                 <?php
             }
+            if ($user->nom!=null){
+                $infos = true;
+            }
                 ?>
                 <form class="ms-4" method="post" action="?page=EspacePerso">
                     <div class="mb-3">
                         <label for="firstname" class="form-label">Prénom</label>
-                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Eric" required>
+                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Eric" required value=<?=$user->prenom?>>
                     </div>
                     <div class="mb-3">
                         <label for="surname" class="form-label">Nom</label>
-                        <input type="text" class="form-control" id="surname" name="surname" placeholder="Labaye" required>
+                        <input type="text" class="form-control" id="surname" name="surname" placeholder="Labaye" required value=<?=$user->nom?>>
                     </div>
                     <div class="mb-3">
                         <label for="promo" class="form-label">Promotion X</label>
-                        <input type="number" class="form-control" id="promo" name="promo" value=21 placeholder="21" required>
+                        <input type="number" class="form-control" id="promo" name="promotion" value=21 placeholder="21" required value=<?=$user->promotion?>>
                     </div>
                     <div id="espacePerso-radio-courreur">
                         <label class="form-check-label" for="coureur">
@@ -136,7 +138,7 @@ else
 
         <div class="onglet" id="certif">
             <?php
-            if ($user->nom == null) {
+            if ($user->chauffeur == null) {
                 echo '<p class="espacePerso-firstLine">Vous devez d\'abord remplir la catégorie informations personnelles.</p>';
             } elseif ($user->chauffeur) {
                 echo '<p class="espacePerso-firstLine">Vous n\'avez pas besoin de renseigner de certificat.</p>';
@@ -176,7 +178,7 @@ FIN;
         if ($user->chauffeur)
             echo '<p>Vous n\'avez pas besoin de payer la course</p>';
         else
-            echo '<p class="espacePerso-firstLine">Le paiement sera ultérieur</p>';
+            echo '<p class="espacePerso-firstLine">Le paiement sera ultérieur. De l\'ordre de 60€/pers</p>';
         /* 
             if (!$user->paid) {
               $deb_msg = $sections[1][0];
