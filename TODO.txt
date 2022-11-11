@@ -44,8 +44,6 @@ Donner l'accès aux lieux d'hébergements:
 
 le copiage du point GPS copie beaucoup de blancs
 
-ALTER TABLE `users` ADD `allergie` BOOLEAN NULL AFTER `allergie`, ADD `permis` BOOLEAN NULL AFTER `allergie`, ADD `jeune_conducteur` BOOLEAN NULL AFTER `permis`;
-
 -utilisateur qui ait les droit de tables ??
 
 -gérer une double autenthification public et x
