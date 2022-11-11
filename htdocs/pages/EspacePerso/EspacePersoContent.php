@@ -18,10 +18,10 @@ if ($user->nom != null) {
     //on ne veut pas donner directement l'id
     $dossier = "pages/EspacePerso/upload/";
     $name = "certificat_" . $user->prenom . "_" . $user->nom . ".pdf";
-    
+
     if (!is_dir($dossier))
-    mkdir($dossier);
-    
+        mkdir($dossier);
+
     if (isset($_FILES['certificat'])) {
         Users::uploadCertificat($dossier, $name);
         $user = Users::getUserPersonnalData();
@@ -32,13 +32,13 @@ if ($user->nom != null) {
 $x = $user->avancement();
 $val = round($x * 100) . "%";
 if ($x == 1)
-$texte = "Bravo" . $prenom . ", tu as complété tout ton espace personnel.";
+    $texte = "Bravo" . $prenom . ", tu as complété tout ton espace personnel.";
 
 else
     $texte = "Bienvenue" . $prenom . ", tu en est à $val du remplissage de ton espace personnel.";
-    
 
-    ?>
+
+?>
 <div class="espacePersoMainContainer">
     <p class="progression"><?= $texte ?></p>
 
@@ -85,31 +85,26 @@ else
                 echo '<div id="formPerso" class="centerer-container">';
             else {
             ?>
-                <p class="infosPerso espacePerso-firstLine">Vous avez déjà complété cet onglet.</p>
-
-                <p class="infosPerso">Vous êtes <?php echo $user->prenom . " " . $user->nom . " de la promotion X" . $user->promotion ?></p>
+                <p id="espacePerso-modify-infosPerso espacePerso-firstLine">Vous avez déjà complété cet onglet.</p>
 
                 <button id="modifyPerso" class="btn btn-primary">Modifier mes informations</button>
                 <br><br>
                 <div id="formPerso" class="centerer-container" style="display:none">
                 <?php
             }
-            if ($user->nom!=null){
-                $infos = true;
-            }
                 ?>
                 <form class="ms-4" method="post" action="?page=EspacePerso">
                     <div class="mb-3">
                         <label for="firstname" class="form-label">Prénom</label>
-                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Eric" required value=<?=$user->prenom?>>
+                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Eric" required value=<?= $user->prenom ?>>
                     </div>
                     <div class="mb-3">
                         <label for="surname" class="form-label">Nom</label>
-                        <input type="text" class="form-control" id="surname" name="surname" placeholder="Labaye" required value=<?=$user->nom?>>
+                        <input type="text" class="form-control" id="surname" name="surname" placeholder="Labaye" required value=<?= $user->nom ?>>
                     </div>
                     <div class="mb-3">
                         <label for="promo" class="form-label">Promotion X</label>
-                        <input type="number" class="form-control" id="promo" name="promotion" value=21 placeholder="21" required value=<?=$user->promotion?>>
+                        <input type="number" class="form-control" id="promo" name="promotion" value=21 placeholder="21" required value=<?= $user->promotion ?>>
                     </div>
                     <div id="espacePerso-radio-courreur">
                         <label class="form-check-label" for="coureur">
@@ -206,106 +201,121 @@ FIN;
     </div>
 
     <div class="onglet" id="restoration">
-        <form method="post" action="?page=EspacePerso">
+        <?php
+        if ($user->vegetarian != null) {
+        ?>
+            <p id="espacePerso-modify-logistique espacePerso-firstLine">Vous avez déjà complété cet onglet.</p>
+
+            <button id="espacePerso-modify-logistique" class="btn btn-primary">Modifier mes informations</button>
+            <br><br>
+            <div id="espacePerso-form-logistique" style="display:none">
+            <?php
+        }
+        else{
+            echo '<div id="espacePerso-form-logistique">';
+        }
+            ?>
+            <form method="post" action="?page=EspacePerso">
+                <br>
+                <div class="mb-3">
+                    Souhaites-tu manger végétarien ?
+                    <span>
+                        <label class="form-check-label" for="vege">
+                            Oui
+                        </label>
+                        <input class="form-check-input" type="radio" name="vegetarian" id="vege" value="vege" checked>
+                    </span>
+                    <span>
+                        <label class="form-check-label" for="not_vege">
+                            Non
+                        </label>
+                        <input class="form-check-input" type="radio" name="vegetarian" id="not_vege">
+                    </span>
+                </div>
+                <div class="mb-3">
+                    Veux tu aider à la préparation des repas ?
+                    <span>
+                        <label class="form-check-label" for="prepa">
+                            Oui
+                        </label>
+                        <input class="form-check-input" type="radio" name="prepa_repas" id="prepa" value="prepa" checked>
+                    </span>
+                    <span>
+                        <label class="form-check-label" for="not_prepa">
+                            Non
+                        </label>
+                        <input class="form-check-input" type="radio" name="prepa_repas" id="not_prepa">
+                    </span>
+                </div>
+                <div class="mb-3">
+                    As-tu des allergies ?
+                    <span id="espacePerso-allergie">
+                        <label class="form-check-label" for="allergie">
+                            Oui
+                        </label>
+                        <input class="form-check-input" type="radio" name="has-allergie" id="allergie">
+                    </span>
+                    <span id="espacePerso-not_allergie">
+                        <label class="form-check-label" for="not_allergie">
+                            Non
+                        </label>
+                        <input class="form-check-input" type="radio" name="has-allergie" id="not_allergie" checked>
+                    </span>
+                </div>
+                <div class="mb-3" id="espacePerso-input-allergie">
+                    <label for="espacePerso-alergie" class="form-label">Lesquelles?</label>
+                    <input type="text" class="form-control" id="espacePerso-alergie" name="allergie">
+                </div>
+                <div class="mb-3">
+                    As-tu un permis B ?
+                    <span id="espacePerso-permis">
+                        <label class="form-check-label" for="permis">
+                            Oui
+                        </label>
+                        <input class="form-check-input" type="radio" name="permis" id="permis">
+                    </span>
+                    <span id="espacePerso-not_permis">
+                        <label class="form-check-label" for="not_permis">
+                            Non
+                        </label>
+                        <input class="form-check-input" type="radio" name="permis" id="not_permis" checked>
+                    </span>
+                </div>
+                <div class="mb-3 espacePerso-input-permis">
+                    Es-tu jeune conducteur ?
+                    <span>
+                        <label class="form-check-label" for="jeune_conducteur">
+                            Oui
+                        </label>
+                        <input class="form-check-input" type="radio" name="jeune_conducteur" id="jeune_conducteur">
+                    </span>
+                    <span>
+                        <label class="form-check-label" for="not_jeune_conducteur">
+                            Non
+                        </label>
+                        <input class="form-check-input" type="radio" name="jeune_conducteur" id="not_jeune_conducteur" checked>
+                    </span>
+                </div>
+                <div class="mb-3 espacePerso-input-permis">
+                    Avec boite manuelle ?
+                    <span>
+                        <label class="form-check-label" for="boite_manuelle">
+                            Oui
+                        </label>
+                        <input class="form-check-input" type="radio" name="boite_manuelle" id="boite_manuelle">
+                    </span>
+                    <span>
+                        <label class="form-check-label" for="not_boite_manuelle">
+                            Non
+                        </label>
+                        <input class="form-check-input" type="radio" name="boite_manuelle" id="not_boite_manuelle" checked>
+                    </span>
+                </div>
+                <button type="submit" class="btn btn-primary">Soumettre mes réponses</button>
+            </form>
+            </div>
             <br>
-            <div class="mb-3">
-                Souhaites-tu manger végétarien ?
-                <span>
-                    <label class="form-check-label" for="vege">
-                        Oui
-                    </label>
-                    <input class="form-check-input" type="radio" name="vegetarian" id="vege" value="vege" checked>
-                </span>
-                <span>
-                    <label class="form-check-label" for="not_vege">
-                        Non
-                    </label>
-                    <input class="form-check-input" type="radio" name="vegetarian" id="not_vege">
-                </span>
-            </div>
-            <div class="mb-3">
-                Veux tu aider à la préparation des repas ?
-                <span>
-                    <label class="form-check-label" for="prepa">
-                        Oui
-                    </label>
-                    <input class="form-check-input" type="radio" name="prepa_repas" id="prepa" value="prepa" checked>
-                </span>
-                <span>
-                    <label class="form-check-label" for="not_prepa">
-                        Non
-                    </label>
-                    <input class="form-check-input" type="radio" name="prepa_repas" id="not_prepa">
-                </span>
-            </div>
-            <div class="mb-3">
-                As-tu des allergies ?
-                <span id="espacePerso-allergie">
-                    <label class="form-check-label" for="allergie">
-                        Oui
-                    </label>
-                    <input class="form-check-input" type="radio" name="has-allergie" id="allergie">
-                </span>
-                <span id="espacePerso-not_allergie">
-                    <label class="form-check-label" for="not_allergie">
-                        Non
-                    </label>
-                    <input class="form-check-input" type="radio" name="has-allergie" id="not_allergie" checked>
-                </span>
-            </div>
-            <div class="mb-3" id="espacePerso-input-allergie">
-                <label for="espacePerso-alergie" class="form-label">Lesquelles?</label>
-                <input type="text" class="form-control" id="espacePerso-alergie" name="allergie">
-            </div>
-            <div class="mb-3">
-                As-tu un permis B ?
-                <span id="espacePerso-permis">
-                    <label class="form-check-label" for="permis">
-                        Oui
-                    </label>
-                    <input class="form-check-input" type="radio" name="permis" id="permis">
-                </span>
-                <span id="espacePerso-not_permis">
-                    <label class="form-check-label" for="not_permis">
-                        Non
-                    </label>
-                    <input class="form-check-input" type="radio" name="permis" id="not_permis" checked>
-                </span>
-            </div>
-            <div class="mb-3 espacePerso-input-permis">
-                Es-tu jeune conducteur ?
-                <span>
-                    <label class="form-check-label" for="jeune_conducteur">
-                        Oui
-                    </label>
-                    <input class="form-check-input" type="radio" name="jeune_conducteur" id="jeune_conducteur">
-                </span>
-                <span>
-                    <label class="form-check-label" for="not_jeune_conducteur">
-                        Non
-                    </label>
-                    <input class="form-check-input" type="radio" name="jeune_conducteur" id="not_jeune_conducteur" checked>
-                </span>
-            </div>
-            <div class="mb-3 espacePerso-input-permis">
-                Avec boite manuelle ?
-                <span>
-                    <label class="form-check-label" for="boite_manuelle">
-                        Oui
-                    </label>
-                    <input class="form-check-input" type="radio" name="boite_manuelle" id="boite_manuelle">
-                </span>
-                <span>
-                    <label class="form-check-label" for="not_boite_manuelle">
-                        Non
-                    </label>
-                    <input class="form-check-input" type="radio" name="boite_manuelle" id="not_boite_manuelle" checked>
-                </span>
-            </div>
-            <button type="submit" class="btn btn-primary">Soumettre mes réponses</button>
-        </form>
-        <br>
-        <button class="btn btn-primary" onclick="changeView('restoration', 'cards')">Retour</button>
+            <button class="btn btn-primary" onclick="changeView('restoration', 'cards')">Retour</button>
     </div>
 
     <div class="onglet" id="affaires">
