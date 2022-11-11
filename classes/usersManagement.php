@@ -19,13 +19,84 @@ class Users
     public $vegetarian;
     public $prepa_repas;
     public $allergie;
+    public $permis;
+    public $jeune_conducteur;
+    public $boite_manuelle;
 
-    public static function connectUser()
+    //les paramètres sont à null pour match la méthode sql de récupération de données
+    public function __construct(
+        $id = null,
+        $mail = null,
+        $hash = null,
+        $creationTime = null,
+        $valid = null,
+        $lastConn = null,
+        $nom = null,
+        $prenom = null,
+        $promotion = null,
+        $chauffeur = null,
+        $num_places = null,
+        $paid = null,
+        $certificat = null,
+        $root = null,
+        $vegetarian = null,
+        $prepa_repas = null,
+        $allergie = null,
+        $permis = null,
+        $jeune_conducteur = null,
+        $boite_manuelle = null
+    ) {
+        $this->id = $id;
+        $this->mail = $mail;
+        $this->hash = $hash;
+        $this->creationTime = $creationTime;
+        $this->valid = $valid;
+        $this->lastConn = $lastConn;
+        $this->nom = $nom;
+        $this->prenom = $prenom;
+        $this->promotion = $promotion;
+        $this->chauffeur = $chauffeur;
+        $this->num_places = $num_places;
+        $this->paid = $paid;
+        $this->certificat = $certificat;
+        $this->root = $root;
+        $this->vegetarian = $vegetarian;
+        $this->prepa_repas = $prepa_repas;
+        $this->allergie = $allergie;
+        $this->permis = $permis;
+        $this->jeune_conducteur = $jeune_conducteur;
+        $this->boite_manuelle = $boite_manuelle;
+    }
+
+
+
+    public static function connectX($auth)
+    {
+        global $conn;
+        list($nom, $prenom, $promo, $mail) = $auth;
+        $select = $conn->prepare("SELECT * FROM users WHERE mail=?");
+        $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Users');
+        $select->execute(array($mail));
+
+        // create account if first time
+        if ($select->rowCount() == 0) {
+            $insert = $conn->prepare("insert into users (mail, hash, nom, prenom, promo) values (?,?)");
+            $insert->execute(array($mail, null, $nom, $prenom, $promo));
+            return Users::connectX($auth);
+        } else {
+            $user = $select->fetch();
+            $user = new Users($nom, $prenom, $promo, $mail);
+            $user->connect();
+            return true;
+        }
+    }
+
+    public static function connectExte()
     {
         global $conn;
         extract($_POST);
         $select = $conn->prepare("SELECT * FROM users WHERE mail=?");
-        $select->setFetchMode(PDO::FETCH_CLASS, 'Users');
+        $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Users');
         $select->execute(array($mail));
         $n = $select->rowCount();
 
@@ -39,22 +110,28 @@ class Users
         } else {
             $user = $select->fetch();
             if (password_verify($mdp, $user->hash)) {
-                session_unset();
-                $_SESSION["id"] = $user->id;
-                $_SESSION["root"] = $user->root;
-                if ($user->prenom != null) {
-                    $_SESSION["name"] = $user->prenom;
-                }
-                $update = $conn->prepare("update users set lastConn=CURRENT_TIMESTAMP WHERE id=?");
-                $update->execute(array($user->id));
-
-                $_SESSION["displayValid"] = "Vous êtes bien connecté";
+                $user->connect();
                 return true;
             } else {
                 $_SESSION["displayError"] = "Mot de passe incorrect, veuillez réessayer";
                 return false;
             }
         }
+    }
+
+    private function connect()
+    {
+        global $conn;
+        session_unset();
+        $_SESSION["id"] = $this->id;
+        $_SESSION["root"] = $this->root;
+        if ($this->prenom != null) {
+            $_SESSION["name"] = $this->prenom;
+        }
+        $update = $conn->prepare("update users set lastConn=CURRENT_TIMESTAMP WHERE id=?");
+        $update->execute(array($this->id));
+
+        $_SESSION["displayValid"] = "Vous êtes bien connecté";
     }
 
     public static function newUser()
@@ -85,7 +162,7 @@ class Users
 
                 $select = $conn->prepare('SELECT id FROM users WHERE mail=?');
                 $select->execute(array($mail));
-                $select->setFetchMode(PDO::FETCH_CLASS, 'Users');
+                $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Users');
                 $id = $select->fetch()->id;
 
                 $_SESSION["id"] = $id;
@@ -157,7 +234,7 @@ class Users
         $_SESSION["name"] = $firstname;
     }
 
-    public static function updateAlimentation()
+    public static function updateLogistique()
     {
         global $conn;
         $id = $_SESSION["id"];
@@ -167,17 +244,21 @@ class Users
         extract($_POST);
         $vegetarian = (int) ($vegetarian == "vege");
         $prepa_repas = (int) ($prepa_repas == "prepa");
+        $permis  = (int) ($permis == "permis");
+        $jeune_conducteur  = (int) ($permis == "jeune_conducteur");
+        $boite_manuelle  = (int) ($permis == "boite_manuelle");
+
         if ($allergie == "")
             $allergie  = null;
-        $update = $conn->prepare("UPDATE users SET vegetarian=?, prepa_repas=?, allergie=?  WHERE id=?");
-        $update->execute(array($vegetarian, $prepa_repas, $allergie, $id));
+        $update = $conn->prepare("UPDATE users SET vegetarian=?, prepa_repas=?, allergie=?, permis=?, jeune_conducteur=?, boite_manuelle=?  WHERE id=?");
+        $update->execute(array($vegetarian, $prepa_repas, $allergie, $permis, $jeune_conducteur, $boite_manuelle, $id));
     }
 
     public static function getUserPersonnalData()
     {
         global $conn;
         $select = $conn->prepare("SELECT nom, prenom, hash, promotion, chauffeur, paid, certificat, vegetarian, prepa_repas, allergie FROM users WHERE id=?");
-        $select->setFetchMode(PDO::FETCH_CLASS, 'Users');
+        $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Users');
         $select->execute(array($_SESSION["id"]));
         return $select->fetch();
     }

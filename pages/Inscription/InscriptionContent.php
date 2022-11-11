@@ -1,4 +1,4 @@
-<div class="formContainer inscriptionForm">
+<div class="centerer-container inscriptionForm">
     <form class="ms-4" method="post" action="?page=Inscription">
         <div class="mb-3">
             <label for="mail" class="form-label">Email</label>

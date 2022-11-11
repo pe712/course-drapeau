@@ -20,7 +20,7 @@
     width: 400px;
 }
 
-.formContainer {
+.centerer-container {
     display: flex;
     justify-content: center;
     margin-top: 50px;
@@ -228,6 +228,22 @@ footer img {
 #espacePerso-input-allergie{
     display: none;
 }
+
+.espacePerso-input-permis{
+    display: none;
+}
+
+/*******************************************************************/
+/* connect */
+/*******************************************************************/
+#connect-form{
+    display: none;
+}
+.connect-btn{
+    width: 400px;
+    font-size: x-large;
+}
+
 
 /*******************************************************************/
 /* Tree View */

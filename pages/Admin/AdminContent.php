@@ -107,7 +107,7 @@ FIN;
 
   <!-- Vue GPX -->
   <div id="admin-GPX-onglet" class="admin-onglet">
-    <div class="formContainer">
+    <div class="centerer-container">
       <form enctype="multipart/form-data" action="?page=Admin&pageModif=Accueil&section=2" method="post">
         <div class="mb-3">
           <input type="hidden" name="MAX_FILE_SIZE" value="30000000" />
@@ -118,7 +118,7 @@ FIN;
       </form>
     </div>
 
-    <div class="formContainer">
+    <div class="centerer-container">
       <form enctype="multipart/form-data" action="?page=Admin&pageModif=Accueil&section=2" method="post">
         <div class="mb-3">
           <input type="hidden" name="MAX_FILE_SIZE" value="30000000" />

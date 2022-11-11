@@ -210,6 +210,21 @@ $(document).ready(function () {
 })
 
 
+/**************** connect *************************/
+function callCASUrl() {
+    let callback = encodeURIComponent(document.location.origin + "?page=Connect")
+    // document.cookie = "CAScallback=" + callback;
+    document.location = "https://cas.binets.fr/login?service=" + callback
+}
+
+$(document).ready(function () {
+    $("#connect-btn-exte").click(function (e) {
+        e.preventDefault();
+        changeView("connect-choice", "connect-form", "none", "flex")
+
+    });
+});
+
 /**************** Espace Perso *************************/
 var setHref = function (event) {
     event.preventDefault()
@@ -277,5 +292,13 @@ $(document).ready(function () {
 
     $("#espacePerso-not_allergie").click(function () {
         $("#espacePerso-input-allergie").hide()
+    });
+
+    $("#espacePerso-permis").click(function () {
+        $(".espacePerso-input-permis").show()
+    });
+
+    $("#espacePerso-not_permis").click(function () {
+        $(".espacePerso-input-permis").hide()
     });
 });

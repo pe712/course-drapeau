@@ -45,11 +45,11 @@ FIN;
 FIN;
         } else {
         ?>
-            <div class="nav-container">
+            <!-- <div class="nav-container">
                 <div id="Inscription" class="nav-content">Inscription</div>
                 <div class="nav-bar nav-top"></div>
                 <div class="nav-bar nav-bot"></div>
-            </div>
+            </div> -->
             <div class="nav-container">
                 <div id="Connect" class="nav-content">Me connecter</div>
                 <div class="nav-bar nav-top"></div>
