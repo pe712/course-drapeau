@@ -85,10 +85,10 @@ class Users
         if ($select->rowCount() == 0) {
             $insert = $conn->prepare("insert into users (mail, hash, nom, prenom, promotion) values (?,?,?,?,?)");
             $insert->execute(array($mail, "none", $nom, $prenom, $promo));
-            return Users::connectX(null, $nom, $prenom, $mail, $promo);
+            return Users::connectX(nom:$nom, prenom:$prenom, mail:$mail, promo:$promo);
         } else {
             $user = $select->fetch();
-            $user = new Users($nom, $prenom, $promo, $mail);
+            $user = new Users(nom:$nom, prenom:$prenom, mail:$mail, promotion:$promo);
             $user->connect();
             return true;
         }
