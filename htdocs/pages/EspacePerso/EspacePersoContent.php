@@ -323,7 +323,7 @@ FIN;
             Liste d'affaires à emmener:
         </p>
         <ul>
-            <li>Affaires de sport</li>
+            <li>Affaires de sport chaudes (courrir de nuit en hiver peut être subissant)</li>
             <li>1 montre avec GPS éventuellement (pour suivre l'itinéraire)</li>
             <li>1 sac de couchage </li>
             <li>De l'argent au cas où</li>
