@@ -274,7 +274,7 @@ class Users
     public static function getUserPersonnalData()
     {
         global $conn;
-        $select = $conn->prepare("SELECT nom, prenom, hash, promotion, chauffeur, paid, certificat, vegetarian, prepa_repas, allergie FROM users WHERE id=?");
+        $select = $conn->prepare("SELECT * FROM users WHERE id=?");
         $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Users');
         $select->execute(array($_SESSION["id"]));
         return $select->fetch();
