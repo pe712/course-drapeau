@@ -6,6 +6,7 @@ class Connect extends Page
         if (array_key_exists("ticket", $_GET)) {
             // connexion X
             $auth = CAS::CAS_get_response();
+            var_dump($auth);
             if ($auth && Users::connectX($auth)) {
                 $this->load = "EspacePerso";
             }
