@@ -6,8 +6,11 @@ class CAS{
     /**
     * Récupération de l'id de l'utilisateur correspondant à ce ticket, ainsi que les informations demandées
     */
+    var_dump('https://cas.binets.fr/serviceValidate?service='.rawurlencode($site).'&ticket='
+    .$_GET['ticket']);
    $response = file_get_contents('https://cas.binets.fr/serviceValidate?service='.rawurlencode($site).'&ticket='
   .$_GET['ticket']);
+  var_dump($response);
   
    $doc = new DOMDocument();
    $doc->loadXML($response);
