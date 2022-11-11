@@ -18,7 +18,6 @@ $(document).ready(function () {
     })
 
     $("#modifyPerso").click(function () {
-        $(this).hide();
         changeView("espacePerso-modify-infosPerso", "formPerso")
     });
     
@@ -30,7 +29,7 @@ $(document).ready(function () {
     $("#retourFromInfo").click(function () {
         if (document.getElementById("modifyPerso")) {
             $("#modifyPerso").show();
-            changeView("espacePerso-modify-infosPerso", "formPerso")
+            changeView("formPerso", "espacePerso-modify-infosPerso")
         }
     });
 

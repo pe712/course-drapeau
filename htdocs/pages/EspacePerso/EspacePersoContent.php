@@ -85,10 +85,12 @@ else
                 echo '<div id="formPerso" class="centerer-container">';
             else {
             ?>
-                <p id="espacePerso-modify-infosPerso espacePerso-firstLine">Vous avez déjà complété cet onglet.</p>
+                <div id="espacePerso-modify-infosPerso">
+                    <p class="espacePerso-firstLine">Vous avez déjà complété cet onglet.</p>
 
-                <button id="modifyPerso" class="btn btn-primary">Modifier mes informations</button>
-                <br><br>
+                    <button id="modifyPerso" class="btn btn-primary">Modifier mes informations</button>
+                    <br><br>
+                </div>
                 <div id="formPerso" class="centerer-container" style="display:none">
                 <?php
             }
@@ -210,8 +212,7 @@ FIN;
             <br><br>
             <div id="espacePerso-form-logistique" style="display:none">
             <?php
-        }
-        else{
+        } else {
             echo '<div id="espacePerso-form-logistique">';
         }
             ?>
