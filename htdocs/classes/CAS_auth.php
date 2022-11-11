@@ -2,7 +2,7 @@
 class CAS{
   public static function CAS_get_response(){
 
-    $site = 'https://course-drapeau.binets.fr/';
+    $site = 'https://course-drapeau.binets.fr/?page=Connect';
     /**
     * Récupération de l'id de l'utilisateur correspondant à ce ticket, ainsi que les informations demandées
     */
