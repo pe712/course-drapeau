@@ -18,12 +18,12 @@ $(document).ready(function () {
     })
 
     $("#modifyPerso").click(function () {
-        changeView("espacePerso-modify-infosPerso", "formPerso")
+        changeView("espacePerso-modify-infosPerso", "formPerso", "none", "inherit")
     });
     
     $("#modifyPerso").click(function () {
         $(this).hide();
-        changeView("espacePerso-modify-infosPerso", "formPerso")
+        changeView("espacePerso-modify-infosPerso", "formPerso", "none", "flex")
     });
 
     $("#retourFromInfo").click(function () {
