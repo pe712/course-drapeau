@@ -287,7 +287,7 @@ FIN;
                     <input class="form-check-input" type="radio" name="jeune_conducteur" id="not_jeune_conducteur" checked>
                 </span>
             </div>
-            <div class="mb-3" class="espacePerso-input-permis">
+            <div class="mb-3 espacePerso-input-permis">
                 Avec boite manuelle ?
                 <span>
                     <label class="form-check-label" for="boite_manuelle">
