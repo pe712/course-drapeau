@@ -73,6 +73,7 @@ class Users
     public static function connectX($auth)
     {
         global $conn;
+        var_dump($auth);
         list($nom, $prenom, $promo, $mail) = $auth;
         $select = $conn->prepare("SELECT * FROM users WHERE mail=?");
         $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Users');
