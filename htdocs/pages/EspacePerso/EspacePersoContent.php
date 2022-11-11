@@ -173,7 +173,7 @@ FIN;
     <div class="onglet" id="payement">
         <?php
         if ($user->chauffeur)
-            echo '<p>Vous n\'avez pas besoin de payer la course</p>';
+            echo '<p class="espacePerso-firstLine">Vous n\'avez pas besoin de payer la course</p>';
         else
             echo '<p class="espacePerso-firstLine">Le paiement sera ultérieur. De l\'ordre de 60€/pers</p>';
         /* 
