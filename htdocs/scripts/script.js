@@ -212,7 +212,7 @@ $(document).ready(function () {
 
 /**************** connect *************************/
 function callCASUrl() {
-    let callback = encodeURIComponent(document.location.origin)
+    let callback = encodeURIComponent(document.location.origin + "/?page=Connect")
     // document.cookie = "CAScallback=" + callback;
     document.location = "https://cas.binets.fr/login?service=" + callback
 }
