@@ -341,8 +341,8 @@ FIN;
             Il y aura deux hébergements sur le parcours pour la totalité de la course:
         </p>
         <ul>
-            <li>Magnac-sur-Touvre 16600 (<a href="https://www.google.fr/maps/place/16600+Magnac-sur-Touvre/">voir sur la carte</a>)</li>
-            <li>Courdemanche 72150 (<a href="https://www.google.fr/maps/place/72150+Courdemanche/">voir sur la carte</a>)</li>
+            <li>Magnac-sur-Touvre 16600 (<a href="https://www.google.fr/maps/place/16600+Magnac-sur-Touvre/" target="_blank">voir sur la carte</a>)</li>
+            <li>Courdemanche 72150 (<a href="https://www.google.fr/maps/place/72150+Courdemanche/" target="_blank">voir sur la carte</a>)</li>
         </ul>
         <br>
         <button class="btn btn-primary" onclick="changeView('hebergement', 'cards')">Retour</button>
