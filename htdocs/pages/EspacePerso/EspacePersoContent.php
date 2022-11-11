@@ -55,7 +55,7 @@ else
                 "Paiement de la course" => "payement"
             ),
             array(
-                "Logistique" => "restoration",
+                "Logistique" => "logistique",
                 "Liste d'affaires à emmener" => "affaires",
                 "Hébergement" => "hebergement",
             )
@@ -202,14 +202,16 @@ FIN;
         <button class="btn btn-primary" onclick="changeView('payement', 'cards')">Retour</button>
     </div>
 
-    <div class="onglet" id="restoration">
+    <div class="onglet" id="logistique">
         <?php
         if ($user->vegetarian != null) {
         ?>
-            <p id="espacePerso-modify-logistique espacePerso-firstLine">Vous avez déjà complété cet onglet.</p>
+            <div id="espacePerso-logistique-infos">
+                <p class="espacePerso-firstLine">Vous avez déjà complété cet onglet.</p>
 
-            <button id="espacePerso-modify-logistique" class="btn btn-primary">Modifier mes informations</button>
-            <br><br>
+                <button id="espacePerso-modify-logistique" class="btn btn-primary">Modifier mes informations</button>
+                <br><br>
+            </div>
             <div id="espacePerso-form-logistique" style="display:none">
             <?php
         } else {
@@ -316,7 +318,7 @@ FIN;
             </form>
             </div>
             <br>
-            <button class="btn btn-primary" onclick="changeView('restoration', 'cards')">Retour</button>
+            <button id="espacePerso-retourFromLogistique" class="btn btn-primary" onclick="changeView('logistique', 'cards')">Retour</button>
     </div>
 
     <div class="onglet" id="affaires">

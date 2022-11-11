@@ -21,15 +21,19 @@ $(document).ready(function () {
         changeView("espacePerso-modify-infosPerso", "formPerso", "none", "inherit")
     });
     
-    $("#modifyPerso").click(function () {
-        $(this).hide();
-        changeView("espacePerso-modify-infosPerso", "formPerso", "none", "flex")
+    $("#espacePerso-modify-logistique").click(function () {
+        changeView("espacePerso-logistique-infos", "espacePerso-form-logistique", "none", "inherit")
     });
-
+    
     $("#retourFromInfo").click(function () {
         if (document.getElementById("modifyPerso")) {
-            $("#modifyPerso").show();
             changeView("formPerso", "espacePerso-modify-infosPerso")
+        }
+    });
+    
+    $("#espacePerso-retourFromLogistique").click(function () {
+        if (document.getElementById("espacePerso-logistique-infos")) {
+            changeView("espacePerso-form-logistique", "espacePerso-logistique-infos")
         }
     });
 
