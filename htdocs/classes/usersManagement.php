@@ -68,28 +68,40 @@ class Users
         $this->boite_manuelle = $boite_manuelle;
     }
 
-
-
-    public static function connectX($auth)
+    public static function connectX($auth=null, $nom=null, $prenom=null, $mail=null, $promo = null)
     {
         global $conn;
-        var_dump($auth);
-        list($nom, $prenom, $promo, $mail) = $auth;
+        if ($auth!=null){
+            $nom = $auth["nom"];
+            $prenom =$auth["prenom"];
+            $mail = $auth["email"];
+            $memberOf = $auth["memberOf"];
+            $promo = Users::whatPromo($memberOf);
+        }
         $select = $conn->prepare("SELECT * FROM users WHERE mail=?");
         $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Users');
         $select->execute(array($mail));
-
         // create account if first time
         if ($select->rowCount() == 0) {
-            $insert = $conn->prepare("insert into users (mail, hash, nom, prenom, promo) values (?,?)");
-            $insert->execute(array($mail, null, $nom, $prenom, $promo));
-            return Users::connectX($auth);
+            $insert = $conn->prepare("insert into users (mail, hash, nom, prenom, promotion) values (?,?,?,?,?)");
+            $insert->execute(array($mail, "none", $nom, $prenom, $promo));
+            return Users::connectX(null, $nom, $prenom, $mail, $promo);
         } else {
             $user = $select->fetch();
             $user = new Users($nom, $prenom, $promo, $mail);
             $user->connect();
             return true;
         }
+    }
+
+    private static function whatPromo($memberOf){
+        foreach ($memberOf as $group) {
+            $groupName = preg_split("/[=,]/", $group)[1];
+            if (substr($groupName,0, 7)=="promo_x"){
+                return substr($groupName,7, 11);
+            }
+        }
+        return false;
     }
 
     public static function connectExte()

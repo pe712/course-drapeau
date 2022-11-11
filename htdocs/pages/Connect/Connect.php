@@ -6,16 +6,17 @@ class Connect extends Page
         if (array_key_exists("ticket", $_GET)) {
             // connexion X
             $auth = CAS::CAS_get_response();
-            var_dump($auth);
             if ($auth && Users::connectX($auth)) {
                 $this->load = "EspacePerso";
             }
-        } else {
-            // connexion exté
-            if (array_key_exists("mail", $_POST) &&  Users::connectExte()) {
-                $this->load = "EspacePerso";
-            }
-        }
+            else{
         parent::__construct($sections);
+            }
+        } elseif (array_key_exists("mail", $_POST) &&  Users::connectExte()) {
+                // connexion exté
+                $this->load = "EspacePerso";
+        }else{
+            parent::__construct($sections);
+        }
     }
 }
