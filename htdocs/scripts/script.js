@@ -19,15 +19,18 @@ $(document).ready(function () {
 
     $("#modifyPerso").click(function () {
         $(this).hide();
-        $(".infosPerso").hide();
-        $("#formPerso").show();
+        changeView("espacePerso-modify-infosPerso", "formPerso")
+    });
+    
+    $("#modifyPerso").click(function () {
+        $(this).hide();
+        changeView("espacePerso-modify-infosPerso", "formPerso")
     });
 
     $("#retourFromInfo").click(function () {
         if (document.getElementById("modifyPerso")) {
             $("#modifyPerso").show();
-            $(".infosPerso").show();
-            $("#formPerso").hide();
+            changeView("espacePerso-modify-infosPerso", "formPerso")
         }
     });
 
