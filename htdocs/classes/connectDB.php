@@ -3,7 +3,11 @@ class Database
 {
     public static function connect()
     {
-        require("../config.php");
+        if (basename(getcwd()) == "htdocs")
+            require("../config.php");
+        else
+            require("../../config.php");
+
         $conn = null;
         try {
             $conn = new PDO(

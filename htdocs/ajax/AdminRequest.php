@@ -4,13 +4,11 @@ session_start();
 
 $files = glob('../classes/*.php');
 foreach ($files as $file) {
-    require($file);   
+    require($file);
 }
 
 $conn = Database::connect();
-Users::isRoot();
-
-if (array_key_exists("todo", $_GET)) {
+if (Users::isRoot() && array_key_exists("todo", $_GET)) {
     if ($_GET["todo"] == "removeGPX")
         GPX::removeGPX();
     elseif ($_GET["todo"] == "calculHoraires") {
