@@ -36,17 +36,10 @@ Setup:
 --------------------------------------------------
 -utilisateur qui ait les droit de tables ??
 
-
 --------------------------------------------------
-priorités 1 
-Donner l'accès aux lieux d'hébergements:
--emplacements et consignes
-le copiage du point GPS copie beaucoup de blancs
-
---------------------------------------------------
-priorité 2 
 -répartition des trinomes : permettre le choix des trinomes et des chauffeurs par préférence
 --> système de demandes et d'acceptations
 
 Voir avec Chronoconsult et blanchard@chronoconsult.fr pour les balise et l'intégration du suivi des concurrents
 
+git pull sur le serveur

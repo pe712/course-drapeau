@@ -25,10 +25,9 @@
             <th>Télécharger la trace</th>
         </tr>
         <?php
-        $select = $conn->prepare("SELECT id, UNIX_TIMESTAMP(heure_dep) as heure_dep, UNIX_TIMESTAMP(heure_arr) as heure_arr,gps_dep, gps_arr FROM tracesgpx");
-        $select->setFetchMode(PDO::FETCH_CLASS, 'GPX');
-        $select->execute();
-        while ($trace = $select->fetch()) {
+        include("colors.php");
+        $traces = GPX::getGPXdata();
+        while ($trace = $traces->fetch()) {
             $date_dep = new DateTime();
             $date_arr = new DateTime();
             $date_dep->setTimestamp($trace->heure_dep);
@@ -39,20 +38,29 @@
             $url_gps_dep = urlencode($gps_dep);
             $gps_arr = htmlspecialchars($trace->gps_arr);
             $url_gps_arr = urlencode($gps_arr);
+            if ($trace->trinome_id == null)
+                $trinome = "A venir";
+            elseif ($trace->trinome_id == -1) {
+                $trinome = "tous";
+                $color = $colors[12];
+            } else {
+                $trinome = $trace->trinome_id;
+                $color = $colors[$trinome - 1];
+            }
             echo <<<FIN
         <tr>
             <td>$trace->id</td>
-            <td>A venir</td>
+            <td style="background-color: $color">$trinome</td>
             <td>$date_dep</td>
-            <td id="pdep$trace->id">
-                <a href="https://www.google.fr/maps/search/$url_gps_dep" target="_blank">$gps_dep</a>
+            <td>
+                <a href="https://www.google.fr/maps/search/$url_gps_dep" target="_blank" id="pdep$trace->id">$gps_dep</a>
                 <button class="troncons-button">
                     <img class="troncons-icon" src="img/icons/clipboard.png" alt="copy to clipboard" onclick="copier('pdep$trace->id', 'Point GPS copié dans le presse-papier')">
                 </button>
             </td>
             <td>$date_arr</td>
-            <td id="parr$trace->id">
-            <a href="https://www.google.fr/maps/search/$url_gps_arr" target="_blank">$gps_arr</a>
+            <td>
+            <a href="https://www.google.fr/maps/search/$url_gps_arr" target="_blank" id="parr$trace->id">$gps_arr</a>
                 <button class="troncons-button">
                     <img class="troncons-icon" src="img/icons/clipboard.png" alt="copy to clipboard" onclick="copier('parr$trace->id', 'Point GPS copié dans le presse-papier')">
                 </button>
@@ -74,6 +82,4 @@ FIN;
 
 </div>
 
-
-
-<script src="../scripts/map.js"></script>
+<script src="scripts/map.js"></script>

@@ -22,6 +22,7 @@ class Users
     public $permis;
     public $jeune_conducteur;
     public $boite_manuelle;
+    public $trinome_id;
 
     //les paramètres sont à null pour match la méthode sql de récupération de données
     public function __construct(
@@ -44,7 +45,8 @@ class Users
         $allergie = null,
         $permis = null,
         $jeune_conducteur = null,
-        $boite_manuelle = null
+        $boite_manuelle = null,
+        $trinome_id = null
     ) {
         $this->id = $id;
         $this->mail = $mail;
@@ -66,6 +68,7 @@ class Users
         $this->permis = $permis;
         $this->jeune_conducteur = $jeune_conducteur;
         $this->boite_manuelle = $boite_manuelle;
+        $this->trinome_id = $trinome_id;
     }
 
     public static function connectX($auth = null, $nom = null, $prenom = null, $mail = null, $promotion = null)
@@ -77,7 +80,7 @@ class Users
             $mail = $auth["email"];
             $memberOf = $auth["memberOf"];
             $promotion = Users::whatPromo($memberOf);
-            if (!$promotion){
+            if (!$promotion) {
                 $_SESSION["displayError"] = "Vous n'êtes pas dans le cycle ingénieur";
                 return false;
             }
@@ -89,7 +92,7 @@ class Users
         if ($select->rowCount() == 0) {
             $insert = $conn->prepare("insert into users (mail, hash, nom, prenom, promotion) values (?,?,?,?,?)");
             $insert->execute(array($mail, "none", $nom, $prenom, $promotion));
-            return Users::connectX(null, $nom, $prenom, $mail, $promotion);
+            return Users::connectX(null, htmlspecialchars($nom), htmlspecialchars($prenom), htmlspecialchars($mail), htmlspecialchars($promotion));
         } else {
             $user = $select->fetch();
             $user->connect();
@@ -268,6 +271,8 @@ class Users
 
         if ($allergie == "")
             $allergie  = null;
+        else
+            $allergie = htmlspecialchars($allergie);
         $update = $conn->prepare("UPDATE users SET vegetarian=?, prepa_repas=?, allergie=?, permis=?, jeune_conducteur=?, boite_manuelle=?  WHERE id=?");
         $update->execute(array($vegetarian, $prepa_repas, $allergie, $permis, $jeune_conducteur, $boite_manuelle, $id));
     }
@@ -289,7 +294,7 @@ class Users
         else
             $n = 2;
         $x = 1 / $n;
-        if ($this->prenom != null && $this->nom != null && $this->promotion != null && $this->chauffeur!=null)
+        if ($this->prenom != null && $this->nom != null && $this->promotion != null && $this->chauffeur != null)
             $score += $x;
         if ($this->paid)
             $score += $x;
@@ -318,5 +323,33 @@ class Users
             return false;
         } else
             return true;
+    }
+
+    public static function getTroncons()
+    {
+        global $conn;
+        $id = $_SESSION["id"];
+        $select = $conn->prepare("SELECT users.trinome_id as trinome_id, tracesgpx.id as troncon_id from users join tracesgpx on tracesgpx.trinome_id=users.trinome_id where users.id=?");
+        $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Users');
+        $select->execute(array($id));
+        $n = $select->rowCount();
+        if ($n == 0) {
+            return false;
+        } else {
+            $troncons = array();
+            while ($troncon = $select->fetch()) {
+                array_push($troncons, $troncon->troncon_id);
+                $trinome_id = $troncon->trinome_id;
+            }
+            if ($trinome_id == null) {
+                // les troncons ne sont pas répartis
+                return false;
+            } else {
+                return array(
+                    'trinome_id' => $trinome_id,
+                    "troncons" => $troncons
+                );
+            }
+        }
     }
 }

@@ -11,6 +11,6 @@
 
 <script src="scripts/script.js"></script>
 
-<link rel="stylesheet" href="../lib/leaflet/leaflet.css">
+<link rel="stylesheet" href="lib/leaflet/leaflet.css">
 <script src="lib/leaflet/leaflet.js"></script>
 <script src="lib/leaflet-gpx/gpx.js"></script>

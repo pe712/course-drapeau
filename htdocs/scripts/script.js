@@ -128,7 +128,7 @@ $(document).ready(function () {
 /**************** Contact *************************/
 
 function copier(id, texte) {
-    call_cs_popup(texte, 1500);
+    call_cs_popup(texte, 2000);
     navigator.clipboard.writeText(document.getElementById(id).textContent);
 }
 
@@ -169,7 +169,6 @@ function updateInscription() {
     }
     else
         unvalidate("c");
-    console.log(mdp.length);
     var percent = score / 16 * 100;
     var pg = document.getElementById("inscription-progress-bar");
     pg.style.width = percent + "%";
@@ -253,8 +252,7 @@ $(document).ready(function () {
 
     $("#espacePerso-modifyCertif").click(function (e) {
         e.preventDefault();
-        $("#espacePerso-certificatUpload").show();
-        $("#espacePerso-messageCertif").hide();
+        changeView("espacePerso-certificatUpload", "espacePerso-messageCertif")
     });
 
     /* $("#espacePerso-download").delegate("[download]", "click", setHref); */
@@ -263,12 +261,10 @@ $(document).ready(function () {
         event.preventDefault()
 
         var path = $("#espacePerso-download").children().text()
-        console.log(path)
 
         $.post("ajax/AdminRequest.php?todo=download", {
             path: path,
         }, function (data) {
-            console.log(data)
             $("#espacePerso-download").attr("href", data)
             $(event.currentTarget).data('isOk', true);
             event.currentTarget.click();

@@ -68,5 +68,5 @@ FIN;
 </header>
 
 <?php
-require("includes/Display.php");
+require("pages/includes/Display.php");
 ?>
