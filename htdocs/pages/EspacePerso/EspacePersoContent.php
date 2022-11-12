@@ -59,7 +59,8 @@ else
                 "Hébergement" => "hebergement",
             ),
             array(
-                "Mes troncons" => "troncons"
+                "Mes troncons" => "troncons",
+                "Mon trinôme" => "trinomes",
             )
         );
         foreach ($lines as $line) {
@@ -84,7 +85,9 @@ else
         <?php
         foreach ($lines as $line) {
             foreach ($line as $value) {
+                echo "<div class=onglet id=$value>";
                 require("pages/EspacePerso/cards/$value.php");
+                echo "</div>";
             }
         }
         ?>

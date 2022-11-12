@@ -1,5 +1,3 @@
-<div class="onglet" id="troncons">
-
 <?php
 require("pages/Troncons/colors.php");
 $troncons = Users::getTroncons();
@@ -22,4 +20,4 @@ else{
     echo '<p class="espacePerso-firstLine">Les troncons ne sont pas encore répartis ou alors tu ne fais pas encore partie d\'un trinôme</p>';
 }
 ?>
-</div>
+    <button class="btn btn-primary" onclick="changeView('troncons', 'cards')">Retour</button>
