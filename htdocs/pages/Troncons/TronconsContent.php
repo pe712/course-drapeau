@@ -44,15 +44,15 @@
             <td>$trace->id</td>
             <td>A venir</td>
             <td>$date_dep</td>
-            <td id="pdep$trace->id">
-                <a href="https://www.google.fr/maps/search/$url_gps_dep" target="_blank">$gps_dep</a>
+            <td>
+                <a href="https://www.google.fr/maps/search/$url_gps_dep" target="_blank" id="pdep$trace->id">$gps_dep</a>
                 <button class="troncons-button">
                     <img class="troncons-icon" src="img/icons/clipboard.png" alt="copy to clipboard" onclick="copier('pdep$trace->id', 'Point GPS copié dans le presse-papier')">
                 </button>
             </td>
             <td>$date_arr</td>
-            <td id="parr$trace->id">
-            <a href="https://www.google.fr/maps/search/$url_gps_arr" target="_blank">$gps_arr</a>
+            <td>
+            <a href="https://www.google.fr/maps/search/$url_gps_arr" target="_blank" id="parr$trace->id">$gps_arr</a>
                 <button class="troncons-button">
                     <img class="troncons-icon" src="img/icons/clipboard.png" alt="copy to clipboard" onclick="copier('parr$trace->id', 'Point GPS copié dans le presse-papier')">
                 </button>

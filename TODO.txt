@@ -39,8 +39,6 @@ Setup:
 
 --------------------------------------------------
 priorités 1 
-Donner l'accès aux lieux d'hébergements:
--emplacements et consignes
 le copiage du point GPS copie beaucoup de blancs
 
 --------------------------------------------------
