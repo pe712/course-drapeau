@@ -23,7 +23,7 @@ extract($page_info);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
-    <?php require("includes/linksAndScripts.php") ?>
+    <?php require("pages/includes/linksAndScripts.php") ?>
 </head>
 
 <body>
@@ -33,7 +33,7 @@ extract($page_info);
         ?>
     </div>
     <?php
-    require("includes/footer.php")
+    require("pages/includes/footer.php")
     ?>
 </body>
 

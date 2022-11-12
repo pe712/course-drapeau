@@ -85,7 +85,7 @@ class PageListing
             PageListing::load($name);
         }
         else {
-            require("includes/navbar.php");
+            require("pages/includes/navbar.php");
             echo $page->content;
         }
     }
