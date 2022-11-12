@@ -1,12 +1,12 @@
 TODO
 --------------------------------------------------
 * Construire un archivage de la base de donnée et des documents personnels /pages/espacePerso
+cronjob
 * Onglets à rajouter:
 -suivi du concurrent
--don
 -photos
+-onglet de suivi coté administratif
 
-Voir avec Chronoconsult et blanchard@chronoconsult.fr pour les balise et l'intégration du suivi des concurrents
 
 --------------------------------------------------
 Mettre un moyen plus efficace et moderne d'upload les fichiers xlsx et csv
@@ -19,36 +19,34 @@ https://phpspreadsheet.readthedocs.io/en/latest/#getting-started
 + par le nombre d'inscrits
 
 --------------------------------------------------
-Admin:
+Admin (non urgent):
 -une modification d'un item ne permet plus de voir tous les items
 -l'ajout d'un item recharge la page, ce qui est pénible, il faut le faire en asynchronous
 
---------------------------------------------------
 Mettre dans l'arborescence de Admin le "title" des pages et non son "name"
 Supprimer les chiffres en anglais de AboutContent s'ils ne sont nécessaires (c'est probable)
-Supprimer les section pagetorequire de la page_list
 --------------------------------------------------
 Setup:
--vérifier qu'il n'y a pas de fichier superflu en ligne
+-git clone et vérifier qu'il n'y a pas de fichier superflu en ligne
+-setup les identifiants de la db
 -upload la db
--mettre le db_username et le db_mdp dans un fichier .key au dessus du dossier hmtl
-définir un cronjob pour supprimer les fichiers temporaires
+-définir un cronjob pour supprimer les fichiers temporaires
 -redéfinir les limites d'upload
 
 --------------------------------------------------
-Espace personnel:
+-utilisateur qui ait les droit de tables ??
+
+
+--------------------------------------------------
+priorités 1 
 Donner l'accès aux lieux d'hébergements:
 -emplacements et consignes
+le copiage du point GPS copie beaucoup de blancs
 
--permettre le choix des trinomes et des chauffeurs par préférence
+--------------------------------------------------
+priorité 2 
+-répartition des trinomes : permettre le choix des trinomes et des chauffeurs par préférence
 --> système de demandes et d'acceptations
 
--mettre les sondage sur les préférences alimentaires
+Voir avec Chronoconsult et blanchard@chronoconsult.fr pour les balise et l'intégration du suivi des concurrents
 
--mettre la liste des affaires à emporter
-
-creer un mail
-un groupe sigma
-migrer sur l'hébergement du BR
-
-le copiage du point GPS copie beaucoup de blancs
