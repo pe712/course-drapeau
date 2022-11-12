@@ -25,21 +25,7 @@
             <th>Télécharger la trace</th>
         </tr>
         <?php
-        $colors = array(
-            '#550a35',
-            '#033e3e',
-            '#77bfc7',
-            '#737ca1',
-            '#151b54',
-            '#783f04',
-            '#efba68',
-            '#ce7e00',
-            '#006400',
-            '#347c17',
-            '#8ac209',
-            '#b8ea85',
-            '#a0382b'
-        );
+        include("colors.php");
         $traces = GPX::getGPXdata();
         while ($trace = $traces->fetch()) {
             $date_dep = new DateTime();

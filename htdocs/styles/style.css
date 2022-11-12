@@ -242,6 +242,12 @@ footer img {
     margin-bottom: 5px;
 }
 
+.espacePerso-content-troncons-color{
+    width: 50px;
+    text-align: center;
+    display: inline-block;
+}
+
 /*******************************************************************/
 /* connect */
 /*******************************************************************/

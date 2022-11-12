@@ -80,7 +80,7 @@ class Users
             $mail = $auth["email"];
             $memberOf = $auth["memberOf"];
             $promotion = Users::whatPromo($memberOf);
-            if (!$promotion){
+            if (!$promotion) {
                 $_SESSION["displayError"] = "Vous n'êtes pas dans le cycle ingénieur";
                 return false;
             }
@@ -292,7 +292,7 @@ class Users
         else
             $n = 2;
         $x = 1 / $n;
-        if ($this->prenom != null && $this->nom != null && $this->promotion != null && $this->chauffeur!=null)
+        if ($this->prenom != null && $this->nom != null && $this->promotion != null && $this->chauffeur != null)
             $score += $x;
         if ($this->paid)
             $score += $x;
@@ -321,5 +321,33 @@ class Users
             return false;
         } else
             return true;
+    }
+
+    public static function getTroncons()
+    {
+        global $conn;
+        $id = $_SESSION["id"];
+        $select = $conn->prepare("SELECT users.trinome_id as trinome_id, tracesgpx.id as troncon_id from users join tracesgpx on tracesgpx.trinome_id=users.trinome_id where users.id=?");
+        $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Users');
+        $select->execute(array($id));
+        $n = $select->rowCount();
+        if ($n == 0) {
+            return false;
+        } else {
+            $troncons = array();
+            while ($troncon = $select->fetch()) {
+                array_push($troncons, $troncon->troncon_id);
+                $trinome_id = $troncon->trinome_id;
+            }
+            if ($trinome_id == null) {
+                // les troncons ne sont pas répartis
+                return false;
+            } else {
+                return array(
+                    'trinome_id' => $trinome_id,
+                    "troncons" => $troncons
+                );
+            }
+        }
     }
 }

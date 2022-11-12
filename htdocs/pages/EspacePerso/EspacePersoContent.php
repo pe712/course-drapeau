@@ -57,6 +57,9 @@ else
                 "Logistique" => "logistique",
                 "Liste d'affaires à emmener" => "affaires",
                 "Hébergement" => "hebergement",
+            ),
+            array(
+                "Mes troncons" => "troncons"
             )
         );
         foreach ($lines as $line) {
