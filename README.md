@@ -18,7 +18,7 @@ Vous pouvez ajouter un lien dans le contenu. Comme tous les caractères spéciau
 Vous pouvez visiter google !lien!https://google.com!ici! et je peux continuer mon texte.
 Pour faire un lien plus évolué avec des attributs, je demande uniquement l'url à l'utilisateur et j'utilise filter_var($url, FILTER_VALIDATE_URL) [voir le lien de la cagnotte lydia dans pages/EspacePerso]
 
-Pour créer une nouvelle page, il suffit de la placer dans le dossier pages et de remplir le tableau de includes/pagelist.php
+Pour créer une nouvelle page, il suffit de la placer dans le dossier pages et de remplir le tableau du fichier pageManagement
 
 
 ## Utiliser le site
@@ -62,7 +62,7 @@ Il faut définir un cronjob.sh comme cronjob sur le serveur
 
 ## Contact
 
-Lien du projet: [https://github.com/pe712/Modal-WEB](https://github.com/pe712/Modal-WEB)
+Lien du projet: [https://github.com/pe712/Site-web-php-course-Bordeaux-X](https://github.com/pe712/Site-web-php-course-Bordeaux-X)
 
 
 ## Fait avec
