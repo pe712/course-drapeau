@@ -20,9 +20,6 @@ if ($user->nom != null) {
     $dossier = "pages/EspacePerso/upload/";
     $name = "certificat_" . $user->prenom . "_" . $user->nom . ".pdf";
 
-    if (!is_dir($dossier))
-        mkdir($dossier);
-
     if (isset($_FILES['certificat'])) {
         Users::uploadCertificat($dossier, $name);
         $user = Users::getUserPersonnalData();
