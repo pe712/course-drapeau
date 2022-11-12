@@ -55,9 +55,10 @@ Pour ce site, des librairies php on été utilisés et téléchargées à l'aide
 Mettre en place la connexion sécurisée SSL.
 
 ### Base de données
-N'importe quelle base de données relationnelle convient. Pour setup la base de données il faut exécuter le code sql setup.sql présent dans ce répertoire.
+N'importe quelle base de données relationnelle convient. Il faut modifier les données de config.php en conséquence
 
-
+### Crons
+Il faut définir un cronjob.sh comme cronjob sur le serveur
 
 ## Contact
 
