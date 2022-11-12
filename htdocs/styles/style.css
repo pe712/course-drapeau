@@ -233,6 +233,15 @@ footer img {
     display: none;
 }
 
+.espacePerso-content-hebergement{
+    margin-left: 40px;
+    margin-top: 23px;
+}
+
+.espacePerso-content-hebergement-intro{
+    margin-bottom: 5px;
+}
+
 /*******************************************************************/
 /* connect */
 /*******************************************************************/
