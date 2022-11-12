@@ -61,7 +61,7 @@ N'importe quelle base de données relationnelle convient. Pour setup la base de 
 
 ## Contact
 
-Lien du projet: [https://github.com/pe712/Modal-WEB](https://github.com/pe712/Modal-WEB)
+Lien du projet: [https://github.com/pe712/Site-web-php-course-Bordeaux-X](https://github.com/pe712/Site-web-php-course-Bordeaux-X)
 
 
 ## Fait avec
