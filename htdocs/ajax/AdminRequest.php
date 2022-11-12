@@ -8,12 +8,12 @@ foreach ($files as $file) {
 }
 
 $conn = Database::connect();
-if (Users::isRoot() && array_key_exists("todo", $_GET)) {
-    if ($_GET["todo"] == "removeGPX")
+if (array_key_exists("todo", $_GET)) {
+    if ($_GET["todo"] == "removeGPX" && Users::isRoot())
         GPX::removeGPX();
-    elseif ($_GET["todo"] == "calculHoraires") {
+    elseif ($_GET["todo"] == "calculHoraires" && Users::isRoot()) {
         GPX::calculHoraires();
-    } elseif ($_GET["todo"] == "contentModif") {
+    } elseif ($_GET["todo"] == "contentModif" && Users::isRoot()) {
         Content::update_db();
     } elseif ($_GET["todo"] == "download") {
         Download::download_file();

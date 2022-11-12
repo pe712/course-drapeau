@@ -229,6 +229,7 @@ class Users
         global $conn;
         $certif = new Upload(array("pdf", "PDF"), 500000, $dossier);
         $file = $_FILES['certificat'];
+        $name = preg_replace("/[^a-z_\.\-]/i", "_", $name);
         if ($certif->upload($name, $file)) {
             $update = $conn->prepare("UPDATE users SET certificat=true WHERE id=?");
             $update->execute(array($_SESSION["id"]));

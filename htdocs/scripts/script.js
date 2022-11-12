@@ -236,7 +236,6 @@ var setHref = function (event) {
     event.preventDefault()
 
     var path = $("#espacePerso-download").children().text()
-    console.log(path)
 
     $.post("ajax/AdminRequest.php?todo=download", {
         path: path,
