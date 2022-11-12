@@ -76,4 +76,4 @@ FIN;
 
 
 
-<script src="../scripts/map.js"></script>
+<script src="scripts/map.js"></script>
