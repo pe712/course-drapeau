@@ -128,7 +128,7 @@ $(document).ready(function () {
 /**************** Contact *************************/
 
 function copier(id, texte) {
-    call_cs_popup(texte, 1500);
+    call_cs_popup(texte, 2000);
     navigator.clipboard.writeText(document.getElementById(id).textContent);
 }
 
