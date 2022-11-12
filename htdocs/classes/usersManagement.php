@@ -92,7 +92,7 @@ class Users
         if ($select->rowCount() == 0) {
             $insert = $conn->prepare("insert into users (mail, hash, nom, prenom, promotion) values (?,?,?,?,?)");
             $insert->execute(array($mail, "none", $nom, $prenom, $promotion));
-            return Users::connectX(null, $nom, $prenom, $mail, $promotion);
+            return Users::connectX(null, htmlspecialchars($nom), htmlspecialchars($prenom), htmlspecialchars($mail), htmlspecialchars($promotion));
         } else {
             $user = $select->fetch();
             $user->connect();
@@ -271,6 +271,8 @@ class Users
 
         if ($allergie == "")
             $allergie  = null;
+        else
+            $allergie = htmlspecialchars($allergie);
         $update = $conn->prepare("UPDATE users SET vegetarian=?, prepa_repas=?, allergie=?, permis=?, jeune_conducteur=?, boite_manuelle=?  WHERE id=?");
         $update->execute(array($vegetarian, $prepa_repas, $allergie, $permis, $jeune_conducteur, $boite_manuelle, $id));
     }
