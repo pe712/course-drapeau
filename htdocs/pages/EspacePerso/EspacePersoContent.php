@@ -14,7 +14,6 @@ else
 
 $user = Users::getUserPersonnalData();
 /**************** variables du dossier d'upload *************************/
-var_dump($user);
 if ($user->nom != null) {
     //on ne veut pas donner directement l'id
     $dossier = "pages/EspacePerso/upload/";
