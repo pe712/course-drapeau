@@ -25,10 +25,8 @@
             <th>Télécharger la trace</th>
         </tr>
         <?php
-        $select = $conn->prepare("SELECT id, UNIX_TIMESTAMP(heure_dep) as heure_dep, UNIX_TIMESTAMP(heure_arr) as heure_arr,gps_dep, gps_arr FROM tracesgpx");
-        $select->setFetchMode(PDO::FETCH_CLASS, 'GPX');
-        $select->execute();
-        while ($trace = $select->fetch()) {
+        $traces = GPX::getGPXdata();
+        while ($trace = $traces->fetch()) {
             $date_dep = new DateTime();
             $date_arr = new DateTime();
             $date_dep->setTimestamp($trace->heure_dep);
@@ -39,10 +37,16 @@
             $url_gps_dep = urlencode($gps_dep);
             $gps_arr = htmlspecialchars($trace->gps_arr);
             $url_gps_arr = urlencode($gps_arr);
+            if ($trace->trinome_id == null)
+                $trinome = "A venir";
+            elseif($trace->trinome_id == -1)
+            $trinome = "tous";
+            else
+                $trinome = $trace->trinome_id;
             echo <<<FIN
         <tr>
             <td>$trace->id</td>
-            <td>A venir</td>
+            <td>$trinome</td>
             <td>$date_dep</td>
             <td>
                 <a href="https://www.google.fr/maps/search/$url_gps_dep" target="_blank" id="pdep$trace->id">$gps_dep</a>

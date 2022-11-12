@@ -36,11 +36,6 @@ Setup:
 --------------------------------------------------
 -utilisateur qui ait les droit de tables ??
 
-
---------------------------------------------------
-priorités 1 
-le copiage du point GPS copie beaucoup de blancs
-
 --------------------------------------------------
 priorité 2 
 -répartition des trinomes : permettre le choix des trinomes et des chauffeurs par préférence

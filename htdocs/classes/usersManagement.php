@@ -22,6 +22,7 @@ class Users
     public $permis;
     public $jeune_conducteur;
     public $boite_manuelle;
+    public $trinome_id;
 
     //les paramètres sont à null pour match la méthode sql de récupération de données
     public function __construct(
@@ -44,7 +45,8 @@ class Users
         $allergie = null,
         $permis = null,
         $jeune_conducteur = null,
-        $boite_manuelle = null
+        $boite_manuelle = null,
+        $trinome_id = null
     ) {
         $this->id = $id;
         $this->mail = $mail;
@@ -66,6 +68,7 @@ class Users
         $this->permis = $permis;
         $this->jeune_conducteur = $jeune_conducteur;
         $this->boite_manuelle = $boite_manuelle;
+        $this->trinome_id = $trinome_id;
     }
 
     public static function connectX($auth = null, $nom = null, $prenom = null, $mail = null, $promotion = null)

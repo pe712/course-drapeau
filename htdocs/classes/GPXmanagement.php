@@ -3,10 +3,11 @@
 class GPX
 {
     public $id;
-    public $h_dep;
-    public $h_arr;
+    public $heure_dep;
+    public $heure_arr;
     public $gps_dep;
     public $gps_arr;
+    public $trinome_id;
 
     public static function uploadGPX_updateDB_multiple()
     {
@@ -112,5 +113,36 @@ class GPX
             }
             echo "Les horaires des traces ont été mis à jour en fontion de l'heure de départ et d'arrivée";
         }
+        GPX::repartition_blocs($n);
+    }
+
+    private static function repartition_blocs($n_creneaux)
+    {
+        global $conn;
+        $n_creneaux_groupes = $n_creneaux / 4;
+        $G = 6; //groupes de deux trinomes = nombres de groupes dans chaque bloc
+        $decallage_bloc = round($G * $G / $n_creneaux_groupes);
+        $n_blocs = floor($n_creneaux_groupes / $G);
+        for ($kbloc = 0; $kbloc < $n_blocs; $kbloc++) {
+            for ($kgroupe = 0; $kgroupe < $G; $kgroupe++) {
+                $firstid_groupe = ($kgroupe + $decallage_bloc * $kbloc) % $G;
+                $firstid = $kbloc * $G * 4 + $kgroupe * 4+1;
+                for ($i=0; $i < 4; $i++) {
+                    $groupe_courant=$firstid_groupe*2+($i%2)+1;
+                    $id = $firstid + $i;
+                    $update = $conn->query("update tracesgpx set trinome_id=$groupe_courant where id=$id");
+                }
+            }
+        }
+    }
+
+
+    public static function getGPXdata()
+    {
+        global $conn;
+        $select = $conn->prepare("SELECT id, UNIX_TIMESTAMP(heure_dep) as heure_dep, UNIX_TIMESTAMP(heure_arr) as heure_arr,gps_dep, gps_arr, trinome_id FROM tracesgpx");
+        $select->setFetchMode(PDO::FETCH_CLASS, 'GPX');
+        $select->execute();
+        return $select;
     }
 }
