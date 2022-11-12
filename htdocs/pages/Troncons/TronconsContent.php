@@ -25,6 +25,21 @@
             <th>Télécharger la trace</th>
         </tr>
         <?php
+        $colors = array(
+            '#550a35',
+            '#033e3e',
+            '#77bfc7',
+            '#737ca1',
+            '#151b54',
+            '#783f04',
+            '#efba68',
+            '#ce7e00',
+            '#006400',
+            '#347c17',
+            '#8ac209',
+            '#b8ea85',
+            '#a0382b'
+        );
         $traces = GPX::getGPXdata();
         while ($trace = $traces->fetch()) {
             $date_dep = new DateTime();
@@ -39,14 +54,17 @@
             $url_gps_arr = urlencode($gps_arr);
             if ($trace->trinome_id == null)
                 $trinome = "A venir";
-            elseif($trace->trinome_id == -1)
-            $trinome = "tous";
-            else
+            elseif ($trace->trinome_id == -1) {
+                $trinome = "tous";
+                $color = $colors[12];
+            } else {
                 $trinome = $trace->trinome_id;
+                $color = $colors[$trinome - 1];
+            }
             echo <<<FIN
         <tr>
             <td>$trace->id</td>
-            <td>$trinome</td>
+            <td style="background-color: $color">$trinome</td>
             <td>$date_dep</td>
             <td>
                 <a href="https://www.google.fr/maps/search/$url_gps_dep" target="_blank" id="pdep$trace->id">$gps_dep</a>
@@ -77,7 +95,5 @@ FIN;
     <div id="cs-popup-area"></div>
 
 </div>
-
-
 
 <script src="scripts/map.js"></script>
