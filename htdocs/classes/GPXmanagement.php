@@ -114,15 +114,16 @@ class GPX
     private static function calcul2($hdep)
     {
         global $conn;
-        $delta = 70*60;
-        for ($i=1; $i <= 10; $i++) { 
-            GPX::update($hdep, $hdep+$delta, $i);
-            $hdep+=$delta;
+        $delta = 70 * 60;
+        for ($i = 1; $i <= 10; $i++) {
+            GPX::update($hdep, $hdep + $delta, $i);
+            $hdep += $delta;
         }
         echo "Les horaires des traces ont été mis à jour en fontion de l'heure de départ et d'arrivée";
     }
 
-    private static function update($hdep, $harr, $id){
+    private static function update($hdep, $harr, $id)
+    {
         global $conn;
         $update = $conn->prepare("UPDATE tracesgpx set heure_dep=FROM_UNIXTIME(?), heure_arr=FROM_UNIXTIME(?) where id =?");
         $update->execute(array($hdep, $harr, $id));
@@ -161,10 +162,14 @@ class GPX
     }
 
 
-    public static function getGPXdata()
+    public static function getGPXdata($trinome = null)
     {
         global $conn;
-        $select = $conn->prepare("SELECT id, UNIX_TIMESTAMP(heure_dep) as heure_dep, UNIX_TIMESTAMP(heure_arr) as heure_arr,gps_dep, gps_arr, trinome_id FROM tracesgpx");
+        if ($trinome == null) {
+            $select = $conn->prepare("SELECT id, UNIX_TIMESTAMP(heure_dep) as heure_dep, UNIX_TIMESTAMP(heure_arr) as heure_arr,gps_dep, gps_arr, trinome_id FROM tracesgpx");
+        } else {
+            $select = $conn->prepare("SELECT id, UNIX_TIMESTAMP(heure_dep) as heure_dep, UNIX_TIMESTAMP(heure_arr) as heure_arr,gps_dep, gps_arr, trinome_id FROM tracesgpx where trinome_id=$trinome");
+        }
         $select->setFetchMode(PDO::FETCH_CLASS, 'GPX');
         $select->execute();
         return $select;
