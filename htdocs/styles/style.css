@@ -87,7 +87,7 @@ footer img {
 }
 
 .adminView {
-    max-width: 100vw;
+    max-width: 90vw;
 }
 
 #modifyPerso {
@@ -170,7 +170,7 @@ footer img {
 }
 
 .card-body h2 {
-    font-size: 1.5rem;
+    font-size: 2vh
 }
 
 
@@ -179,7 +179,7 @@ footer img {
 }
 
 .espacePersoMainContainer {
-    padding: 0 10% 0 10%;
+    padding: 0 6% 0 6%;
 }
 
 .parité {
@@ -327,16 +327,14 @@ ul,
 /*******************************************************************/
 /* Accueil */
 /*******************************************************************/
-#accueil {
-    margin-left: 20vw;
-    background-image: url(../img/logo_BX.png);
-    background-repeat: no-repeat;
-    background-size: 60vw;
-    min-height: 63vw;
+#accueil{
+    display: flex;
+    justify-content: center;
 }
 
-.accueil-img {
-    height: 300px;
+#logo_BX{
+    width: 70vw;
+    max-width: 500px;
 }
 
 
