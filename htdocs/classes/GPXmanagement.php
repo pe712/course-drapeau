@@ -98,22 +98,46 @@ class GPX
             else
                 $harr = $horaire->contenu;
         }
-        $duration = $harr - $hdep;
         $select = $conn->query("SELECT * from tracesgpx");
         $n = $select->rowCount();
-        if ($n == 0)
+        if ($n == 0) {
             echo "Il n'y aucune trace GPX pour le moment";
-        else {
-            $delta = $duration / $n;
-            $current_delta = 0;
-            for ($i = 1; $i <= $n; $i++) {
-                $update = $conn->prepare("UPDATE tracesgpx set heure_dep=FROM_UNIXTIME(?), heure_arr=FROM_UNIXTIME(?) where id =?");
-                $update->execute(array($hdep + $current_delta, $hdep + $current_delta + $delta, $i));
-                $current_delta += $delta;
-            }
-            echo "Les horaires des traces ont été mis à jour en fontion de l'heure de départ et d'arrivée";
+            return;
         }
+
+        // GPX::calcul1($hdep, $harr, $n);
+        GPX::calcul2($hdep);
+
         GPX::repartition_blocs($n);
+    }
+
+    private static function calcul2($hdep)
+    {
+        global $conn;
+        $delta = 70*60;
+        for ($i=1; $i <= 10; $i++) { 
+            GPX::update($hdep, $hdep+$delta, $i);
+            $hdep+=$delta;
+        }
+        echo "Les horaires des traces ont été mis à jour en fontion de l'heure de départ et d'arrivée";
+    }
+
+    private static function update($hdep, $harr, $id){
+        global $conn;
+        $update = $conn->prepare("UPDATE tracesgpx set heure_dep=FROM_UNIXTIME(?), heure_arr=FROM_UNIXTIME(?) where id =?");
+        $update->execute(array($hdep, $harr, $id));
+    }
+
+    private static function calcul1($hdep, $harr, $n)
+    {
+        $duration = $harr - $hdep;
+        $delta = $duration / $n;
+        $current_delta = 0;
+        for ($i = 1; $i <= $n; $i++) {
+            GPX::update($hdep + $current_delta, $hdep + $current_delta + $delta, $i);
+            $current_delta += $delta;
+        }
+        echo "Les horaires des traces ont été mis à jour en fontion de l'heure de départ et d'arrivée";
     }
 
     private static function repartition_blocs($n_creneaux)
@@ -126,9 +150,9 @@ class GPX
         for ($kbloc = 0; $kbloc < $n_blocs; $kbloc++) {
             for ($kgroupe = 0; $kgroupe < $G; $kgroupe++) {
                 $firstid_groupe = ($kgroupe + $decallage_bloc * $kbloc) % $G;
-                $firstid = $kbloc * $G * 4 + $kgroupe * 4+1;
-                for ($i=0; $i < 4; $i++) {
-                    $groupe_courant=$firstid_groupe*2+($i%2)+1;
+                $firstid = $kbloc * $G * 4 + $kgroupe * 4 + 1;
+                for ($i = 0; $i < 4; $i++) {
+                    $groupe_courant = $firstid_groupe * 2 + ($i % 2) + 1;
                     $id = $firstid + $i;
                     $update = $conn->query("update tracesgpx set trinome_id=$groupe_courant where id=$id");
                 }
