@@ -117,6 +117,10 @@ class GPX
         for ($i=0; $i < sizeof($segments)-2; $i+=2) { 
             $hdep = GPX::update_jour_nuit($hdep, $segments[$i], $segments[$i+1], $segments[$i+2]);
         }
+        $delta_jour = 65 * 60;
+        GPX::update($hdep, $hdep + $delta_jour, 77);
+        $hdep += $delta_jour;
+        GPX::update($hdep, $hdep + $delta_jour, 78);
         echo "Les horaires des traces ont été mis à jour en fontion de l'heure de départ et d'arrivée";
     }
 
