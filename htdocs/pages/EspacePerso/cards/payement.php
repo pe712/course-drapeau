@@ -14,7 +14,7 @@ else if (!$user->paid) {
   FIN;
   ?>
   <p id="espacePerso-messagePaiement">
-    Dès que le paiement sera validé, vous recevrez un mail et cet onglet sera mis à jour.
+    Quand nous aurons vérifié votre paiement, cet onglet sera mis à jour. Nous vérifions à la main, cela ne sera pas fait automatiquement.
   </p>
 <?php } else {
 ?>
