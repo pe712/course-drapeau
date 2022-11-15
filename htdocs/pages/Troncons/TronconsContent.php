@@ -1,8 +1,8 @@
-<div class="btn-group adminView" role="group" aria-label="Basic radio toggle button group" id="troncons-switch">
+<div class="btn-group adminView default-margin" role="group" aria-label="Basic radio toggle button group" id="troncons-switch">
     <input type="radio" class="btn-check" name="btnradio" id="btnradio1" onclick="changeView('map', 'tronconsListe')" checked>
     <label class="btn btn-outline-primary" for="btnradio1">Liste</label>
 
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" onclick="changeView('tronconsListe', 'map'); add_gpx('pages/Troncons/traces/trace_complete.gpx', 0)">
+    <input type="radio" class="btn-check " name="btnradio" id="btnradio2" onclick="changeView('tronconsListe', 'map'); add_gpx('pages/Troncons/traces/trace_complete.gpx', 0)">
     <label class="btn btn-outline-primary" for="btnradio2">Visualisation parcours complet</label>
 </div>
 
@@ -12,7 +12,7 @@
 
 
 
-<div id=tronconsListe>
+<div id="tronconsListe">
     <table id="troncons-table" class="table table-striped table-hover">
         <tr>
             <th style="width:10px">Numéro troncon</th>
