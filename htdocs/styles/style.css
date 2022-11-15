@@ -116,27 +116,27 @@ footer img {
     margin-bottom: 30px;
 }
 
-.admin-icon{
+.admin-icon {
     height: 15px;
 }
 
-.admin-button-add{
+.admin-button-add {
     border: none;
     background-color: transparent;
     font-weight: bolder;
     text-align: right;
 }
 
-#admin-add{
+#admin-add {
     display: none;
 }
 
-.admin-form{
+.admin-form {
     display: none;
 }
 
-.admin-new-area{
-    margin-left: 30px;   
+.admin-new-area {
+    margin-left: 30px;
 }
 
 /*******************************************************************/
@@ -187,7 +187,7 @@ footer img {
     background-color: rgba(17, 73, 147, 0.381);
 }
 
-.admin-structure-page{
+.admin-structure-page {
     padding-bottom: 20px;
 }
 
@@ -205,41 +205,41 @@ footer img {
     margin-top: 30px;
 }
 
-.form-check{
+.form-check {
     display: inline-block;
 }
 
-#espacePerso-num_places{
+#espacePerso-num_places {
     display: none;
 }
 
-#espacePerso-form-desc{
-    font-size:medium;
+#espacePerso-form-desc {
+    font-size: medium;
     font-style: italic;
 }
 
-#formPerso{
+#formPerso {
     margin-top: 0;
 }
 
-#espacePerso-input-allergie{
+#espacePerso-input-allergie {
     display: none;
 }
 
-.espacePerso-input-permis{
+.espacePerso-input-permis {
     display: none;
 }
 
-.espacePerso-content-hebergement{
+.espacePerso-content-hebergement {
     margin-left: 40px;
     margin-top: 23px;
 }
 
-.espacePerso-content-hebergement-intro{
+.espacePerso-content-hebergement-intro {
     margin-bottom: 5px;
 }
 
-.espacePerso-content-troncons-color{
+.espacePerso-content-troncons-color {
     width: 50px;
     text-align: center;
     display: inline-block;
@@ -248,10 +248,11 @@ footer img {
 /*******************************************************************/
 /* connect */
 /*******************************************************************/
-#connect-form{
+#connect-form {
     display: none;
 }
-.connect-btn{
+
+.connect-btn {
     width: 400px;
     font-size: x-large;
 }
@@ -324,10 +325,11 @@ ul,
 /* Accueil */
 /*******************************************************************/
 #accueil {
-    margin-left: 30vw;
+    margin-left: 20vw;
     background-image: url(../img/logo_BX.png);
-    background-repeat:no-repeat;
-    min-height: 550px;
+    background-repeat: no-repeat;
+    background-size: 60vw;
+    min-height: 63vw;
 }
 
 .accueil-img {
