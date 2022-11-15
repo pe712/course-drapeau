@@ -113,13 +113,25 @@ class GPX
 
     private static function calcul2($hdep)
     {
-        global $conn;
-        $delta = 70 * 60;
-        for ($i = 1; $i <= 10; $i++) {
-            GPX::update($hdep, $hdep + $delta, $i);
-            $hdep += $delta;
+        $segments = array(1, 4, 16, 25, 36, 45, 57, 65, 77);
+        for ($i=0; $i < sizeof($segments)-2; $i+=2) { 
+            $hdep = GPX::update_jour_nuit($hdep, $segments[$i], $segments[$i+1], $segments[$i+2]);
         }
         echo "Les horaires des traces ont été mis à jour en fontion de l'heure de départ et d'arrivée";
+    }
+
+    private static function update_jour_nuit($hdep, $start, $end, $stop){
+        $delta_jour = 65 * 60;
+        $delta_nuit = 75 * 60;
+        for ($i = $start; $i < $end; $i++) {
+            GPX::update($hdep, $hdep + $delta_jour, $i);
+            $hdep += $delta_jour;
+        }
+        for ($i = $end; $i < $stop; $i++) {
+            GPX::update($hdep, $hdep + $delta_nuit, $i);
+            $hdep += $delta_nuit;
+        }
+        return $hdep;
     }
 
     private static function update($hdep, $harr, $id)
