@@ -5,7 +5,7 @@ $numbers = array("Two", "Three", "Four", "Five", "Six", "Seven", "Height", "Nine
 ?>
 
 <section>
-    <h2 class="aboutH2">Foire Aux Questions</h2>
+    <h2 class="default-margin">Foire Aux Questions</h2>
     <div class="accordion">
         <div class="accordion-item">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -36,7 +36,7 @@ $numbers = array("Two", "Three", "Four", "Five", "Six", "Seven", "Height", "Nine
 FIN;
         }
         ?>
-    <p id="about-messageFin">Tu n'a pas trouvé ta réponse, n'hésites pas à <a href="?page=Contact">nous contacter.</a></p>
+    <p id="about-messageFin" class="default-margin">Tu n'a pas trouvé ta réponse, n'hésites pas à <a href="?page=Contact">nous contacter.</a></p>
     </div>
     
 </section>
