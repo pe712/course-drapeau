@@ -234,7 +234,7 @@ class Users
         $file = $_FILES['certificat'];
         $name = preg_replace("/[^a-z_\.\-]/i", "_", $name);
         if ($certif->upload($name, $file)) {
-            $update = $conn->prepare("UPDATE users SET certificat=true WHERE id=?");
+            $update = $conn->prepare("UPDATE users SET certificat=$name WHERE id=?");
             $update->execute(array($_SESSION["id"]));
         }
     }
@@ -298,7 +298,7 @@ class Users
             $score += $x;
         if ($this->paid)
             $score += $x;
-        if ($this->certificat)
+        if ($this->certificat!=null)
             $score += $x;
         if ($this->vegetarian != null && $this->prepa_repas != null)
             $score += $x;

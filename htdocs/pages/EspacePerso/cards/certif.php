@@ -4,7 +4,7 @@ if ($user->chauffeur == null) {
 } elseif ($user->chauffeur) {
     echo '<p class="espacePerso-firstLine">Vous n\'avez pas besoin de renseigner de certificat.</p>';
 } else {
-    if ($user->certificat) {
+    if ($user->certificat!=null) {
         echo '<div class="centerer-container" style="display: none;" id="espacePerso-certificatUpload">';
     } else {
         echo '<div class="centerer-container" id="espacePerso-certificatUpload">';
@@ -20,7 +20,7 @@ if ($user->chauffeur == null) {
     </form>
     </div>
     <?php
-    if ($user->certificat) {
+    if ($user->certificat!=null) {
         $path = $dossier . $name;
     ?>
         <p id="espacePerso-messageCertif" class="espacePerso-firstLine">Vous avez déjà mis votre certificat médical. Cliquez
