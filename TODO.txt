@@ -36,10 +36,8 @@ Setup:
 --------------------------------------------------
 -utilisateur qui ait les droit de tables ??
 
---------------------------------------------------
--répartition des trinomes : permettre le choix des trinomes et des chauffeurs par préférence
---> système de demandes et d'acceptations
+rajouter les batteries pour les petzel
 
 Voir avec Chronoconsult et blanchard@chronoconsult.fr pour les balise et l'intégration du suivi des concurrents
 
-git pull sur le serveur
+
