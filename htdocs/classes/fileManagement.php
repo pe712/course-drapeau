@@ -47,7 +47,9 @@ class Download{
           $dest = "tmp/$salt.$extension";
           $to = "../$dest";
           $from = "../$path";
-          copy($from, $to);
-          echo $dest;
+          if (copy($from, $to))
+               echo $dest;
+          else
+               echo "echec";
      }
 }
