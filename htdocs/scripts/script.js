@@ -252,7 +252,7 @@ $(document).ready(function () {
 
     $("#espacePerso-modifyCertif").click(function (e) {
         e.preventDefault();
-        changeView("espacePerso-certificatUpload", "espacePerso-messageCertif")
+        changeView("espacePerso-messageCertif", "espacePerso-certificatUpload")
     });
 
     /* $("#espacePerso-download").delegate("[download]", "click", setHref); */
