@@ -21,10 +21,9 @@ if ($user->chauffeur == null) {
     </div>
     <?php
     if ($user->certificat!=null) {
-        $path = $dossier . $name;
     ?>
         <p id="espacePerso-messageCertif" class="espacePerso-firstLine">Vous avez déjà mis votre certificat médical. Cliquez
-            <a href="" id="espacePerso-download" download><span hidden><?= $path ?></span>ici</a> pour le voir et
+            <a href="" id="espacePerso-download" download>ici</a> pour le voir et
             <a href="" id="espacePerso-modifyCertif">ici</a> pour le modifier
         </p>
 <?php

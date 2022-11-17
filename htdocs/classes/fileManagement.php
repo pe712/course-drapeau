@@ -42,22 +42,16 @@ class Download
 {
      public static function download_file()
      {
-          $path = $_POST["path"];
           $user = Users::getUserPersonnalData();
-          $dossier = "pages/EspacePerso/upload/";
-          $name = "certificat_" . $user->prenom . "_" . $user->nom . ".pdf";
-          if ($dossier.$name==$path){
-               $salt = random_int(0, 100000000000);
-               $extension = substr(strrchr($path, "."), 1);
-               $dest = "tmp/$salt.$extension";
-               $to = "../$dest";
-               $from = "../$path";
-               if (copy($from, $to))
-                    echo $dest;
-               else
-                    echo "echec";
-          }
+          $filename = $user->certificat;
+          $salt = random_int(0, 100000000000);
+          $extension = substr(strrchr($filename, "."), 1);
+          $dest = "tmp/$salt.$extension";
+          $to = "../$dest";
+          $from = "../pages/EspacePerso/upload/$filename";
+          if (copy($from, $to))
+               echo $dest;
           else
-               echo "Vous n'avez pas le droit de télécharger ce fichier";
+               echo "echec";
      }
 }

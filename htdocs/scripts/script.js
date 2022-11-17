@@ -231,20 +231,6 @@ $(document).ready(function () {
 });
 
 /**************** Espace Perso *************************/
-var setHref = function (event) {
-    event.preventDefault()
-
-    var path = $("#espacePerso-download").children().text()
-
-    $.post("ajax/AdminRequest.php?todo=download", {
-        path: path,
-    }, function (data) {
-        $("#espacePerso-download").attr("href", data)
-    });
-    $(event.currentTarget).data('isConfirming', true);
-    event.currentTarget.click();
-};
-
 $(document).ready(function () {
     $("#espacePerso-lienPaiement").click(function () {
         $("#espacePerso-messagePaiement").show();
@@ -255,16 +241,10 @@ $(document).ready(function () {
         changeView("espacePerso-messageCertif", "espacePerso-certificatUpload")
     });
 
-    /* $("#espacePerso-download").delegate("[download]", "click", setHref); */
     $("#espacePerso-download").click(function (event) {
         if ($(event.currentTarget).data('isOk')) return;
         event.preventDefault()
-
-        var path = $("#espacePerso-download").children().text()
-
-        $.post("ajax/AdminRequest.php?todo=download", {
-            path: path,
-        }, function (data) {
+        $.post("ajax/AdminRequest.php?todo=download", function (data) {
             $("#espacePerso-download").attr("href", data)
             $(event.currentTarget).data('isOk', true);
             event.currentTarget.click();
