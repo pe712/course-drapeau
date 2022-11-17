@@ -20,13 +20,13 @@ class Upload
                $_SESSION["displayError"] = "Vous devez uploader un fichier de type $extension_name";
                return false;
           }
-          
+
           $taille = filesize($file['tmp_name']);
           if ($taille > $this->taille_maxi || $file["error"] == 2) {
                $_SESSION["displayError"] = 'Le fichier est trop gros...';
                return false;
           }
-          
+
           if (move_uploaded_file($file['tmp_name'], $this->dossier . $finalName)) {
                $_SESSION["displayValid"] = "Upload effectué avec succès !";
                return true;
@@ -38,18 +38,26 @@ class Upload
 }
 
 
-class Download{
+class Download
+{
      public static function download_file()
      {
           $path = $_POST["path"];
-          $salt = random_int(0, 100000000000);
-          $extension = substr(strrchr($path, "."), 1);
-          $dest = "tmp/$salt.$extension";
-          $to = "../$dest";
-          $from = "../$path";
-          if (copy($from, $to))
-               echo $dest;
+          $user = Users::getUserPersonnalData();
+          $dossier = "pages/EspacePerso/upload/";
+          $name = "certificat_" . $user->prenom . "_" . $user->nom . ".pdf";
+          if ($dossier.$name==$path){
+               $salt = random_int(0, 100000000000);
+               $extension = substr(strrchr($path, "."), 1);
+               $dest = "tmp/$salt.$extension";
+               $to = "../$dest";
+               $from = "../$path";
+               if (copy($from, $to))
+                    echo $dest;
+               else
+                    echo "echec";
+          }
           else
-               echo "echec";
+               echo "Vous n'avez pas le droit de télécharger ce fichier";
      }
 }
