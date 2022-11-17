@@ -15,7 +15,7 @@
 <div id="tronconsListe">
     <table id="troncons-table" class="table table-striped table-hover">
         <tr>
-            <th style="width:10px">Numéro troncon</th>
+            <th style="width:10px">Numéro tronçon</th>
             <th>Groupe de coureurs</th>
             <th>Heure de départ</th>
             <th>Point GPS de départ</th>

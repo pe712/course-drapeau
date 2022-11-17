@@ -34,7 +34,7 @@ if ($x == 1)
     $texte = "Bravo" . $prenom . ", tu as complété tout ton espace personnel.";
 
 else
-    $texte = "Bienvenue" . $prenom . ", tu en est à $val du remplissage de ton espace personnel.";
+    $texte = "Bienvenue" . $prenom . ", tu en es à $val du remplissage de ton espace personnel.";
 
 
 ?>
@@ -59,7 +59,7 @@ else
                 "Hébergement" => "hebergement",
             ),
             array(
-                "Mes troncons" => "troncons",
+                "Mes tronçons" => "troncons",
                 "Mon trinôme" => "trinomes",
             )
         );

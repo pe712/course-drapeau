@@ -6,7 +6,7 @@
             <div class="nav-bar nav-bot"></div>
         </div>
         <div class="nav-container">
-            <div id="About" class="nav-content">A propos</div>
+            <div id="About" class="nav-content">À propos</div>
             <div class="nav-bar nav-top"></div>
             <div class="nav-bar nav-bot"></div>
         </div>

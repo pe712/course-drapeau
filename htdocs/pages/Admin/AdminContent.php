@@ -111,7 +111,7 @@ FIN;
       <form enctype="multipart/form-data" action="?page=Admin&pageModif=Accueil&section=2" method="post">
         <div class="mb-3">
           <input type="hidden" name="MAX_FILE_SIZE" value="30000000" />
-          <label for="trace" class="form-label">Trace GPX numéroté (par exemple: trace10.gpx)</label>
+          <label for="trace" class="form-label">Trace GPX numéroté (par exemple : trace10.gpx)</label>
           <input type="file" class="form-control" name="trace" id="trace" />
         </div>
         <button type="submit" class="btn btn-primary">Envoyer</button>
@@ -122,7 +122,7 @@ FIN;
       <form enctype="multipart/form-data" action="?page=Admin&pageModif=Accueil&section=2" method="post">
         <div class="mb-3">
           <input type="hidden" name="MAX_FILE_SIZE" value="30000000" />
-          <label for="loader" class="form-label">Dossier contenant toutes les traces GPX numérotées (par exemple: trace10.gpx)</label>
+          <label for="loader" class="form-label">Dossier contenant toutes les traces GPX numérotées (par exemple : trace10.gpx)</label>
           <input type="file" class="form-control" name="traces[]" id="loader" webkitdirectory multiple />
         </div>
         <button type="submit" class="btn btn-primary">Envoyer</button>

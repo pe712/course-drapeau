@@ -9,15 +9,15 @@ if ($troncons) {
     <p class="espacePerso-firstLine">
         Vous faites parties du trinôme <span class="espacePerso-content-troncons-color" style="background-color:<?= $color ?>"><?= $trinome_id ?></span>
         <br>
-        Vous pouvez voir tous les troncons <a href="?page=Troncons">ici</a>
+        Vous pouvez voir tous les tronçons <a href="?page=Troncons">ici</a>
     </p>
     <p>
-        Voici les troncons que vous courrez :
+        Voici les tronçons que tu cours :
     </p>
     <div id=tronconsListe>
         <table id="troncons-table" class="table table-striped table-hover">
             <tr>
-                <th style="width:10px">Numéro troncon</th>
+                <th style="width:10px">Numéro tronçon</th>
                 <th>Groupe de coureurs</th>
                 <th>Heure de départ</th>
                 <th>Point GPS de départ</th>
@@ -87,7 +87,7 @@ FIN;
     <script src="scripts/map.js"></script>
 <?php
 } else {
-    echo '<p class="espacePerso-firstLine">Les troncons ne sont pas encore répartis ou alors tu ne fais pas encore partie d\'un trinôme</p>';
+    echo '<p class="espacePerso-firstLine">Les tronçons ne sont pas encore répartis ou alors tu ne fais pas encore partie d\'un trinôme</p>';
 }
 ?>
 <button class="btn btn-primary" onclick="changeView('troncons', 'cards')">Retour</button>

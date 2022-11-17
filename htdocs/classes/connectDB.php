@@ -24,7 +24,7 @@ class Database
                 PDO::ERRMODE_EXCEPTION
             );
         } catch (PDOException $e) {
-            echo "Connexion échouée: " . $e->getMessage();
+            echo "Connexion échouée : " . $e->getMessage();
             exit(0);
         }
         return $conn;

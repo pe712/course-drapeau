@@ -7,7 +7,7 @@ $url2 = $baseurl . urlencode($lieu2);
 ?>
 
 <p class="espacePerso-firstLine">
-    Il y aura deux hébergements sur le parcours pour la totalité de la course:
+    Il y aura deux hébergements sur le parcours pour la totalité de la course :
 </p>
 <div class="espacePerso-content-hebergement">
     <div class="espacePerso-content-hebergement-intro">

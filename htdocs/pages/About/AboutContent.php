@@ -36,7 +36,7 @@ $numbers = array("Two", "Three", "Four", "Five", "Six", "Seven", "Height", "Nine
 FIN;
         }
         ?>
-    <p id="about-messageFin" class="default-margin">Tu n'a pas trouvé ta réponse, n'hésites pas à <a href="?page=Contact">nous contacter.</a></p>
+    <p id="about-messageFin" class="default-margin">Tu n'as pas trouvé ta réponse, n'hésites pas à <a href="?page=Contact">nous contacter.</a></p>
     </div>
     
 </section>
