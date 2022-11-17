@@ -20,17 +20,17 @@ $(document).ready(function () {
     $("#modifyPerso").click(function () {
         changeView("espacePerso-modify-infosPerso", "formPerso", "none", "flex")
     });
-    
+
     $("#espacePerso-modify-logistique").click(function () {
         changeView("espacePerso-logistique-infos", "espacePerso-form-logistique")
     });
-    
+
     $("#retourFromInfo").click(function () {
         if (document.getElementById("modifyPerso")) {
             changeView("formPerso", "espacePerso-modify-infosPerso")
         }
     });
-    
+
     $("#espacePerso-retourFromLogistique").click(function () {
         if (document.getElementById("espacePerso-logistique-infos")) {
             changeView("espacePerso-form-logistique", "espacePerso-logistique-infos")
@@ -219,7 +219,7 @@ $(document).ready(function () {
 function callCASUrl() {
     let callback = encodeURIComponent("https://course-drapeau.binets.fr/?page=Connect")
     // document.cookie = "CAScallback=" + callback;
-    document.location = "https://cas.binets.fr/login?service=" + callback
+    document.location = "https://cas.binets.fr/login?service=" + callback + "&renew=true";
 }
 
 $(document).ready(function () {
