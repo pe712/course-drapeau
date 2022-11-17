@@ -42,7 +42,7 @@ class Download{
      public static function download_file()
      {
           $path = $_POST["path"];
-          $salt = random_int(0, 100000000);
+          $salt = random_int(0, 100000000000);
           $extension = substr(strrchr($path, "."), 1);
           $dest = "tmp/$salt.$extension";
           $to = "../$dest";

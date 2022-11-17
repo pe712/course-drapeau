@@ -15,7 +15,7 @@ if (array_key_exists("todo", $_GET)) {
         GPX::calculHoraires();
     } elseif ($_GET["todo"] == "contentModif" && Users::isRoot()) {
         Content::update_db();
-    } elseif ($_GET["todo"] == "download") {
+    } elseif ($_GET["todo"] == "download" && Users::isConnected()) {
         Download::download_file();
     } else
         echo "la requête demandée n'existe pas";
