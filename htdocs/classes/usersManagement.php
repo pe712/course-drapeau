@@ -352,4 +352,12 @@ class Users
             }
         }
     }
+
+    public static function getOtherMembersTrinome($trinome_id){
+        global $conn;
+        $select = $conn->prepare("SELECT nom, prenom FROM users WHERE trinome_id=? and not id=?");
+        $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Users');
+        $select->execute(array($trinome_id, $_SESSION["id"]));
+        return $select;
+    }
 }
