@@ -44,14 +44,18 @@ class Download
      {
           $user = Users::getUserPersonnalData();
           $filename = $user->certificat;
-          $salt = random_int(0, 100000000000);
-          $extension = substr(strrchr($filename, "."), 1);
-          $dest = "tmp/$salt.$extension";
-          $to = "../$dest";
-          $from = "../pages/EspacePerso/upload/$filename";
-          if (copy($from, $to))
-               echo $dest;
-          else
-               echo "echec";
+          if ($filename == null)
+               echo "Vous n'avez pas encore upload de certificat médical";
+          else {
+               $salt = random_int(0, 100000000000);
+               $extension = substr(strrchr($filename, "."), 1);
+               $dest = "tmp/$salt.$extension";
+               $to = "../$dest";
+               $from = "../pages/EspacePerso/upload/$filename";
+               if (copy($from, $to))
+                    echo $dest;
+               else
+                    echo "echec";
+          }
      }
 }
