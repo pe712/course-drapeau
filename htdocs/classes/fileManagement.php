@@ -46,7 +46,7 @@ class Download{
           $extension = substr(strrchr($path, "."), 1);
           $dest = "tmp/$salt.$extension";
           $to = "../$dest";
-          $from = "../$path";
+          $from = "../pages/EspacePerso/upload/$path";
           copy($from, $to);
           echo $dest;
      }
