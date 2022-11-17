@@ -234,8 +234,8 @@ class Users
         $file = $_FILES['certificat'];
         $name = preg_replace("/[^a-z_\.\-]/i", "_", $name);
         if ($certif->upload($name, $file)) {
-            $update = $conn->prepare("UPDATE users SET certificat=$name WHERE id=?");
-            $update->execute(array($_SESSION["id"]));
+            $update = $conn->prepare("UPDATE users SET certificat=? WHERE id=?");
+            $update->execute(array($name, $_SESSION["id"]));
         }
     }
 
