@@ -2,9 +2,6 @@
 require("pages/includes/sessionParam.php");
 session_start();
 require("pages/includes/headers.php");
-var_dump($_SESSION);
-$_SESSION["mon"]= "bonjour";
-var_dump($_SESSION);
 
 $files = glob('classes/*.php');
 foreach ($files as $file) {
