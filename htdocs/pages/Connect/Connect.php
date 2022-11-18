@@ -8,6 +8,8 @@ class Connect extends Page
             $auth = CAS::CAS_get_response();
             if ($auth && Users::connectX($auth)) {
                 $this->load = "EspacePerso";
+                var_dump($_SESSION);
+                die();
             }
             else{
         parent::__construct($sections);
