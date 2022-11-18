@@ -8,7 +8,8 @@ foreach ($files as $file) {
 }
 
 $conn = Database::connect();
-if (array_key_exists("todo", $_GET)) {
+$error_msg = "Tu n'as pas les droits nécessaires ou la requête demandée n'existe pas";
+if (array_key_exists("todo", $_GET) && Users::verifyToken()) {
     if ($_GET["todo"] == "removeGPX" && Users::isRoot())
         GPX::removeGPX();
     elseif ($_GET["todo"] == "calculHoraires" && Users::isRoot()) {
@@ -18,5 +19,6 @@ if (array_key_exists("todo", $_GET)) {
     } elseif ($_GET["todo"] == "download" && Users::isConnected()) {
         Download::download_file();
     } else
-        echo "Tu n'as pas les droits nécessaires ou la requête demandée n'existe pas";
-}
+        echo $error_msg;
+} else
+    echo $error_msg;

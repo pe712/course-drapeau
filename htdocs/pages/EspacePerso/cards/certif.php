@@ -24,7 +24,7 @@ if ($user->chauffeur == null) {
     if ($user->certificat!=null) {
     ?>
         <p id="espacePerso-messageCertif" class="espacePerso-firstLine">Tu as déjà mis ton certificat médical. Cliques
-            <a href="" id="espacePerso-download" download>ici</a> pour le voir et
+            <a href="" id="espacePerso-download" download>ici</a><span id="token" hidden><?=$_SESSION['token']?></span> pour le voir et
             <a href="" id="espacePerso-modifyCertif">ici</a> pour le modifier
         </p>
 <?php

@@ -7,7 +7,7 @@ $contenu_total = Content::contenu_total($full = true, $raw = true);
 ?>
 
 <section class="adminSection">
-
+<span id="token" hidden><?=$_SESSION['token']?></span>
   <!-- Choix de la vue -->
   <div class="btn-group adminView" role="group" aria-label="Basic radio toggle button group">
     <input type="radio" class="btn-check admin-onglet-button" name="btnradio" id="admin-contenu">
