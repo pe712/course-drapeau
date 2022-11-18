@@ -42,6 +42,10 @@ class PageListing
             "title" => "Mon Espace Personnel",
             "connected" => true,
         ),
+        array(
+            "name" => "Mentions",
+            "title" => "Mentions Légales",
+        ),
     );
 
     public static function findPage($name)
