@@ -6,6 +6,7 @@
         <div class="row">
             <div class="col-6 offset-3">
                 <a href="?page=Contact">Nous contacter</a>
+                <a href="?page=Mentions">Mentions légales</a>
             </div>
         </div>
     </div>
