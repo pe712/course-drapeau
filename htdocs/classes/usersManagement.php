@@ -95,7 +95,10 @@ class Users
             return Users::connectX(null, htmlspecialchars($nom), htmlspecialchars($prenom), htmlspecialchars($mail), htmlspecialchars($promotion));
         } else {
             $user = $select->fetch();
+            var_dump($_SESSION);
             $user->connect();
+            var_dump($_SESSION);
+            die();
             return true;
         }
     }
