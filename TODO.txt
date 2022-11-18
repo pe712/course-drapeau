@@ -34,7 +34,6 @@ Setup:
 -redéfinir les limites d'upload
 
 --------------------------------------------------
--utilisateur qui ait les droit de tables ??
 
 rajouter les batteries pour les petzel
 

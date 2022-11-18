@@ -91,7 +91,7 @@ class PageListing
     }
 }
 
-class Page
+abstract class Page
 {
     public $content;
     public $erreur = false;
