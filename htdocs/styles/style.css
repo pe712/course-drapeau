@@ -327,12 +327,12 @@ ul,
 /*******************************************************************/
 /* Accueil */
 /*******************************************************************/
-#accueil{
+#accueil {
     display: flex;
     justify-content: center;
 }
 
-#logo_BX{
+#logo_BX {
     width: 70vw;
     max-width: 500px;
 }
@@ -421,22 +421,30 @@ ul,
 /*******************************************************************/
 /* Navbar */
 /*******************************************************************/
-.nav-mainContainer {
-    justify-content: space-between;
-    display: inline-flex;
-    width: 100%;
-    height: 80px;
+@media (min-width:1000px) {
+    .nav-mainContainer {
+        justify-content: space-between;
+        display: inline-flex;
+        width: 100%;
+    }
 }
 
-.nav-container {
-    width: 25vw;
-    overflow: hidden;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    background-color: rgba(20, 134, 170, 0.7);
-    align-items: center;
 
+@media (min-width:1000px) {
+    .nav-container {
+        width: 20vw;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(20, 134, 170, 0.7);
+    }
+}
+
+@media (max-width:1000px) {
+    .nav-container {
+        background: linear-gradient(to left, rgba(20, 134, 170, 0.9), rgba(20, 134, 170, 0.7) 50%, rgba(20, 134, 170, 0.9));
+    }
 }
 
 .nav-container:hover {
@@ -445,11 +453,18 @@ ul,
 }
 
 .nav-content {
-    line-height: 80px;
+    line-height: 30px;
     text-align: center;
     font-size: 1.1rem;
     font-weight: 500;
 }
+
+@media (min-width:1000px) {
+    .nav-content {
+        line-height: 80px;
+    }
+}
+
 
 .nav-container:hover .nav-content {
     font-weight: 700;
@@ -463,9 +478,11 @@ ul,
     opacity: 0;
 }
 
-.nav-container:hover .nav-bar {
-    opacity: 1;
-    transition: all 0.2s cubic-bezier(0.23, 0.91, 0.97, 1.09);
+@media (min-width:1000px) {
+    .nav-container:hover .nav-bar {
+        opacity: 1;
+        transition: all 0.2s cubic-bezier(0.23, 0.91, 0.97, 1.09);
+    }
 }
 
 .nav-bot {

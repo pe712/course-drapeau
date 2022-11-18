@@ -11,7 +11,7 @@
             <div class="nav-bar nav-bot"></div>
         </div>
         <div class="nav-container">
-            <div id="Contact" class="nav-content">Qui sommes-nous?</div>
+            <div id="Contact" class="nav-content">Le binet</div>
             <div class="nav-bar nav-top"></div>
             <div class="nav-bar nav-bot"></div>
         </div>
@@ -21,8 +21,8 @@
             <div class="nav-bar nav-bot"></div>
         </div>
         <?php
-        if (array_key_exists("id", $_SESSION)) {
-            if (array_key_exists("root", $_SESSION) && $_SESSION["root"]) {
+        if (Users::isConnected()) {
+            if (Users::isRoot()) {
                 echo <<<FIN
                     <div class="nav-container">
                         <div id="Admin" class="nav-content">Administration</div>
@@ -45,11 +45,6 @@ FIN;
 FIN;
         } else {
         ?>
-            <!-- <div class="nav-container">
-                <div id="Inscription" class="nav-content">Inscription</div>
-                <div class="nav-bar nav-top"></div>
-                <div class="nav-bar nav-bot"></div>
-            </div> -->
             <div class="nav-container">
                 <div id="Connect" class="nav-content">Me connecter</div>
                 <div class="nav-bar nav-top"></div>
