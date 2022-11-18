@@ -210,7 +210,6 @@ function call_cs_popup(text, time = 1000000) {
 $(document).ready(function () {
     $(".nav-container").click(function () {
         location.href = "?page=" + $(this).children('.nav-content').attr("id");
-
     });
 })
 
@@ -254,8 +253,7 @@ $(document).ready(function () {
 
     $("#espacePerso-retourFromCertif").click(function () {
         if (document.getElementById("espacePerso-messageCertif")) {
-            $("#espacePerso-certificatUpload").hide();
-            $("#espacePerso-messageCertif").show();
+            changeView("espacePerso-certificatUpload", "espacePerso-messageCertif")
         }
     });
 
