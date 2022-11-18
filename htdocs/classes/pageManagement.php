@@ -85,10 +85,7 @@ class PageListing
             PageListing::load($name);
         }
         else {
-            var_dump($_SESSION);
             require("pages/includes/navbar.php");
-            var_dump($_SESSION);
-            die();
             echo $page->content;
         }
     }
