@@ -82,12 +82,13 @@ class PageListing
             $name = $page->load;
             $page_info = PageListing::findPage($name);
             extract($page_info);
-            var_dump($_SESSION);
-            die();
             PageListing::load($name);
         }
         else {
+            var_dump($_SESSION);
             require("pages/includes/navbar.php");
+            var_dump($_SESSION);
+            die();
             echo $page->content;
         }
     }
