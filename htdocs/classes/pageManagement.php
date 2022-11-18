@@ -42,6 +42,10 @@ class PageListing
             "title" => "Mon Espace Personnel",
             "connected" => true,
         ),
+        array(
+            "name"=>"Suivi",
+            "title"=>"Suivi de la course",
+        )
     );
 
     public static function findPage($name)
