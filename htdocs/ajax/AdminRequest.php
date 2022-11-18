@@ -1,5 +1,5 @@
 <?php
-require("pages/includes/headers.php");
+require("../pages/includes/headers.php");
 session_start();
 
 $files = glob('../classes/*.php');
