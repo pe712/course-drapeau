@@ -1,5 +1,5 @@
 <?php
-require("pages/include/sessionParam.php");
+require("pages/includes/sessionParam.php");
 session_start();
 require("pages/includes/headers.php");
 
