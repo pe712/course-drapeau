@@ -19,7 +19,7 @@ class Content
         echo "Contenu mis à jour";
     }
 
-    public static function contenu_total($full = false, $raw=false)
+    public static function contenu_total($full = false, $raw = false)
     {
         global $conn;
         $select = $conn->query("SELECT DISTINCT(page) FROM content_section");
@@ -31,7 +31,7 @@ class Content
         return $contenu_total;
     }
 
-    public static function getPage($page, $full = false, $raw=false)
+    public static function getPage($page, $full = false, $raw = false)
     {
         global $conn;
         $select = $conn->query("SELECT COUNT(section), description FROM content_section WHERE page='$page'");
@@ -74,15 +74,23 @@ class Content
 
     public static function addSection()
     {
+        if (!Users::verifyToken())
+            return false;
         extract($_POST);
         global $conn;
         $insert = $conn->prepare("INSERT into content_section (page, section, description) values (?,?,?)");
-        $insert->execute(array($page, htmlspecialchars($section_num), htmlspecialchars($section_description)));
-        $_SESSION["displayValid"] = "Section ajoutée avec succès !";
+        if ($insert->execute(array($page, htmlspecialchars($section_num), htmlspecialchars($section_description)))) {
+            $_SESSION["displayValid"] = "Section ajoutée avec succès !";
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static function addItem()
     {
+        if (!Users::verifyToken())
+            return false;
         extract($_POST);
         global $conn;
         $select = $conn->query("SELECT id FROM content_section WHERE page='$page' and section='$section_num'");
@@ -90,8 +98,12 @@ class Content
 
         $insert = $conn->prepare("INSERT into content (Sid, item, contenu) values (?,?,?)");
         $item_contenu = Content::creationLien(htmlspecialchars($item_contenu));
-        $insert->execute(array($Sid, htmlspecialchars($item_num),  $item_contenu));
-        $_SESSION["displayValid"] = "Item ajoutée avec succès !";
+        if ($insert->execute(array($Sid, htmlspecialchars($item_num),  $item_contenu))) {
+            $_SESSION["displayValid"] = "Item ajoutée avec succès !";
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private static function reverseCreationLien($string)

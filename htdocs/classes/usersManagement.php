@@ -113,6 +113,8 @@ class Users
 
     public static function connectExte()
     {
+        if (!Users::verifyToken())
+            return false;
         global $conn;
         extract($_POST);
         $select = $conn->prepare("SELECT * FROM users WHERE mail=?");
@@ -156,6 +158,8 @@ class Users
 
     public static function newUser()
     {
+        if (!Users::verifyToken())
+            return false;
         global $conn;
         extract($_POST);
         if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {

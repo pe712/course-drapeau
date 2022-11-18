@@ -1,21 +1,7 @@
-
 <?php
-if (isset($_FILES['trace'])) {
-  GPX::uploadGPX_updateDB($_FILES["trace"]);
-}
 
-if (isset($_FILES['traces'])) {
-  GPX::uploadGPX_updateDB_multiple();
-}
 
-if (array_key_exists("page", $_POST)) {
-  if (strlen($_POST["item_contenu"]) == 0) {
-    Content::addSection();
-  } else {
-    Content::addItem();
-  }
-}
-
+Users::generateToken();
 $contenu_total = Content::contenu_total($full = true, $raw = true);
 
 ?>
@@ -99,6 +85,7 @@ FIN;
         </div>
         <br>
         <button type="submit" class="btn btn-primary">Créer</button>
+        <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
       </form>
     </div>
 
@@ -108,24 +95,26 @@ FIN;
   <!-- Vue GPX -->
   <div id="admin-GPX-onglet" class="admin-onglet">
     <div class="centerer-container">
-      <form enctype="multipart/form-data" action="?page=Admin&pageModif=Accueil&section=2" method="post">
+      <form enctype="multipart/form-data" action="?page=Admin" method="post">
         <div class="mb-3">
           <input type="hidden" name="MAX_FILE_SIZE" value="30000000" />
           <label for="trace" class="form-label">Trace GPX numéroté (par exemple : trace10.gpx)</label>
           <input type="file" class="form-control" name="trace" id="trace" />
         </div>
         <button type="submit" class="btn btn-primary">Envoyer</button>
+        <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
       </form>
     </div>
 
     <div class="centerer-container">
-      <form enctype="multipart/form-data" action="?page=Admin&pageModif=Accueil&section=2" method="post">
+      <form enctype="multipart/form-data" action="?page=Admin" method="post">
         <div class="mb-3">
           <input type="hidden" name="MAX_FILE_SIZE" value="30000000" />
           <label for="loader" class="form-label">Dossier contenant toutes les traces GPX numérotées (par exemple : trace10.gpx)</label>
           <input type="file" class="form-control" name="traces[]" id="loader" webkitdirectory multiple />
         </div>
         <button type="submit" class="btn btn-primary">Envoyer</button>
+        <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
       </form>
     </div>
 

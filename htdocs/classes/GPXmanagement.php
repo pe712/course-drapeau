@@ -11,6 +11,8 @@ class GPX
 
     public static function uploadGPX_updateDB_multiple()
     {
+        if (!Users::verifyToken())
+            return false;
         $file_post = $_FILES["traces"];
         $files = array();
         $file_count = count($file_post['name']);
@@ -23,13 +25,15 @@ class GPX
         }
 
         foreach ($files as $file) {
-            if (!GPX::uploadGPX_updateDB($file))
-                break;
+            if (!GPX::uploadGPX_updateDB($file, false))
+                return false;
         }
     }
 
-    public static function uploadGPX_updateDB($file)
+    public static function uploadGPX_updateDB($file, $token_verify = true)
     {
+        if ($token_verify && (!Users::verifyToken()))
+            return false;
         preg_match("/\d+/", $file['name'], $matches);
         if (count($matches) == 0) {
             $_SESSION["displayError"] = "le nom du fichier est incorrect, ce doit être trace15.gpx par exemple.";
@@ -114,8 +118,8 @@ class GPX
     private static function calcul2($hdep)
     {
         $segments = array(1, 4, 16, 25, 36, 45, 57, 65, 77);
-        for ($i=0; $i < sizeof($segments)-2; $i+=2) { 
-            $hdep = GPX::update_jour_nuit($hdep, $segments[$i], $segments[$i+1], $segments[$i+2]);
+        for ($i = 0; $i < sizeof($segments) - 2; $i += 2) {
+            $hdep = GPX::update_jour_nuit($hdep, $segments[$i], $segments[$i + 1], $segments[$i + 2]);
         }
         $delta_jour = 65 * 60;
         GPX::update($hdep, $hdep + $delta_jour, 77);
@@ -124,7 +128,8 @@ class GPX
         echo "Les horaires des traces ont été mis à jour en fontion de l'heure de départ et d'arrivée";
     }
 
-    private static function update_jour_nuit($hdep, $start, $end, $stop){
+    private static function update_jour_nuit($hdep, $start, $end, $stop)
+    {
         $delta_jour = 65 * 60;
         $delta_nuit = 75 * 60;
         for ($i = $start; $i < $end; $i++) {
