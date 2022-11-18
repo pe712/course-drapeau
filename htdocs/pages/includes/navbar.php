@@ -21,8 +21,8 @@
             <div class="nav-bar nav-bot"></div>
         </div>
         <?php
-        if (Users::isConnected()) {
-            if (Users::isRoot()) {
+        if (array_key_exists("id", $_SESSION)) {
+            if (array_key_exists("root", $_SESSION) && $_SESSION["root"]) {
                 echo <<<FIN
                     <div class="nav-container">
                         <div id="Admin" class="nav-content">Administration</div>
@@ -33,7 +33,7 @@ FIN;
             }
             echo <<<FIN
                 <div class="nav-container">
-                    <div id="EspacePerso" class="nav-content">Espace Personnel</div>
+                    <div id="EspacePerso" class="nav-content">Espace Membre</div>
                     <div class="nav-bar nav-top"></div>
                     <div class="nav-bar nav-bot"></div>
                 </div>
