@@ -8,16 +8,13 @@ class Connect extends Page
             $auth = CAS::CAS_get_response();
             if ($auth && Users::connectX($auth)) {
                 $this->load = "EspacePerso";
-                var_dump($_SESSION);
-                die();
-            }
-            else{
-        parent::__construct($sections);
+            } else {
+                parent::__construct($sections);
             }
         } elseif (array_key_exists("mail", $_POST) &&  Users::connectExte()) {
-                // connexion exté
-                $this->load = "EspacePerso";
-        }else{
+            // connexion exté
+            $this->load = "EspacePerso";
+        } else {
             parent::__construct($sections);
         }
     }

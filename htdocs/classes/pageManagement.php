@@ -82,6 +82,8 @@ class PageListing
             $name = $page->load;
             $page_info = PageListing::findPage($name);
             extract($page_info);
+            var_dump($_SESSION);
+            die();
             PageListing::load($name);
         }
         else {
