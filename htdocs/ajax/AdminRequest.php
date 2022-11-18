@@ -1,5 +1,5 @@
 <?php
-header("Content-Security-Policy: default-src 'self'");
+// header("Content-Security-Policy: default-src 'self'");
 // session_set_cookie_params(2*60*60, '/', 'votresite.binets.fr', true, true);
 session_start();
 
