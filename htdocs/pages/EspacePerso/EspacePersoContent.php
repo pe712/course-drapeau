@@ -1,31 +1,12 @@
 <?php
-if (array_key_exists("firstname", $_POST)) {
-    Users::updateInfos();
-}
+$user = Users::getUserPersonnalData();
 
-if (array_key_exists("vegetarian", $_POST)) {
-    Users::updateLogistique();
-}
-
-if (array_key_exists("name", $_SESSION))
-    $prenom = " " . $_SESSION["name"];
+if ($user->prenom != null)
+    $prenom = " " . $user->prenom;
 else
     $prenom = "";
 
-$user = Users::getUserPersonnalData();
-/**************** variables du dossier d'upload *************************/
-if ($user->nom != null) {
-    //on ne veut pas donner directement l'id
-    $dossier = "pages/EspacePerso/upload/";
-    $name = "certificat_" . $user->prenom . "_" . $user->nom . ".pdf";
-    if (!is_dir($dossier))
-        mkdir($dossier);
-
-    if (isset($_FILES['certificat'])) {
-        Users::uploadCertificat($dossier, $name);
-        $user = Users::getUserPersonnalData();
-    }
-}
+Users::generateToken();
 /**************** Message d'accueil *************************/
 
 $x = $user->avancement();

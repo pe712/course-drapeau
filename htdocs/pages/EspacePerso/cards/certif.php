@@ -17,6 +17,7 @@ if ($user->chauffeur == null) {
             <input type="file" class="form-control" name="certificat" id="certif_uploaded" />
         </div>
         <button id="espacePerso-certif-button" type="submit" class="btn btn-primary">Envoyer</button>
+        <input type="hidden" name="token" value="<?=$_SESSION['token']?>">
     </form>
     </div>
     <?php
