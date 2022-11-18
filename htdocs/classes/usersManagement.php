@@ -81,7 +81,7 @@ class Users
             $memberOf = $auth["memberOf"];
             $promotion = Users::whatPromo($memberOf);
             if (!$promotion) {
-                $_SESSION["displayError"] = "Vous n'êtes pas dans le cycle ingénieur";
+                $_SESSION["displayError"] = "Tu n'es pas dans le cycle ingénieur";
                 return false;
             }
         }
@@ -151,7 +151,7 @@ class Users
         $update = $conn->prepare("update users set lastConn=CURRENT_TIMESTAMP WHERE id=?");
         $update->execute(array($this->id));
 
-        $_SESSION["displayValid"] = "Vous êtes bien connecté";
+        $_SESSION["displayValid"] = "Tu es bien connecté";
     }
 
     public static function newUser()
@@ -159,7 +159,7 @@ class Users
         global $conn;
         extract($_POST);
         if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-            $_SESSION["displayError"] = "Le mail n'est pas valide. Veuillez vérifier votre mail.";
+            $_SESSION["displayError"] = "Le mail n'est pas valide. Verifie ton mail.";
             return false;
         }
         extract(Users::CorrectPWD($mdp1, $mdp2)); /* on récupère $corr et $msg */
@@ -187,7 +187,7 @@ class Users
 
                 $_SESSION["id"] = $id;
 
-                $_SESSION["displayValid"] = "Votre compte a bien été créé.";
+                $_SESSION["displayValid"] = "Ton compte a bien été créé.";
                 return true;
             }
         }
@@ -309,7 +309,7 @@ class Users
     {
         global $name;
         if (!array_key_exists("root", $_SESSION) || !$_SESSION["root"]) {
-            $_SESSION["displayError"] = "Vous devez avoir les droits d'administrateur pour accéder à la page $name";
+            $_SESSION["displayError"] = "Tu dois avoir les droits d'administrateur pour accéder à la page $name";
             return false;
         } else
             return true;
@@ -319,7 +319,7 @@ class Users
     {
         global $name;
         if (!array_key_exists("id", $_SESSION)) {
-            $_SESSION["displayError"] = "Vous devez être connecté pour accéder à la page $name";
+            $_SESSION["displayError"] = "Tu dois être connecté pour accéder à la page $name";
             return false;
         } else
             return true;

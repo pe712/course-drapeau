@@ -1,10 +1,10 @@
 <?php
 $user = Users::getUserPersonnalData();
 if ($user->trinome_id == null) {
-    echo "<p class=espacePerso-firstLine>Vous n'êtes pas encore affilié à un trinôme.</p>";
+    echo "<p class=espacePerso-firstLine>Tu n'es pas encore affilié à un trinôme.</p>";
 } else {
     $trinome = Users::getOtherMembersTrinome($user->trinome_id);
-    echo "<p class=espacePerso-firstLine>Vous avez été attribué au trinôme $user->trinome_id avec :<ul>";
+    echo "<p class=espacePerso-firstLine>Tu as été attribué au trinôme $user->trinome_id avec :<ul>";
     while($courreur = $trinome->fetch()){
         echo "<li>$courreur->prenom $courreur->nom</li>";
     }

@@ -7,9 +7,9 @@ if ($troncons) {
     $troncons = implode(", ", $troncons["troncons"]);
 ?>
     <p class="espacePerso-firstLine">
-        Vous faites parties du trinôme <span class="espacePerso-content-troncons-color" style="background-color:<?= $color ?>"><?= $trinome_id ?></span>
+        Tu fais parti du trinôme <span class="espacePerso-content-troncons-color" style="background-color:<?= $color ?>"><?= $trinome_id ?></span>
         <br>
-        Vous pouvez voir tous les tronçons <a href="?page=Troncons">ici</a>
+        Tu peux voir tous les tronçons <a href="?page=Troncons">ici</a>
     </p>
     <p>
         Voici les tronçons que tu cours :

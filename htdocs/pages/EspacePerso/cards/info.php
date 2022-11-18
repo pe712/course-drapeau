@@ -4,7 +4,7 @@ if ($user->chauffeur == null)
 else {
 ?>
     <div id="espacePerso-modify-infosPerso">
-        <p class="espacePerso-firstLine">Vous avez déjà complété cet onglet.</p>
+        <p class="espacePerso-firstLine">Tu as déjà complété cet onglet.</p>
 
         <button id="modifyPerso" class="btn btn-primary">Modifier mes informations</button>
         <br><br>

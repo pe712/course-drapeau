@@ -1,6 +1,6 @@
 <?php
 if ($user->chauffeur)
-  echo '<p class="espacePerso-firstLine">Vous n\'avez pas besoin de payer la course</p>';
+  echo '<p class="espacePerso-firstLine">Tu n\'as pas besoin de payer la course</p>';
 // else
 //   echo '<p class="espacePerso-firstLine">Le paiement sera ultérieur. De l\'ordre de 60€/pers</p>';
 else if (!$user->paid) {
@@ -14,12 +14,12 @@ else if (!$user->paid) {
   FIN;
   ?>
   <p id="espacePerso-messagePaiement">
-    Quand nous aurons vérifié votre paiement, cet onglet sera mis à jour. Nous vérifions à la main, cela ne sera pas fait automatiquement.
+    Quand nous aurons vérifié ton paiement, cet onglet sera mis à jour. Nous vérifions à la main, cela ne sera pas fait automatiquement.
   </p>
 <?php } else {
 ?>
   <p class="espacePerso-firstLine">
-    Vous avez déjà payé la course.
+    Tu as déjà payé la course.
   </p>
 <?php }
 ?>

@@ -17,7 +17,7 @@ class Upload
           $extension = strtolower(substr(strrchr($file['name'], "."), 1));
           if (!in_array($extension, $this->extensions)) {
                $extension_name = $this->extensions[0];
-               $_SESSION["displayError"] = "Vous devez uploader un fichier de type $extension_name";
+               $_SESSION["displayError"] = "Tu dois upload un fichier de type $extension_name";
                return false;
           }
 
@@ -45,7 +45,7 @@ class Download
           $user = Users::getUserPersonnalData();
           $filename = $user->certificat;
           if ($filename == null)
-               echo "Vous n'avez pas encore upload de certificat médical";
+               echo "Tu n'as pas encore upload de certificat médical";
           else {
                $salt = random_int(0, 100000000000);
                $extension = substr(strrchr($filename, "."), 1);

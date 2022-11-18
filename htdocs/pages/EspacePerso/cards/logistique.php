@@ -2,7 +2,7 @@
 if ($user->vegetarian != null) {
 ?>
     <div id="espacePerso-logistique-infos">
-        <p class="espacePerso-firstLine">Vous avez déjà complété cet onglet.</p>
+        <p class="espacePerso-firstLine">Tu as déjà complété cet onglet.</p>
 
         <button id="espacePerso-modify-logistique" class="btn btn-primary">Modifier mes informations</button>
         <br><br>

@@ -18,5 +18,5 @@ if (array_key_exists("todo", $_GET)) {
     } elseif ($_GET["todo"] == "download" && Users::isConnected()) {
         Download::download_file();
     } else
-        echo "Vous n'avez pas les droits nécessaires ou la requête demandée n'existe pas";
+        echo "Tu n'as pas les droits nécessaires ou la requête demandée n'existe pas";
 }

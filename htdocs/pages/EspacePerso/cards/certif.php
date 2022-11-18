@@ -1,8 +1,8 @@
 <?php
 if ($user->chauffeur == null) {
-    echo '<p class="espacePerso-firstLine">Vous devez d\'abord remplir la catégorie informations personnelles.</p>';
+    echo '<p class="espacePerso-firstLine">Tu dois d\'abord remplir la catégorie informations personnelles.</p>';
 } elseif ($user->chauffeur) {
-    echo '<p class="espacePerso-firstLine">Vous n\'avez pas besoin de renseigner de certificat.</p>';
+    echo '<p class="espacePerso-firstLine">Tu n\'as pas besoin de renseigner de certificat.</p>';
 } else {
     if ($user->certificat!=null) {
         echo '<div class="centerer-container" style="display: none;" id="espacePerso-certificatUpload">';
@@ -22,7 +22,7 @@ if ($user->chauffeur == null) {
     <?php
     if ($user->certificat!=null) {
     ?>
-        <p id="espacePerso-messageCertif" class="espacePerso-firstLine">Vous avez déjà mis votre certificat médical. Cliquez
+        <p id="espacePerso-messageCertif" class="espacePerso-firstLine">Tu as déjà mis ton certificat médical. Cliques
             <a href="" id="espacePerso-download" download>ici</a> pour le voir et
             <a href="" id="espacePerso-modifyCertif">ici</a> pour le modifier
         </p>
