@@ -80,9 +80,8 @@ class PageListing
             echo $msg_erreur;
         elseif ($page->load != null){
             $name = $page->load;
-            $page_info = PageListing::findPage($name);
-            extract($page_info);
-            PageListing::load($name);
+            header("location:?page=$page->load");
+            die();
         }
         else {
             require("pages/includes/navbar.php");
