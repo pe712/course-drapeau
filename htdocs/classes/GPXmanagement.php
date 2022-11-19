@@ -134,7 +134,8 @@ class GPX
         $trinomes=array(
             7, 8, 7, 8, 9, 10, 9, 10, 1, 2, 1, 2, 3, 4, 3, 4, 5, 6, 5, 6, 1, 2, 1, 2, 11, 12, 11, 12, 3, 4, 3, 4, 1, 2, 1, 2, 5, 6, 5, 6, 7, 8, 7, 8, 9, 10, 9, 10, 11, 12, 11, 12, 5, 6, 5, 6, 3, 4, 3, 4, 11, 12, 11, 12, 7, 8, 7, 8, 9, 10, 9, 10, 5, 6, 5, 6, 11, 12 
         );
-        foreach ($trinomes as $id_troncon => $trinome_id) {
+        foreach ($trinomes as $index => $trinome_id) {
+            $id_troncon = $index+1;
             $update = $conn->query("update tracesgpx set trinome_id=$trinome_id where id=$id_troncon");
         }
     }
