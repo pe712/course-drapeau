@@ -118,7 +118,7 @@ class GPX
 
     private static function calcul2($hdep)
     {
-        $segments = array(1, 4, 15, 25, 36, 45, 57, 65, 77);
+        $segments = array(1, 4, 15, 24, 36, 44, 56, 64, 77);
         for ($i = 0; $i < sizeof($segments) - 2; $i += 2) {
             $hdep = GPX::update_jour_nuit($hdep, $segments[$i], $segments[$i + 1], $segments[$i + 2]);
         }
