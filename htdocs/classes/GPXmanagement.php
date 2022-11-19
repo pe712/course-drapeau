@@ -112,7 +112,8 @@ class GPX
         // GPX::calcul1($hdep, $harr, $n);
         GPX::calcul2($hdep);
 
-        GPX::repartition_blocs($n);
+        // GPX::repartition_blocs($n);
+        GPX::attribution_trinomes();
     }
 
     private static function calcul2($hdep)
@@ -126,6 +127,16 @@ class GPX
         $hdep += $delta_jour;
         GPX::update($hdep, $hdep + $delta_jour, 78);
         echo "Les horaires des traces ont été mis à jour en fontion de l'heure de départ et d'arrivée";
+    }
+
+    private static function attribution_trinomes(){
+        global $conn;
+        $trinomes=array(
+            7, 8, 7, 8, 9, 10, 9, 10, 1, 2, 1, 2, 3, 4, 3, 4, 5, 6, 5, 6, 1, 2, 1, 2, 11, 12, 11, 12, 3, 4, 3, 4, 1, 2, 1, 2, 5, 6, 5, 6, 7, 8, 7, 8, 9, 10, 9, 10, 11, 12, 11, 12, 5, 6, 5, 6, 3, 4, 3, 4, 11, 12, 11, 12, 7, 8, 7, 8, 9, 10, 9, 10, 5, 6, 5, 6, 11, 12 
+        );
+        foreach ($trinomes as $id_troncon => $trinome_id) {
+            $update = $conn->query("update tracesgpx set trinome_id=$trinome_id where id=$id_troncon");
+        }
     }
 
     private static function update_jour_nuit($hdep, $start, $end, $stop)
