@@ -26,6 +26,10 @@
         <br>
         De façon générale, les données personnelles communiquées par les participants sont destinées uniquement à l'association.
         <br>
+        Vos données seront conservées pour une durée d'au plus un an. Vous avez le droit à tout moment de contacter l'administration afin de demander un accès, une rectification ou encore l'effacement de ces données.
+        <br>
+        Vous avez le droit à tout moment d'introduire une réclamation auprès d'une autorité de contrôle.
+        <br>
         Nous utilisons ces données, pour des finalités déterminées, conformément aux dispositions légales applicables et avec votre consentement, et notamment aux fins de :
         <ul>
             <li>
