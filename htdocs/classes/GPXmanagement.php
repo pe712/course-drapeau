@@ -79,7 +79,6 @@ class GPX
         global $conn;
         $select = $conn->query("select max(id) from tracesgpx");
         $n = $select->fetch()[0];
-        $n = 3;
         $global_xml = simplexml_load_file($folder . "/en_tete.gpx");
         $global_pts = $global_xml->trk->trkseg;
         for ($i = 1; $i <= $n; $i++) {
@@ -142,6 +141,8 @@ class GPX
 
         // GPX::repartition_blocs($n);
         GPX::attribution_trinomes();
+
+        GPX::merge_GPX("../pages/Troncons/traces");
     }
 
     private static function calcul2($hdep)
