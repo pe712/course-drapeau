@@ -43,6 +43,11 @@ class PageListing
             "connected" => true,
         ),
         array(
+            "name"=>"Suivi",
+            "title"=>"Suivi de la course",
+        ),
+        array(
+
             "name" => "Mentions",
             "title" => "Mentions Légales",
         ),

@@ -74,6 +74,34 @@ class GPX
         }
     }
 
+    public static function merge_GPX($folder)
+    {
+        global $conn;
+        $select = $conn->query("select max(id) from tracesgpx");
+        $n = $select->fetch()[0];
+        $n = 3;
+        $global_xml = simplexml_load_file($folder . "/en_tete.gpx");
+        $global_pts = $global_xml->trk->trkseg;
+        for ($i = 1; $i <= $n; $i++) {
+            $filename = $folder . "/trace$i.gpx";
+            $xml = simplexml_load_file($filename);
+            $pts = $xml->trk->trkseg->trkpt;
+            foreach ($pts as $pt) {
+                GPX::addTrkpt($global_pts, $pt);
+            }
+        }
+        $filename_global = $folder . "/trace_complete.gpx";
+        $global_xml->asXML($filename_global);
+    }
+
+    private static function addTrkpt($global_pts, $input_trkpt){
+        $trkpt = $global_pts->addChild("trkpt");
+        $trkpt->addAttribute("lat", $input_trkpt["lat"]);
+        $trkpt->addAttribute("lon", $input_trkpt["lon"]);
+        $trkpt->addChild("ele", $input_trkpt->ele);
+        $trkpt->addChild("time", $input_trkpt->time);
+    }
+
     public static function removeGPX()
     {
         //cette fonction est toujours accédée depuis le dossier ajax
