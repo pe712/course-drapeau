@@ -70,6 +70,34 @@ class GPX
         }
     }
 
+    public static function merge_GPX($folder)
+    {
+        global $conn;
+        $select = $conn->query("select max(id) from tracesgpx");
+        $n = $select->fetch()[0];
+        $n = 3;
+        $global_xml = simplexml_load_file($folder . "/en_tete.gpx");
+        $global_pts = $global_xml->trk->trkseg;
+        for ($i = 1; $i <= $n; $i++) {
+            $filename = $folder . "/trace$i.gpx";
+            $xml = simplexml_load_file($filename);
+            $pts = $xml->trk->trkseg->trkpt;
+            foreach ($pts as $pt) {
+                GPX::addTrkpt($global_pts, $pt);
+            }
+        }
+        $filename_global = $folder . "/trace_complete.gpx";
+        $global_xml->asXML($filename_global);
+    }
+
+    private static function addTrkpt($global_pts, $input_trkpt){
+        $trkpt = $global_pts->addChild("trkpt");
+        $trkpt->addAttribute("lat", $input_trkpt["lat"]);
+        $trkpt->addAttribute("lon", $input_trkpt["lon"]);
+        $trkpt->addChild("ele", $input_trkpt->ele);
+        $trkpt->addChild("time", $input_trkpt->time);
+    }
+
     public static function removeGPX()
     {
         //cette fonction est toujours accédée depuis le dossier ajax
@@ -114,8 +142,8 @@ class GPX
     private static function calcul2($hdep)
     {
         $segments = array(1, 4, 16, 25, 36, 45, 57, 65, 77);
-        for ($i=0; $i < sizeof($segments)-2; $i+=2) { 
-            $hdep = GPX::update_jour_nuit($hdep, $segments[$i], $segments[$i+1], $segments[$i+2]);
+        for ($i = 0; $i < sizeof($segments) - 2; $i += 2) {
+            $hdep = GPX::update_jour_nuit($hdep, $segments[$i], $segments[$i + 1], $segments[$i + 2]);
         }
         $delta_jour = 65 * 60;
         GPX::update($hdep, $hdep + $delta_jour, 77);
@@ -124,7 +152,8 @@ class GPX
         echo "Les horaires des traces ont été mis à jour en fontion de l'heure de départ et d'arrivée";
     }
 
-    private static function update_jour_nuit($hdep, $start, $end, $stop){
+    private static function update_jour_nuit($hdep, $start, $end, $stop)
+    {
         $delta_jour = 65 * 60;
         $delta_nuit = 75 * 60;
         for ($i = $start; $i < $end; $i++) {
