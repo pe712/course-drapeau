@@ -52,6 +52,7 @@ if ($user->nom == null) {
         </div>
         <br>
         <button type="submit" class="btn btn-primary">Valider</button>
+        <input type="hidden" name="token" value="<?=$_SESSION['token']?>">
     </form>
     </div>
     <button id="retourFromInfo" class="btn btn-primary" onclick="changeView('info', 'cards')">Retour</button>

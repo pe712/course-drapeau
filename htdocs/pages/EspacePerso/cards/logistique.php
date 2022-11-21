@@ -110,6 +110,7 @@ if ($user->vegetarian != null) {
             </span>
         </div>
         <button type="submit" class="btn btn-primary">Soumettre mes réponses</button>
+        <input type="hidden" name="token" value="<?=$_SESSION['token']?>">
     </form>
     </div>
     <br>

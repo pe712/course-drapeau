@@ -1,6 +1,7 @@
 <?php
-require("pages/includes/headers.php");
+require("pages/includes/sessionParam.php");
 session_start();
+require("pages/includes/headers.php");
 
 $files = glob('classes/*.php');
 foreach ($files as $file) {

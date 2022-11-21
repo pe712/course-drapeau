@@ -1,3 +1,6 @@
+<?php
+Users::generateToken();
+?>
 <div class="centerer-container inscriptionForm">
     <form class="ms-4" method="post" action="?page=Inscription">
         <div class="mb-3">
@@ -18,6 +21,7 @@
             <label class="form-check-label" for="robotCheck">Je ne suis pas un robot</label>
         </div>
         <button type="submit" class="btn btn-primary">Valider</button>
+        <input type="hidden" name="token" value="<?=$_SESSION['token']?>">
     </form>
     <div class="inscriptionVerif">
         <div>Ton mot de passe doit contenir

@@ -6,13 +6,17 @@ function changeView(fromid, toid, from = "none", to = "inherit") {
 
 $(document).ready(function () {
     $("#admin-gpx-button").click(function () {
-        $.post("ajax/AdminRequest.php?todo=removeGPX", function (data) {
+        $.post("ajax/AdminRequest.php?todo=removeGPX", {
+            token: $("#token").text()
+        }, function (data) {
             call_cs_popup(data, 1500);
         });
     })
 
     $("#admin-horaires-button").click(function () {
-        $.post("ajax/AdminRequest.php?todo=calculHoraires", function (data) {
+        $.post("ajax/AdminRequest.php?todo=calculHoraires", {
+            token: $("#token").text()
+        }, function (data) {
             call_cs_popup(data, 3000);
         });
     })
@@ -20,17 +24,17 @@ $(document).ready(function () {
     $("#modifyPerso").click(function () {
         changeView("espacePerso-modify-infosPerso", "formPerso", "none", "flex")
     });
-    
+
     $("#espacePerso-modify-logistique").click(function () {
         changeView("espacePerso-logistique-infos", "espacePerso-form-logistique")
     });
-    
+
     $("#retourFromInfo").click(function () {
         if (document.getElementById("modifyPerso")) {
             changeView("formPerso", "espacePerso-modify-infosPerso")
         }
     });
-    
+
     $("#espacePerso-retourFromLogistique").click(function () {
         if (document.getElementById("espacePerso-logistique-infos")) {
             changeView("espacePerso-form-logistique", "espacePerso-logistique-infos")
@@ -59,6 +63,7 @@ $(document).ready(function () {
             page: postdata[0],
             section: postdata[1],
             item: postdata[2],
+            token: $("#token").text(),
         }, function (data) {
             call_cs_popup(data, 3000);
         });
@@ -243,13 +248,15 @@ $(document).ready(function () {
     $("#espacePerso-download").click(function (event) {
         if ($(event.currentTarget).data('isOk')) return;
         event.preventDefault()
-        $.post("ajax/AdminRequest.php?todo=download", function (data) {
-            $("#espacePerso-download").attr("href", data)
-            $(event.currentTarget).data('isOk', true);
-            event.currentTarget.click();
-        });
+        $.post("ajax/AdminRequest.php?todo=download", {
+            token: $("#token").text()
+        },
+            function (data) {
+                $("#espacePerso-download").attr("href", data)
+                $(event.currentTarget).data('isOk', true);
+                event.currentTarget.click();
+            });
     });
-
 
     $("#espacePerso-retourFromCertif").click(function () {
         if (document.getElementById("espacePerso-messageCertif")) {

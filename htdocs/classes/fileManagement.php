@@ -58,4 +58,19 @@ class Download
                     echo "echec";
           }
      }
+
+     /* 
+     Il y a avait beaucoup plus simple :
+     
+     header('Content-type: application/gpx');
+     header( "Content-Disposition: attachment; filename=le fichier.gpx" );
+     header( 'Content-Transfer-Encoding: binary' );
+     header('Content-Length: ' . filesize($path));
+     header( 'Cache-Control: public' );
+     header( 'Content-Description: File Transfer' );
+
+     // Read the file
+     @readfile($path);
+     
+     */
 }

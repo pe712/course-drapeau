@@ -17,13 +17,14 @@ if ($user->chauffeur == null) {
             <input type="file" class="form-control" name="certificat" id="certif_uploaded" />
         </div>
         <button id="espacePerso-certif-button" type="submit" class="btn btn-primary">Envoyer</button>
+        <input type="hidden" name="token" value="<?=$_SESSION['token']?>">
     </form>
     </div>
     <?php
     if ($user->certificat!=null) {
     ?>
         <p id="espacePerso-messageCertif" class="espacePerso-firstLine">Tu as déjà mis ton certificat médical. Cliques
-            <a href="" id="espacePerso-download" download>ici</a> pour le voir et
+            <a href="" id="espacePerso-download" download>ici</a><span id="token" hidden><?=$_SESSION['token']?></span> pour le voir et
             <a href="" id="espacePerso-modifyCertif">ici</a> pour le modifier
         </p>
 <?php

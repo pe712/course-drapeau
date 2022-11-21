@@ -90,4 +90,4 @@ FIN;
     echo '<p class="espacePerso-firstLine">Les tronçons ne sont pas encore répartis ou alors tu ne fais pas encore partie d\'un trinôme</p>';
 }
 ?>
-<button class="btn btn-primary" onclick="changeView('troncons', 'cards')">Retour</button>
+<button class="btn btn-primary" onclick="changeView('troncons', 'cards')">Retour</button><br><br>

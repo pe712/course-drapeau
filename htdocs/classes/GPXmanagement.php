@@ -11,6 +11,8 @@ class GPX
 
     public static function uploadGPX_updateDB_multiple()
     {
+        if (!Users::verifyToken())
+            return false;
         $file_post = $_FILES["traces"];
         $files = array();
         $file_count = count($file_post['name']);
@@ -23,13 +25,15 @@ class GPX
         }
 
         foreach ($files as $file) {
-            if (!GPX::uploadGPX_updateDB($file))
-                break;
+            if (!GPX::uploadGPX_updateDB($file, false))
+                return false;
         }
     }
 
-    public static function uploadGPX_updateDB($file)
+    public static function uploadGPX_updateDB($file, $token_verify = true)
     {
+        if ($token_verify && (!Users::verifyToken()))
+            return false;
         preg_match("/\d+/", $file['name'], $matches);
         if (count($matches) == 0) {
             $_SESSION["displayError"] = "le nom du fichier est incorrect, ce doit être trace15.gpx par exemple.";
@@ -136,12 +140,13 @@ class GPX
         // GPX::calcul1($hdep, $harr, $n);
         GPX::calcul2($hdep);
 
-        GPX::repartition_blocs($n);
+        // GPX::repartition_blocs($n);
+        GPX::attribution_trinomes();
     }
 
     private static function calcul2($hdep)
     {
-        $segments = array(1, 4, 16, 25, 36, 45, 57, 65, 77);
+        $segments = array(1, 4, 15, 24, 36, 44, 56, 64, 77);
         for ($i = 0; $i < sizeof($segments) - 2; $i += 2) {
             $hdep = GPX::update_jour_nuit($hdep, $segments[$i], $segments[$i + 1], $segments[$i + 2]);
         }
@@ -150,6 +155,17 @@ class GPX
         $hdep += $delta_jour;
         GPX::update($hdep, $hdep + $delta_jour, 78);
         echo "Les horaires des traces ont été mis à jour en fontion de l'heure de départ et d'arrivée";
+    }
+
+    private static function attribution_trinomes(){
+        global $conn;
+        $trinomes=array(
+            7, 8, 7, 8, 9, 10, 9, 10, 1, 2, 1, 2, 3, 4, 3, 4, 5, 6, 5, 6, 1, 2, 1, 2, 11, 12, 11, 12, 3, 4, 3, 4, 1, 2, 1, 2, 5, 6, 5, 6, 7, 8, 7, 8, 9, 10, 9, 10, 11, 12, 11, 12, 5, 6, 5, 6, 3, 4, 3, 4, 11, 12, 11, 12, 7, 8, 7, 8, 9, 10, 9, 10, 5, 6, 5, 6, 11, 12 
+        );
+        foreach ($trinomes as $index => $trinome_id) {
+            $id_troncon = $index+1;
+            $update = $conn->query("update tracesgpx set trinome_id=$trinome_id where id=$id_troncon");
+        }
     }
 
     private static function update_jour_nuit($hdep, $start, $end, $stop)

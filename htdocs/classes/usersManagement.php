@@ -113,6 +113,8 @@ class Users
 
     public static function connectExte()
     {
+        if (!Users::verifyToken())
+            return false;
         global $conn;
         extract($_POST);
         $select = $conn->prepare("SELECT * FROM users WHERE mail=?");
@@ -156,6 +158,8 @@ class Users
 
     public static function newUser()
     {
+        if (!Users::verifyToken())
+            return false;
         global $conn;
         extract($_POST);
         if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
@@ -229,18 +233,25 @@ class Users
 
     public static function uploadCertificat($dossier, $name)
     {
+        if (!Users::verifyToken())
+            return false;
         global $conn;
         $certif = new Upload(array("pdf", "PDF"), 500000, $dossier);
         $file = $_FILES['certificat'];
         $name = preg_replace("/[^a-z_\.\-]/i", "_", $name);
         if ($certif->upload($name, $file)) {
             $update = $conn->prepare("UPDATE users SET certificat=? WHERE id=?");
-            $update->execute(array($name, $_SESSION["id"]));
+            if ($update->execute(array($name, $_SESSION["id"]))){
+                $_SESSION["displayValid"] = "Ton certificat a été mis à jour";
+                return true;
+            }
         }
     }
 
     public static function updateInfos()
     {
+        if (!Users::verifyToken())
+            return false;
         global $conn;
         $id = $_SESSION["id"];
         foreach ($_POST as $key => $value) {
@@ -251,12 +262,17 @@ class Users
         if (!$chauffeur)
             $num_places = null;
         $update = $conn->prepare("UPDATE users SET prenom=?, nom=?, promotion=?, chauffeur=?, num_places=?  WHERE id=?");
-        $update->execute(array($firstname, $surname, $promotion, $chauffeur, $num_places, $id));
-        $_SESSION["name"] = $firstname;
+        if ($update->execute(array($firstname, $surname, $promotion, $chauffeur, $num_places, $id))) {
+            $_SESSION["name"] = $firstname;
+            $_SESSION["displayValid"] = "Tes informations ont été mises à jour";
+            return true;
+        }
     }
 
     public static function updateLogistique()
     {
+        if (!Users::verifyToken())
+            return false;
         global $conn;
         $id = $_SESSION["id"];
         foreach ($_POST as $key => $value) {
@@ -274,7 +290,10 @@ class Users
         else
             $allergie = htmlspecialchars($allergie);
         $update = $conn->prepare("UPDATE users SET vegetarian=?, prepa_repas=?, allergie=?, permis=?, jeune_conducteur=?, boite_manuelle=?  WHERE id=?");
-        $update->execute(array($vegetarian, $prepa_repas, $allergie, $permis, $jeune_conducteur, $boite_manuelle, $id));
+        if ($update->execute(array($vegetarian, $prepa_repas, $allergie, $permis, $jeune_conducteur, $boite_manuelle, $id))) {
+            $_SESSION["displayValid"] = "Tes informations ont été mises à jour";
+            return true;
+        }
     }
 
     public static function getUserPersonnalData()
@@ -298,7 +317,7 @@ class Users
             $score += $x;
         if ($this->paid)
             $score += $x;
-        if ($this->certificat!=null)
+        if ($this->certificat != null)
             $score += $x;
         if ($this->vegetarian != null && $this->prepa_repas != null)
             $score += $x;
@@ -353,11 +372,27 @@ class Users
         }
     }
 
-    public static function getOtherMembersTrinome($trinome_id){
+    public static function getOtherMembersTrinome($trinome_id)
+    {
         global $conn;
         $select = $conn->prepare("SELECT nom, prenom FROM users WHERE trinome_id=? and not id=?");
         $select->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Users');
         $select->execute(array($trinome_id, $_SESSION["id"]));
         return $select;
+    }
+
+    public static function generateToken()
+    {
+        $_SESSION['token'] = bin2hex(random_bytes(35));
+    }
+
+    public static function verifyToken()
+    {
+        if (array_key_exists('token', $_POST) && $_POST['token'] == $_SESSION['token']) {
+            return true;
+        } else {
+            $_SESSION["displayError"] = "Erreur : formulaire invalide. Si l'erreur persiste, contacte l'administrateur";
+            return false;
+        }
     }
 }
