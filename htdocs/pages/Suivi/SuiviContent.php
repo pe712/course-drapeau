@@ -1,1 +1,4 @@
-<iframe src=" https://racemap.com/player/j1-raid-de-lx_2022-04-13" frameborder="0"></iframe>
+<?php
+$board_color = "1486aa";
+?>
+<iframe id="suivi-frame" src="https://racemap.com/player/course-bordeaux-x_2022-11-27#color=<?= $board_color ?>" loading="lazy" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
