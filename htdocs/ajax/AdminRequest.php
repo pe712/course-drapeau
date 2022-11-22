@@ -18,6 +18,8 @@ if (array_key_exists("todo", $_GET) && Users::verifyToken()) {
         Content::update_db();
     } elseif ($_GET["todo"] == "download" && Users::isConnected()) {
         Download::download_file();
+    }elseif($_GET["todo"] == "updateDistance"){
+        Suivi::update_distance();
     } else
         echo $error_msg;
 } else

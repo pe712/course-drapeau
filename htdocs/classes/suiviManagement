@@ -1,0 +1,35 @@
+<?php
+class Suivi
+{
+    public $timestamp;
+    public $distance;
+
+    public static function update_distance()
+    {
+        global $conn;
+        $select = $conn->query("SELECT distance, UNIX_TIMESTAMP(timestamp) as timestamp from suivi order by timestamp DESC");
+        $select->setFetchMode(PDO::FETCH_CLASS, 'Suivi');
+        $n  = $select->rowCount();
+        if ($n == 0) {
+            Suivi::insert_distance();
+        } else {
+            $last_data = $select->fetch()[0];
+            $last_timestamp = $last_data->timestamp;
+            if ((time() - $last_timestamp) > 60 * 5) {
+                Suivi::insert_distance();
+            }
+        }
+        echo "distance";
+    }
+
+    private static function insert_distance(){
+        global $conn;
+        $eventId = "6336f41309be310001a5894b";
+        $url = "https://racemap.com/api/data/v1/$eventId/current";
+        //fetch url
+        $get_response = null;
+
+        $insert = $conn->prepare("insert into suivi(distance, timestamp) values (?, ?)");
+        $insert->execute(array($get_response, time()));
+    }   
+}

@@ -288,3 +288,37 @@ $(document).ready(function () {
         $(".espacePerso-input-permis").hide()
     });
 });
+
+/**************** Suivi *************************/
+function setKilometers(num){
+    document.documentElement.style.setProperty('--final_num', num);
+}
+
+function animateValue(start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      $("#counter").text(Math.floor(progress * (end - start) + start));
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }
+
+  function sleep(repeatInterval) {
+    return new Promise((resolve) => setTimeout(resolve, repeatInterval));
+}
+
+const pollingRate = 1; // polling frequency in seconds
+async function callupdateDistance(url) {
+    while (true) {
+        $.post("ajax/AdminRequest.php?todo=updateDistance", {
+            token: $("#token").text()
+        }, function (data) {
+            console.log(data);
+        });
+        await sleep(pollingRate * 1000);
+    }
+}
