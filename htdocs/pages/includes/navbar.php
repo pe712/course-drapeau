@@ -20,6 +20,11 @@
             <div class="nav-bar nav-top"></div>
             <div class="nav-bar nav-bot"></div>
         </div>
+        <div class="nav-container">
+            <div id="Suivi" class="nav-content">Suivi</div>
+            <div class="nav-bar nav-top"></div>
+            <div class="nav-bar nav-bot"></div>
+        </div>
         <?php
         if (array_key_exists("id", $_SESSION)) {
             if (array_key_exists("root", $_SESSION) && $_SESSION["root"]) {
