@@ -21,6 +21,7 @@ var traces = []
 function add_gpx(file, num) {
     var map = maps[num];
     if (num == 0 && !(num in traces)) {
+        // on ne crée qu'une seule fois
         traces[num] = create_gpx(file, map)
     }
     else if (num == 1) {
