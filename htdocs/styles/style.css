@@ -421,7 +421,7 @@ ul,
 /*******************************************************************/
 /* Navbar */
 /*******************************************************************/
-@media (min-width:1000px) {
+@media (min-width:1100px) {
     .nav-mainContainer {
         justify-content: space-between;
         display: inline-flex;
@@ -430,7 +430,7 @@ ul,
 }
 
 
-@media (min-width:1000px) {
+@media (min-width:1100px) {
     .nav-container {
         width: 20vw;
         display: flex;
@@ -441,7 +441,7 @@ ul,
     }
 }
 
-@media (max-width:1000px) {
+@media (max-width:1100px) {
     .nav-container {
         background: linear-gradient(to left, rgba(20, 134, 170, 0.9), rgba(20, 134, 170, 0.7) 50%, rgba(20, 134, 170, 0.9));
     }
@@ -459,7 +459,7 @@ ul,
     font-weight: 500;
 }
 
-@media (min-width:1000px) {
+@media (min-width:1100px) {
     .nav-content {
         line-height: 80px;
     }
@@ -478,7 +478,7 @@ ul,
     opacity: 0;
 }
 
-@media (min-width:1000px) {
+@media (min-width:1100px) {
     .nav-container:hover .nav-bar {
         opacity: 1;
         transition: all 0.2s cubic-bezier(0.23, 0.91, 0.97, 1.09);
