@@ -1,5 +1,5 @@
 function add_map(name) {
-    var map = L.map(name);
+    let map = L.map(name);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -8,18 +8,18 @@ function add_map(name) {
 }
 
 if (document.getElementById('map'))
-    var map1 = add_map('map');
+    let map1 = add_map('map');
 else
-    var map1 = null;
+    let map1 = null;
 
-var map2 = add_map('map2')
-var maps = [map1, map2];
-var traces = []
+let map2 = add_map('map2')
+let maps = [map1, map2];
+let traces = []
 
 
 // num est le numéro de la carte (0 pour la carte globale)
 function add_gpx(file, num) {
-    var map = maps[num];
+    let map = maps[num];
     if (num == 0 && !(num in traces)) {
         traces[num] = create_gpx(file, map)
     }
@@ -31,7 +31,7 @@ function add_gpx(file, num) {
 }
 
 function create_gpx(url, map) {
-    var parameters = {
+    let parameters = {
         async: true,
         marker_options: {
             startIconUrl: 'lib/leaflet/images/marker-icon.png',
@@ -39,10 +39,10 @@ function create_gpx(url, map) {
             shadowUrl: 'lib/leaflet-gpx/pin-shadow.png'
         }
     }
-    var gpx_trace = new L.GPX(url, parameters).on('loaded', function (e) {
+    let gpx_trace = new L.GPX(url, parameters).on('loaded', function (e) {
         map.fitBounds(e.target.getBounds());
     }).addTo(map);
     return gpx_trace;
 }
-// var marker = new L.Marker([44.83743 - 0.57733]);
+// let marker = new L.Marker([44.83743 - 0.57733]);
 // marker.addTo(map1);
