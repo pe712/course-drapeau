@@ -44,5 +44,3 @@ function create_gpx(url, map) {
     }).addTo(map);
     return gpx_trace;
 }
-let marker = new L.Marker([48.707827, 2.223282]);
-marker.addTo(map1);
