@@ -39,6 +39,7 @@ rajouter les batteries pour les petzel
 
 Voir avec Chronoconsult et blanchard@chronoconsult.fr pour les balise et l'intégration du suivi des concurrents
 
-hmtlspecialchars à la sortie de la database
+hmtlspecialchars à la sortie de la database et pas à l'entrée:
+-> ou alors empêcher les dits caractères spéciaux en le spécifiant au client
 vérifier les href -> il manque parfois des guillemets
 vérifier qu'il n'y a pas d'erreur dans une requête sql count(sections)

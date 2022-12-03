@@ -123,7 +123,7 @@ class Content
             $url = filter_var($splits[2], FILTER_VALIDATE_URL);
             if ($url) {
                 $value = $splits[3];
-                $lien = "<a href=$url>$value</a>";
+                $lien = "<a href=".$url.">$value</a>";
                 return $splits[0] . $lien . $splits[4];
             }
         }
