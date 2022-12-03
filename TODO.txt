@@ -1,12 +1,6 @@
 TODO
 --------------------------------------------------
 * Construire un archivage de la base de donnée et des documents personnels /pages/espacePerso
-cronjob
-* Onglets à rajouter:
--suivi du concurrent
--photos
--onglet de suivi coté administratif
-
 
 --------------------------------------------------
 Mettre un moyen plus efficace et moderne d'upload les fichiers xlsx et csv
@@ -24,7 +18,7 @@ Admin (non urgent):
 -l'ajout d'un item recharge la page, ce qui est pénible, il faut le faire en asynchronous
 
 Mettre dans l'arborescence de Admin le "title" des pages et non son "name"
-Supprimer les chiffres en anglais de AboutContent s'ils ne sont nécessaires (c'est probable)
+
 --------------------------------------------------
 Setup:
 -git clone et vérifier qu'il n'y a pas de fichier superflu en ligne
@@ -35,11 +29,6 @@ Setup:
 
 --------------------------------------------------
 
-rajouter les batteries pour les petzel
-
-Voir avec Chronoconsult et blanchard@chronoconsult.fr pour les balise et l'intégration du suivi des concurrents
-
 hmtlspecialchars à la sortie de la database et pas à l'entrée:
 -> ou alors empêcher les dits caractères spéciaux en le spécifiant au client
-vérifier les href -> il manque parfois des guillemets
-vérifier qu'il n'y a pas d'erreur dans une requête sql count(sections)
+
