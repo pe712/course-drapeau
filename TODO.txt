@@ -1,3 +1,12 @@
+Setup:
+-git clone et vérifier qu'il n'y a pas de fichier superflu en ligne
+-setup les identifiants de la db
+-upload la db
+-définir un cronjob pour supprimer les fichiers temporaires
+-redéfinir les limites d'upload
+
+
+
 TODO
 --------------------------------------------------
 * Construire un archivage de la base de donnée et des documents personnels /pages/espacePerso
@@ -16,19 +25,17 @@ https://phpspreadsheet.readthedocs.io/en/latest/#getting-started
 Admin (non urgent):
 -une modification d'un item ne permet plus de voir tous les items
 -l'ajout d'un item recharge la page, ce qui est pénible, il faut le faire en asynchronous
-
-Mettre dans l'arborescence de Admin le "title" des pages et non son "name"
-
---------------------------------------------------
-Setup:
--git clone et vérifier qu'il n'y a pas de fichier superflu en ligne
--setup les identifiants de la db
--upload la db
--définir un cronjob pour supprimer les fichiers temporaires
--redéfinir les limites d'upload
+-Mettre dans l'arborescence de Admin le "title" des pages et non son "name"
+-Proposer un affichage sous forme de table des participants
+-Pouvoir récupérer toutes les feuilles de routes des participants
 
 --------------------------------------------------
+Suivi:
+-compteur de kms avec interpolation à partir des données reçues toutes les 5 min par l'API
+-redimensionner le iFrame pour le rendre responsive (créer des marges pour pouvoir scroll)
 
+--------------------------------------------------
+divers
 hmtlspecialchars à la sortie de la database et pas à l'entrée:
 -> ou alors empêcher les dits caractères spéciaux en le spécifiant au client
 
