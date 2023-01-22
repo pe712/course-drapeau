@@ -36,5 +36,8 @@ divers
 hmtlspecialchars à la sortie de la database et pas à l'entrée:
 -> ou alors empêcher les dits caractères spéciaux en le spécifiant au client
 
+--------------------------------------------------
+Projet:
+Vous pouvez mettre un workflow qui build automatiquement la documentation plutôt que manuellement
 
 
