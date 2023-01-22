@@ -49,3 +49,6 @@ Il faut définir cronjob.sh comme cronjob sur le serveur
 ```sh
 */15 * * * * /hosting/www/courseaudrapeau/crons/cronjob.sh
 ```
+
+### Monsieur je ne sais pas quoi faire, je manque d'idées 
+Il y a en cadeau un TODO.txt
