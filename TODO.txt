@@ -1,13 +1,3 @@
-Setup:
--git clone et vérifier qu'il n'y a pas de fichier superflu en ligne
--setup les identifiants de la db
--upload la db
--définir un cronjob pour supprimer les fichiers temporaires
--redéfinir les limites d'upload
-
-
-
-TODO
 --------------------------------------------------
 * Construire un archivage de la base de donnée et des documents personnels /pages/espacePerso
 
@@ -22,12 +12,19 @@ https://phpspreadsheet.readthedocs.io/en/latest/#getting-started
 + par le nombre d'inscrits
 
 --------------------------------------------------
-Admin (non urgent):
+Admin:
+-Proposer un affichage sous forme de table des participants et de l'état des inscriptions
+-Pouvoir récupérer toutes les feuilles de routes des participants en .pdf à download
+
+Contenu modifiable:
 -une modification d'un item ne permet plus de voir tous les items
 -l'ajout d'un item recharge la page, ce qui est pénible, il faut le faire en asynchronous
 -Mettre dans l'arborescence de Admin le "title" des pages et non son "name"
--Proposer un affichage sous forme de table des participants
--Pouvoir récupérer toutes les feuilles de routes des participants
+=> il faut surtout enlever complètement cette fonctionnalité
+
+--------------------------------------------------
+Download (pas la priorité):
+Le download fonctionne mais n'est pas idéal (fichier copié dans le dossier tmp qui est vidé régulièrement). Cela permet d'assurer la sécurité du processus et de garder les fichiers protégés. En fait il y a plus simple et on peut diriger l'utilisateur vers une page avec un header bien défini.
 
 --------------------------------------------------
 Suivi:
@@ -41,14 +38,3 @@ hmtlspecialchars à la sortie de la database et pas à l'entrée:
 
 
 
-controllers build the page
--> every page is an instance of Page class as defined in pageManagement.php
--> the structurale behavior of the page is defined by the [Page_name].php (About.php for example) and the content of the page is defined by the [Page_name]Content.php (AboutContent.php for example)
-routing is done by the load static function of PageListing class
-
-Feel free to update to a new modern structural organisation, especially using frameworks (like symfony). Managing pages through a GET parameter is to avoid
-
-This site currently use two authentifications: one for outsider and one for polytechnicians.
-The CAS of the BR works as follow: the user is directed to ..... When clicking connect, the user is directed to .... which is an URL defined by the BR. We then take the user's ticket as a GET parameter and we can exchange it against its personnal informations.
-
-Feel free to see a BR (wo)man for further explanation
