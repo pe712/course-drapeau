@@ -39,3 +39,16 @@ divers
 hmtlspecialchars à la sortie de la database et pas à l'entrée:
 -> ou alors empêcher les dits caractères spéciaux en le spécifiant au client
 
+
+
+controllers build the page
+-> every page is an instance of Page class as defined in pageManagement.php
+-> the structurale behavior of the page is defined by the [Page_name].php (About.php for example) and the content of the page is defined by the [Page_name]Content.php (AboutContent.php for example)
+routing is done by the load static function of PageListing class
+
+Feel free to update to a new modern structural organisation, especially using frameworks (like symfony). Managing pages through a GET parameter is to avoid
+
+This site currently use two authentifications: one for outsider and one for polytechnicians.
+The CAS of the BR works as follow: the user is directed to ..... When clicking connect, the user is directed to .... which is an URL defined by the BR. We then take the user's ticket as a GET parameter and we can exchange it against its personnal informations.
+
+Feel free to see a BR (wo)man for further explanation

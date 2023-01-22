@@ -1,7 +1,7 @@
 # Site de la course Bordeaux-Polytechnique : 
 Ce site a pour but de donner toutes les informations nécessaires aux participants de la course. Il a été conçu pour être facilement modifiable et réutilisable d'une année sur l'autre.
 
-Le site est en ligne et accessible à l'adresse https://BX.binets.fr
+Le site est en ligne et accessible à l'adresse https://course-drapeau.binets.fr
 
 ## Organisation fonctionnelle du site
 Il y a une seule page index.php et la navigation se fait au travers du paramètre page passé en méthode GET.
@@ -62,11 +62,5 @@ Il faut définir un cronjob.sh comme cronjob sur le serveur
 
 ## Contact
 
-Lien du projet : [https://github.com/pe712/Site-web-php-course-Bordeaux-X](https://github.com/pe712/Site-web-php-course-Bordeaux-X)
-
-
-## Fait avec
-
-* 🐙 Github
-* 💻 VS Code
+pierre-emmanuel.baviere@polytechnique.edu
 
