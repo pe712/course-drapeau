@@ -1,1 +1,7 @@
 site_name: Documentation de la course au drapeau
+theme: readthedocs
+nav:
+    - Home: index.md
+    - Quickstart: quickstart.md
+    - Fonctions: func.md
+
