@@ -60,6 +60,9 @@ N'importe quelle base de données relationnelle convient. Il faut modifier les d
 ### Crons
 Il faut définir un cronjob.sh comme cronjob sur le serveur
 
+## Collaborer sur le projet
+Il faut toujours bien documenter ce que vous faites dans le dossier /docs. Vous trouverez plus d'informations à propos de mkdos à https://www.mkdocs.org/getting-started/#getting-started-with-mkdocs Il suffit de modifier le index.md et d'exécuter `mkdocs build`
+
 ## Contact
 
 pierre-emmanuel.baviere@polytechnique.edu
