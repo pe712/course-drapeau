@@ -32,6 +32,7 @@ Vous pouvez mettre à jour ce routing notamment en utilisant un framework (symfo
 ## Authentification
 Ce site utilise actuellement deux authentifications, pour les extés et pour les polytechniciens.
 Le CAS du BR fonctionne de la manière suivante : 
+
 * L'utilisateur est dirigé vers https://cas.binets.fr/login?service=https://course-drapeau.binets.fr/?page=Connect&renew=true
 * Il se connecte
 * L'utilisateur est redirigé vers https://course-drapeau.binets.fr/?page=Connect qui est une URL définie par le B
@@ -42,9 +43,10 @@ N'hésitez pas à demander plus d'infos au BR
 ## Modification du contenu
 Le projet du site était initiallement de faire un contenu modulable sans avoir à écrire de code. L'idée était de stocker les informations dans la base de donnée dans les tables `content` et `content_section` et de modifier ces informations depuis l'espace administration pour les utilisateurs enregistrés comme `root` dans la database. 
 
-Ce projet n'a pas été mené jusqu'au bout. Par ailleurs il n'est pas vraiment intelligent car le site évolue beaucoup plus d'une année à l'autre que simplement une mise à jour de contenu. 
+Ce projet n'a pas été mené jusqu'au bout. Par ailleurs il n'est pas vraiment intelligent car le site évolue beaucoup plus d'une année à l'autre que simplement une mise à jour de contenu. Néanmoins voici comment il fonctionne:
 
 La modification du contenu du site se fait depuis l'onglet administration, accessible après connexion avec un login root. Si tu êtes le gestionnaire de la base de donnée, il est facile de créer un entrée avec `root=true` dans la base. Sinon il faut contacter votre prédécesseur pour qu'il tu passe les accès.
+
 Il est possible de modifier le contenu de chaque item, d'en créer de nouveau ou de les supprimer, pareil pour chaque section. Dans le code php, chaque item peut être accédé directement sur la page voulue avec `$sections[num_section][num_item]` où `num_section>=1` et `num_item>=0`
 Vous pouvez ajouter un lien dans le contenu. Comme tous les caractères spéciaux sont échappés, il faut utiliser une syntaxe particulière (je sépare par des "!"). Pour faire un lien vers https://google.com avec comme valeur "ici" j'écris par exemple dans mon item :
 Vous pouvez visiter google !lien!https://google.com!ici! et je peux continuer mon texte.
@@ -56,6 +58,6 @@ Chaque page suit un modèle défini par son header `linksAndScripts.php`, une na
 Pour créer une nouvelle page, il suffit de la placer dans le dossier \pages et de remplir le tableau du fichier pageManagement.php
 
 ## Documenter le projet
-Il faut toujours bien documenter ce que vous faites dans le dossier /docs. Vous trouverez plus d'informations à propos de mkdocs utilisé pour créer la doc [ici]https://www.mkdocs.org/getting-started/#getting-started-with-mkdocs.
+Il faut toujours bien documenter ce que vous faites dans le dossier /docs. Vous trouverez plus d'informations à propos de mkdocs utilisé pour créer la doc [ici](https://www.mkdocs.org/getting-started/#getting-started-with-mkdocs).
 
 Il suffit de modifier le index.md et d'exécuter `mkdocs build`. Lors d'un commit, la documentation est automatiquement mise à jour.

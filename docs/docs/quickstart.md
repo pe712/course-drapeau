@@ -32,7 +32,7 @@ Pour ce site, des librairies php on été utilisés et téléchargées à l'aide
 
 ### Base de données
 N'importe quelle base de données relationnelle convient.
-Vous trouverez [ici]https://pe712.github.io/course-Bordeaux-X/media/courseaudrapeau.sql la database à un stade donné du projet (il est possible que cet exemple soit obsolète).
+Vous trouverez [ici](https://pe712.github.io/course-Bordeaux-X/media/courseaudrapeau.sql) la database à un stade donné du projet (il est possible que cet exemple soit obsolète).
 
 Pour configurer la base de donnée il faut créer un fichier config.php et le placer à la source du projet (à côté de htdocs). Il est ainsi accessible par les scripts php mais pas par l'utilisateur.
 
@@ -50,5 +50,5 @@ Il faut définir cronjob.sh comme cronjob sur le serveur
 */15 * * * * /hosting/www/courseaudrapeau/crons/cronjob.sh
 ```
 
-### Monsieur je ne sais pas quoi faire, je manque d'idées 
-Il y a en cadeau un TODO.txt
+### Par où commencer
+Si vous n'avez pas d'idées, il y a un TODO.txt
