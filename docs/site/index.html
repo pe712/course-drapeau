@@ -43,6 +43,22 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#organisation-du-projet">Organisation du projet</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#organisation-du-site">Organisation du site</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#creation-des-pages">Création des pages</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#authentification">Authentification</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#modification-du-contenu">Modification du contenu</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#template-de-page">Template de page</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#creer-une-nouvelle-page">Créer une nouvelle page</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#documenter-le-projet">Documenter le projet</a>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -77,17 +93,53 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="organisation-fonctionnelle-du-site">Organisation fonctionnelle du site</h2>
-<p>Il y a une seule page index.php et la navigation se fait au travers du paramètre page passé en méthode GET.</p>
-<p>Les ressources génériques coté serveur sont regroupées dans les dossiers /includes et /classes.</p>
-<p>Les libraires externes sont regroupées dans le dossier /lib. Il y a à la fois des librairies js et php. </p>
-<p>/img contient les médias.</p>
-<p>La modification du contenu du site se fait depuis l'onglet administration, accessible après connexion avec un login root. Si tu êtes le gestionnaire de la base de donnée, il est facile de créer un login root dans la base. Sinon il faut contacter votre prédécesseur pour qu'il tu passe les accès.
-Il est possible de modifier le contenu de chaque item, d'en créer de nouveau ou de les supprimer, pareil pour chaque section. Dans le code php, chaque item peut être accédé directement sur la page voulue avec $sections[num_section][num_item] où num_section&gt;=1 et num_item&gt;=0
-Vous pouvez ajouter un lien dans le contenu. Comme tous les caractères spéciaux sont échappés, il faut utiliser une syntaxe particulière. Pour faire un lien vers https://google.com avec comme valeur "ici" j'écris par exemple dans mon item (je sépare par des "!"):
-Vous pouvez visiter google !lien!https://google.com!ici! et je peux continuer mon texte.
-Pour faire un lien plus évolué avec des attributs, je demande uniquement l'url à l'utilisateur et j'utilise filter_var($url, FILTER_VALIDATE_URL) [voir le lien de la cagnotte lydia dans pages/EspacePerso]</p>
-<p>Pour créer une nouvelle page, il suffit de la placer dans le dossier pages et de remplir le tableau du fichier pageManagement</p>
+                <h1 id="organisation-fonctionnelle">Organisation fonctionnelle</h1>
+<h2 id="organisation-du-projet">Organisation du projet</h2>
+<ul>
+<li>\crons -&gt; cronjob de nettoyage des fichiers temporaires</li>
+<li>\htdocs -&gt; données à servir</li>
+<li>\docs -&gt; documentation</li>
+</ul>
+<h2 id="organisation-du-site">Organisation du site</h2>
+<ul>
+<li>\ajax -&gt; page où les requêtes ajax sont envoyées et traitées</li>
+<li>\classes -&gt; regroupement de toutes les fonctions php utilisées</li>
+<li>\doc -&gt; listes csv et xls (non utilisées actuellement)</li>
+<li>\lib et \vendor -&gt; librairies</li>
+<li>\pages -&gt; détail des pages servies</li>
+<li>\img -&gt; médias</li>
+<li>\scripts -&gt; fichiers javascript</li>
+<li>\styles -&gt; fichier css</li>
+</ul>
+<h2 id="creation-des-pages">Création des pages</h2>
+<p>Il y a un sous-dossier par page dans \pages. Chaque page est construit par un controller. Ils se trouvent dans \pages et s'appellent par example About.php.
+Il s'agit d'instance de la classe <code>Page</code> telle que définie dans classes/pageManagement.php</p>
+<p>Il y a une seule page index.php et la navigation se fait au travers du paramètre page passé en méthode <code>get</code>.
+Le routing est fait par la <code>static function load</code> de la classe <code>PageListing</code></p>
+<p>Le contenu statique de la page se trouve dans le fichier qui s'appelle par exemple <code>AboutContent.php</code></p>
+<p>Vous pouvez mettre à jour ce routing notamment en utilisant un framework (symfony par exemple). L'organisation des pages à travers le paramètre <code>get</code> est à éviter.</p>
+<h2 id="authentification">Authentification</h2>
+<p>Ce site utilise actuellement deux authentifications, pour les extés et pour les polytechniciens.
+Le CAS du BR fonctionne de la manière suivante : 
+* L'utilisateur est dirigé vers https://cas.binets.fr/login?service=https://course-drapeau.binets.fr/?page=Connect&amp;renew=true
+* Il se connecte
+* L'utilisateur est redirigé vers https://course-drapeau.binets.fr/?page=Connect qui est une URL définie par le B
+* Nous prenons alors le ticket de l'utilisateur en paramètre <code>get</code> et nous pouvons l'échanger contre ses informations personnelles.</p>
+<p>N'hésitez pas à demander plus d'infos au BR</p>
+<h2 id="modification-du-contenu">Modification du contenu</h2>
+<p>Le projet du site était initiallement de faire un contenu modulable sans avoir à écrire de code. L'idée était de stocker les informations dans la base de donnée dans les tables <code>content</code> et <code>content_section</code> et de modifier ces informations depuis l'espace administration pour les utilisateurs enregistrés comme <code>root</code> dans la database. </p>
+<p>Ce projet n'a pas été mené jusqu'au bout. Par ailleurs il n'est pas vraiment intelligent car le site évolue beaucoup plus d'une année à l'autre que simplement une mise à jour de contenu. </p>
+<p>La modification du contenu du site se fait depuis l'onglet administration, accessible après connexion avec un login root. Si tu êtes le gestionnaire de la base de donnée, il est facile de créer un entrée avec <code>root=true</code> dans la base. Sinon il faut contacter votre prédécesseur pour qu'il tu passe les accès.
+Il est possible de modifier le contenu de chaque item, d'en créer de nouveau ou de les supprimer, pareil pour chaque section. Dans le code php, chaque item peut être accédé directement sur la page voulue avec <code>$sections[num_section][num_item]</code> où <code>num_section&gt;=1</code> et <code>num_item&gt;=0</code>
+Vous pouvez ajouter un lien dans le contenu. Comme tous les caractères spéciaux sont échappés, il faut utiliser une syntaxe particulière (je sépare par des "!"). Pour faire un lien vers https://google.com avec comme valeur "ici" j'écris par exemple dans mon item :
+Vous pouvez visiter google !lien!https://google.com!ici! et je peux continuer mon texte.</p>
+<h2 id="template-de-page">Template de page</h2>
+<p>Chaque page suit un modèle défini par son header <code>linksAndScripts.php</code>, une navbar <code>navbar.php</code>, son footer <code>footer.php</code>, et éventuellement un message d'alerte <code>Diplay.php</code> dans \pages\includes </p>
+<h2 id="creer-une-nouvelle-page">Créer une nouvelle page</h2>
+<p>Pour créer une nouvelle page, il suffit de la placer dans le dossier \pages et de remplir le tableau du fichier pageManagement.php</p>
+<h2 id="documenter-le-projet">Documenter le projet</h2>
+<p>Il faut toujours bien documenter ce que vous faites dans le dossier /docs. Vous trouverez plus d'informations à propos de mkdocs utilisé pour créer la doc [ici]https://www.mkdocs.org/getting-started/#getting-started-with-mkdocs.</p>
+<p>Il suffit de modifier le index.md et d'exécuter <code>mkdocs build</code>. Lors d'un commit, la documentation est automatiquement mise à jour.</p>
               
             </div>
           </div><footer>
@@ -135,5 +187,5 @@ Pour faire un lien plus évolué avec des attributs, je demande uniquement l'url
 
 <!--
 MkDocs version : 1.4.2
-Build Date UTC : 2023-01-22 18:22:33.359818+00:00
+Build Date UTC : 2023-01-22 21:20:09.732744+00:00
 -->

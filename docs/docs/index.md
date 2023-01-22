@@ -54,3 +54,8 @@ Chaque page suit un modèle défini par son header `linksAndScripts.php`, une na
 
 ## Créer une nouvelle page
 Pour créer une nouvelle page, il suffit de la placer dans le dossier \pages et de remplir le tableau du fichier pageManagement.php
+
+## Documenter le projet
+Il faut toujours bien documenter ce que vous faites dans le dossier /docs. Vous trouverez plus d'informations à propos de mkdocs utilisé pour créer la doc [ici]https://www.mkdocs.org/getting-started/#getting-started-with-mkdocs.
+
+Il suffit de modifier le index.md et d'exécuter `mkdocs build`. Lors d'un commit, la documentation est automatiquement mise à jour.
