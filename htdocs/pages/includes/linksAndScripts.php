@@ -3,7 +3,7 @@
 <link href="lib/bootstrap-5.2.0/css/bootstrap.css" rel="stylesheet">
 <script src="lib/bootstrap-5.2.0/js/bootstrap.bundle.js"></script>
 
-<link rel=stylesheet href=styles/style.css>
+<link rel=stylesheet href="styles/style.css">
 
 
 

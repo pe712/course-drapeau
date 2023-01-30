@@ -1,7 +1,7 @@
 <?php
-error_reporting(E_ALL);
-// session_set_cookie_params(2*60*60, '/', 'votresite.binets.fr', true, true);
+require("pages/includes/sessionParam.php");
 session_start();
+require("pages/includes/headers.php");
 
 $files = glob('classes/*.php');
 foreach ($files as $file) {

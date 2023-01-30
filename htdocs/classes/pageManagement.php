@@ -10,7 +10,7 @@ class PageListing
         ),
         array(
             "name" => "About",
-            "title" => "A propos",
+            "title" => "À propos",
         ),
         array(
             "name" => "Inscription",
@@ -41,6 +41,15 @@ class PageListing
             "name" => "EspacePerso",
             "title" => "Mon Espace Personnel",
             "connected" => true,
+        ),
+        array(
+            "name"=>"Suivi",
+            "title"=>"Suivi de la course",
+        ),
+        array(
+
+            "name" => "Mentions",
+            "title" => "Mentions Légales",
         ),
     );
 
@@ -80,9 +89,8 @@ class PageListing
             echo $msg_erreur;
         elseif ($page->load != null){
             $name = $page->load;
-            $page_info = PageListing::findPage($name);
-            extract($page_info);
-            PageListing::load($name);
+            header("location:?page=$page->load");
+            die();
         }
         else {
             require("pages/includes/navbar.php");
@@ -91,7 +99,7 @@ class PageListing
     }
 }
 
-class Page
+abstract class Page
 {
     public $content;
     public $erreur = false;

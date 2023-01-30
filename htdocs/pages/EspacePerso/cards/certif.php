@@ -1,10 +1,10 @@
 <?php
 if ($user->chauffeur == null) {
-    echo '<p class="espacePerso-firstLine">Vous devez d\'abord remplir la catégorie informations personnelles.</p>';
+    echo '<p class="espacePerso-firstLine">Tu dois d\'abord remplir la catégorie informations personnelles.</p>';
 } elseif ($user->chauffeur) {
-    echo '<p class="espacePerso-firstLine">Vous n\'avez pas besoin de renseigner de certificat.</p>';
+    echo '<p class="espacePerso-firstLine">Tu n\'as pas besoin de renseigner de certificat.</p>';
 } else {
-    if ($user->certificat) {
+    if ($user->certificat!=null) {
         echo '<div class="centerer-container" style="display: none;" id="espacePerso-certificatUpload">';
     } else {
         echo '<div class="centerer-container" id="espacePerso-certificatUpload">';
@@ -17,14 +17,14 @@ if ($user->chauffeur == null) {
             <input type="file" class="form-control" name="certificat" id="certif_uploaded" />
         </div>
         <button id="espacePerso-certif-button" type="submit" class="btn btn-primary">Envoyer</button>
+        <input type="hidden" name="token" value="<?=$_SESSION['token']?>">
     </form>
     </div>
     <?php
-    if ($user->certificat) {
-        $path = $dossier . $name;
+    if ($user->certificat!=null) {
     ?>
-        <p id="espacePerso-messageCertif" class="espacePerso-firstLine">Vous avez déjà mis votre certificat médical. Cliquez
-            <a href="" id="espacePerso-download" download><span hidden><?= $path ?></span>ici</a> pour le voir et
+        <p id="espacePerso-messageCertif" class="espacePerso-firstLine">Tu as déjà mis ton certificat médical. Cliques
+            <a href="" id="espacePerso-download" download>ici</a><span id="token" hidden><?=$_SESSION['token']?></span> pour le voir et
             <a href="" id="espacePerso-modifyCertif">ici</a> pour le modifier
         </p>
 <?php

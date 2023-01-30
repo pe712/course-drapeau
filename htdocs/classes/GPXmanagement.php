@@ -11,6 +11,8 @@ class GPX
 
     public static function uploadGPX_updateDB_multiple()
     {
+        if (!Users::verifyToken())
+            return false;
         $file_post = $_FILES["traces"];
         $files = array();
         $file_count = count($file_post['name']);
@@ -23,13 +25,15 @@ class GPX
         }
 
         foreach ($files as $file) {
-            if (!GPX::uploadGPX_updateDB($file))
-                break;
+            if (!GPX::uploadGPX_updateDB($file, false))
+                return false;
         }
     }
 
-    public static function uploadGPX_updateDB($file)
+    public static function uploadGPX_updateDB($file, $token_verify = true)
     {
+        if ($token_verify && (!Users::verifyToken()))
+            return false;
         preg_match("/\d+/", $file['name'], $matches);
         if (count($matches) == 0) {
             $_SESSION["displayError"] = "le nom du fichier est incorrect, ce doit être trace15.gpx par exemple.";
@@ -70,6 +74,33 @@ class GPX
         }
     }
 
+    public static function merge_GPX($folder)
+    {
+        global $conn;
+        $select = $conn->query("select max(id) from tracesgpx");
+        $n = $select->fetch()[0];
+        $global_xml = simplexml_load_file($folder . "/en_tete.gpx");
+        $global_pts = $global_xml->trk->trkseg;
+        for ($i = 1; $i <= $n; $i++) {
+            $filename = $folder . "/trace$i.gpx";
+            $xml = simplexml_load_file($filename);
+            $pts = $xml->trk->trkseg->trkpt;
+            foreach ($pts as $pt) {
+                GPX::addTrkpt($global_pts, $pt);
+            }
+        }
+        $filename_global = $folder . "/trace_complete.gpx";
+        $global_xml->asXML($filename_global);
+    }
+
+    private static function addTrkpt($global_pts, $input_trkpt){
+        $trkpt = $global_pts->addChild("trkpt");
+        $trkpt->addAttribute("lat", $input_trkpt["lat"]);
+        $trkpt->addAttribute("lon", $input_trkpt["lon"]);
+        $trkpt->addChild("ele", $input_trkpt->ele);
+        $trkpt->addChild("time", $input_trkpt->time);
+    }
+
     public static function removeGPX()
     {
         //cette fonction est toujours accédée depuis le dossier ajax
@@ -98,22 +129,78 @@ class GPX
             else
                 $harr = $horaire->contenu;
         }
-        $duration = $harr - $hdep;
         $select = $conn->query("SELECT * from tracesgpx");
         $n = $select->rowCount();
-        if ($n == 0)
+        if ($n == 0) {
             echo "Il n'y aucune trace GPX pour le moment";
-        else {
-            $delta = $duration / $n;
-            $current_delta = 0;
-            for ($i = 1; $i <= $n; $i++) {
-                $update = $conn->prepare("UPDATE tracesgpx set heure_dep=FROM_UNIXTIME(?), heure_arr=FROM_UNIXTIME(?) where id =?");
-                $update->execute(array($hdep + $current_delta, $hdep + $current_delta + $delta, $i));
-                $current_delta += $delta;
-            }
-            echo "Les horaires des traces ont été mis à jour en fontion de l'heure de départ et d'arrivée";
+            return;
         }
-        GPX::repartition_blocs($n);
+
+        // GPX::calcul1($hdep, $harr, $n);
+        GPX::calcul2($hdep);
+
+        // GPX::repartition_blocs($n);
+        GPX::attribution_trinomes();
+
+        GPX::merge_GPX("../pages/Troncons/traces");
+    }
+
+    private static function calcul2($hdep)
+    {
+        $segments = array(1, 4, 15, 24, 36, 44, 56, 64, 77);
+        for ($i = 0; $i < sizeof($segments) - 2; $i += 2) {
+            $hdep = GPX::update_jour_nuit($hdep, $segments[$i], $segments[$i + 1], $segments[$i + 2]);
+        }
+        $delta_jour = 65 * 60;
+        GPX::update($hdep, $hdep + $delta_jour, 77);
+        $hdep += $delta_jour;
+        GPX::update($hdep, $hdep + $delta_jour, 78);
+        echo "Les horaires des traces ont été mis à jour en fontion de l'heure de départ et d'arrivée";
+    }
+
+    private static function attribution_trinomes(){
+        global $conn;
+        $trinomes=array(
+            7, 8, 7, 8, 9, 10, 9, 10, 1, 2, 1, 2, 3, 4, 3, 4, 5, 6, 5, 6, 1, 2, 1, 2, 11, 12, 11, 12, 3, 4, 3, 4, 1, 2, 1, 2, 5, 6, 5, 6, 7, 8, 7, 8, 9, 10, 9, 10, 11, 12, 11, 12, 5, 6, 5, 6, 3, 4, 3, 4, 11, 12, 11, 12, 7, 8, 7, 8, 9, 10, 9, 10, 5, 6, 5, 6, 11, 12 
+        );
+        foreach ($trinomes as $index => $trinome_id) {
+            $id_troncon = $index+1;
+            $update = $conn->query("update tracesgpx set trinome_id=$trinome_id where id=$id_troncon");
+        }
+    }
+
+    private static function update_jour_nuit($hdep, $start, $end, $stop)
+    {
+        $delta_jour = 65 * 60;
+        $delta_nuit = 75 * 60;
+        for ($i = $start; $i < $end; $i++) {
+            GPX::update($hdep, $hdep + $delta_jour, $i);
+            $hdep += $delta_jour;
+        }
+        for ($i = $end; $i < $stop; $i++) {
+            GPX::update($hdep, $hdep + $delta_nuit, $i);
+            $hdep += $delta_nuit;
+        }
+        return $hdep;
+    }
+
+    private static function update($hdep, $harr, $id)
+    {
+        global $conn;
+        $update = $conn->prepare("UPDATE tracesgpx set heure_dep=FROM_UNIXTIME(?), heure_arr=FROM_UNIXTIME(?) where id =?");
+        $update->execute(array($hdep, $harr, $id));
+    }
+
+    private static function calcul1($hdep, $harr, $n)
+    {
+        $duration = $harr - $hdep;
+        $delta = $duration / $n;
+        $current_delta = 0;
+        for ($i = 1; $i <= $n; $i++) {
+            GPX::update($hdep + $current_delta, $hdep + $current_delta + $delta, $i);
+            $current_delta += $delta;
+        }
+        echo "Les horaires des traces ont été mis à jour en fontion de l'heure de départ et d'arrivée";
     }
 
     private static function repartition_blocs($n_creneaux)
@@ -126,9 +213,9 @@ class GPX
         for ($kbloc = 0; $kbloc < $n_blocs; $kbloc++) {
             for ($kgroupe = 0; $kgroupe < $G; $kgroupe++) {
                 $firstid_groupe = ($kgroupe + $decallage_bloc * $kbloc) % $G;
-                $firstid = $kbloc * $G * 4 + $kgroupe * 4+1;
-                for ($i=0; $i < 4; $i++) {
-                    $groupe_courant=$firstid_groupe*2+($i%2)+1;
+                $firstid = $kbloc * $G * 4 + $kgroupe * 4 + 1;
+                for ($i = 0; $i < 4; $i++) {
+                    $groupe_courant = $firstid_groupe * 2 + ($i % 2) + 1;
                     $id = $firstid + $i;
                     $update = $conn->query("update tracesgpx set trinome_id=$groupe_courant where id=$id");
                 }
@@ -137,10 +224,14 @@ class GPX
     }
 
 
-    public static function getGPXdata()
+    public static function getGPXdata($trinome = null)
     {
         global $conn;
-        $select = $conn->prepare("SELECT id, UNIX_TIMESTAMP(heure_dep) as heure_dep, UNIX_TIMESTAMP(heure_arr) as heure_arr,gps_dep, gps_arr, trinome_id FROM tracesgpx");
+        if ($trinome == null) {
+            $select = $conn->prepare("SELECT id, UNIX_TIMESTAMP(heure_dep) as heure_dep, UNIX_TIMESTAMP(heure_arr) as heure_arr,gps_dep, gps_arr, trinome_id FROM tracesgpx");
+        } else {
+            $select = $conn->prepare("SELECT id, UNIX_TIMESTAMP(heure_dep) as heure_dep, UNIX_TIMESTAMP(heure_arr) as heure_arr,gps_dep, gps_arr, trinome_id FROM tracesgpx where trinome_id=$trinome");
+        }
         $select->setFetchMode(PDO::FETCH_CLASS, 'GPX');
         $select->execute();
         return $select;

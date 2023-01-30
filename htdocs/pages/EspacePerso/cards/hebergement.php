@@ -7,7 +7,7 @@ $url2 = $baseurl . urlencode($lieu2);
 ?>
 
 <p class="espacePerso-firstLine">
-    Il y aura deux hébergements sur le parcours pour la totalité de la course:
+    Il y aura deux hébergements sur le parcours pour la totalité de la course :
 </p>
 <div class="espacePerso-content-hebergement">
     <div class="espacePerso-content-hebergement-intro">
@@ -15,7 +15,7 @@ $url2 = $baseurl . urlencode($lieu2);
         <a href="<?= $url1 ?>" target="_blank">voir sur la carte</a>
     </div>
     <div>
-        M. et Mme Dezaunay qui nous acceuillent seront là, soyez respectueux.
+        M. et Mme Dezaunay qui nous accueillent seront là, soyez respectueux.
         <br>
         On peut se garer sur un petit parking qui descend de l'autre côté du rond-point ou un peu plus loin sur le bas coté en terre.
         <br>

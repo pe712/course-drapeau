@@ -5,7 +5,7 @@
     background-color: #e7f1ff;
 }
 
-.aboutH2 {
+.default-margin {
     margin-left: 20px;
 }
 
@@ -86,6 +86,9 @@ footer img {
     margin-top: 30px;
 }
 
+.adminView {
+    max-width: 90vw;
+}
 
 #modifyPerso {
     margin-bottom: 5px;
@@ -116,34 +119,34 @@ footer img {
     margin-bottom: 30px;
 }
 
-.admin-icon{
+.admin-icon {
     height: 15px;
 }
 
-.admin-button-add{
+.admin-button-add {
     border: none;
     background-color: transparent;
     font-weight: bolder;
     text-align: right;
 }
 
-#admin-add{
+#admin-add {
     display: none;
 }
 
-.admin-form{
+.admin-form {
     display: none;
 }
 
-.admin-new-area{
-    margin-left: 30px;   
+.admin-new-area {
+    margin-left: 30px;
 }
 
 /*******************************************************************/
 /* ESPACE PERSO */
 /*******************************************************************/
 .card {
-    width: 32%;
+    width: 31%;
     margin: 1%;
     position: relative;
     top: 0;
@@ -167,7 +170,7 @@ footer img {
 }
 
 .card-body h2 {
-    font-size: 1.5rem;
+    font-size: 2vh
 }
 
 
@@ -176,7 +179,7 @@ footer img {
 }
 
 .espacePersoMainContainer {
-    padding: 0 10% 0 10%;
+    padding: 0 6% 0 6%;
 }
 
 .parité {
@@ -187,7 +190,7 @@ footer img {
     background-color: rgba(17, 73, 147, 0.381);
 }
 
-.admin-structure-page{
+.admin-structure-page {
     padding-bottom: 20px;
 }
 
@@ -200,49 +203,46 @@ footer img {
     margin-bottom: 60px;
 }
 
-#espacePerso-messagePaiement {
-    display: none;
-}
 
 .espacePerso-firstLine {
     margin-top: 30px;
 }
 
-.form-check{
+.form-check {
     display: inline-block;
 }
 
-#espacePerso-num_places{
+#espacePerso-num_places {
     display: none;
 }
 
-#espacePerso-form-desc{
-    font-size:medium;
+#espacePerso-form-desc {
+    font-size: medium;
     font-style: italic;
 }
 
-#formPerso{
+#formPerso {
     margin-top: 0;
 }
 
-#espacePerso-input-allergie{
+#espacePerso-input-allergie {
     display: none;
 }
 
-.espacePerso-input-permis{
+.espacePerso-input-permis {
     display: none;
 }
 
-.espacePerso-content-hebergement{
+.espacePerso-content-hebergement {
     margin-left: 40px;
     margin-top: 23px;
 }
 
-.espacePerso-content-hebergement-intro{
+.espacePerso-content-hebergement-intro {
     margin-bottom: 5px;
 }
 
-.espacePerso-content-troncons-color{
+.espacePerso-content-troncons-color {
     width: 50px;
     text-align: center;
     display: inline-block;
@@ -251,10 +251,11 @@ footer img {
 /*******************************************************************/
 /* connect */
 /*******************************************************************/
-#connect-form{
+#connect-form {
     display: none;
 }
-.connect-btn{
+
+.connect-btn {
     width: 400px;
     font-size: x-large;
 }
@@ -327,14 +328,13 @@ ul,
 /* Accueil */
 /*******************************************************************/
 #accueil {
-    margin-left: 30vw;
-    background-image: url(../img/logo_BX.png);
-    background-repeat:no-repeat;
-    min-height: 550px;
+    display: flex;
+    justify-content: center;
 }
 
-.accueil-img {
-    height: 300px;
+#logo_BX {
+    width: 70vw;
+    max-width: 500px;
 }
 
 
@@ -375,7 +375,7 @@ ul,
 }
 
 #troncons-column-visualize {
-    width: 100px;
+    width: 120px;
 }
 
 .troncons-icon {
@@ -384,6 +384,9 @@ ul,
 
 #troncons-table {
     text-align: center;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 #troncons-switch {
@@ -418,22 +421,30 @@ ul,
 /*******************************************************************/
 /* Navbar */
 /*******************************************************************/
-.nav-mainContainer {
-    justify-content: space-between;
-    display: inline-flex;
-    width: 100%;
-    height: 80px;
+@media (min-width:1100px) {
+    .nav-mainContainer {
+        justify-content: space-between;
+        display: inline-flex;
+        width: 100%;
+    }
 }
 
-.nav-container {
-    width: 25vw;
-    overflow: hidden;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    background-color: rgba(20, 134, 170, 0.7);
-    align-items: center;
 
+@media (min-width:1100px) {
+    .nav-container {
+        width: 20vw;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(20, 134, 170, 0.7);
+    }
+}
+
+@media (max-width:1100px) {
+    .nav-container {
+        background: linear-gradient(to left, rgba(20, 134, 170, 0.9), rgba(20, 134, 170, 0.7) 50%, rgba(20, 134, 170, 0.9));
+    }
 }
 
 .nav-container:hover {
@@ -442,11 +453,18 @@ ul,
 }
 
 .nav-content {
-    line-height: 80px;
+    line-height: 30px;
     text-align: center;
     font-size: 1.1rem;
     font-weight: 500;
 }
+
+@media (min-width:1100px) {
+    .nav-content {
+        line-height: 80px;
+    }
+}
+
 
 .nav-container:hover .nav-content {
     font-weight: 700;
@@ -460,9 +478,11 @@ ul,
     opacity: 0;
 }
 
-.nav-container:hover .nav-bar {
-    opacity: 1;
-    transition: all 0.2s cubic-bezier(0.23, 0.91, 0.97, 1.09);
+@media (min-width:1100px) {
+    .nav-container:hover .nav-bar {
+        opacity: 1;
+        transition: all 0.2s cubic-bezier(0.23, 0.91, 0.97, 1.09);
+    }
 }
 
 .nav-bot {
@@ -491,4 +511,14 @@ ul,
 /*******************************************************************/
 #contact-presentation {
     margin: 30px 0 0 30px;
+}
+
+/*******************************************************************/
+/* Suivi */
+/*******************************************************************/
+#suivi-frame {
+    border: none;
+    box-shadow: 0 0 10px rgb(112, 139, 161);
+    width: 100%;
+    height: 800px
 }

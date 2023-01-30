@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Documentation de la course au drapeau</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Home";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> Documentation de la course au drapeau
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#organisation-du-projet">Organisation du projet</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#organisation-du-site">Organisation du site</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#creation-des-pages">Création des pages</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#authentification">Authentification</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#modification-du-contenu">Modification du contenu</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#template-de-page">Template de page</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#creer-une-nouvelle-page">Créer une nouvelle page</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#documenter-le-projet">Documenter le projet</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="quickstart/">Quickstart</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="func/">Fonctions</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">Documentation de la course au drapeau</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="organisation-fonctionnelle">Organisation fonctionnelle</h1>
+<h2 id="organisation-du-projet">Organisation du projet</h2>
+<ul>
+<li>\crons -&gt; cronjob de nettoyage des fichiers temporaires</li>
+<li>\htdocs -&gt; données à servir</li>
+<li>\docs -&gt; documentation</li>
+</ul>
+<h2 id="organisation-du-site">Organisation du site</h2>
+<ul>
+<li>\ajax -&gt; page où les requêtes ajax sont envoyées et traitées</li>
+<li>\classes -&gt; regroupement de toutes les fonctions php utilisées</li>
+<li>\doc -&gt; listes csv et xls (non utilisées actuellement)</li>
+<li>\lib et \vendor -&gt; librairies</li>
+<li>\pages -&gt; détail des pages servies</li>
+<li>\img -&gt; médias</li>
+<li>\scripts -&gt; fichiers javascript</li>
+<li>\styles -&gt; fichier css</li>
+</ul>
+<h2 id="creation-des-pages">Création des pages</h2>
+<p>Il y a un sous-dossier par page dans \pages. Chaque page est construit par un controller. Ils se trouvent dans \pages et s'appellent par example About.php.
+Il s'agit d'instance de la classe <code>Page</code> telle que définie dans classes/pageManagement.php</p>
+<p>Il y a une seule page index.php et la navigation se fait au travers du paramètre page passé en méthode <code>get</code>.
+Le routing est fait par la <code>static function load</code> de la classe <code>PageListing</code></p>
+<p>Le contenu statique de la page se trouve dans le fichier qui s'appelle par exemple <code>AboutContent.php</code></p>
+<p>Vous pouvez mettre à jour ce routing notamment en utilisant un framework (symfony par exemple). L'organisation des pages à travers le paramètre <code>get</code> est à éviter.</p>
+<h2 id="authentification">Authentification</h2>
+<p>Ce site utilise actuellement deux authentifications, pour les extés et pour les polytechniciens.
+Le CAS du BR fonctionne de la manière suivante : </p>
+<ul>
+<li>L'utilisateur est dirigé vers https://cas.binets.fr/login?service=https://course-drapeau.binets.fr/?page=Connect&amp;renew=true</li>
+<li>Il se connecte</li>
+<li>L'utilisateur est redirigé vers https://course-drapeau.binets.fr/?page=Connect qui est une URL définie par le B</li>
+<li>Nous prenons alors le ticket de l'utilisateur en paramètre <code>get</code> et nous pouvons l'échanger contre ses informations personnelles.</li>
+</ul>
+<p>N'hésitez pas à demander plus d'infos au BR</p>
+<h2 id="modification-du-contenu">Modification du contenu</h2>
+<p>Le projet du site était initiallement de faire un contenu modulable sans avoir à écrire de code. L'idée était de stocker les informations dans la base de donnée dans les tables <code>content</code> et <code>content_section</code> et de modifier ces informations depuis l'espace administration pour les utilisateurs enregistrés comme <code>root</code> dans la database. </p>
+<p>Ce projet n'a pas été mené jusqu'au bout. Par ailleurs il n'est pas vraiment intelligent car le site évolue beaucoup plus d'une année à l'autre que simplement une mise à jour de contenu. Néanmoins voici comment il fonctionne:</p>
+<p>La modification du contenu du site se fait depuis l'onglet administration, accessible après connexion avec un login root. Si tu êtes le gestionnaire de la base de donnée, il est facile de créer un entrée avec <code>root=true</code> dans la base. Sinon il faut contacter votre prédécesseur pour qu'il tu passe les accès.</p>
+<p>Il est possible de modifier le contenu de chaque item, d'en créer de nouveau ou de les supprimer, pareil pour chaque section. Dans le code php, chaque item peut être accédé directement sur la page voulue avec <code>$sections[num_section][num_item]</code> où <code>num_section&gt;=1</code> et <code>num_item&gt;=0</code>
+Vous pouvez ajouter un lien dans le contenu. Comme tous les caractères spéciaux sont échappés, il faut utiliser une syntaxe particulière (je sépare par des "!"). Pour faire un lien vers https://google.com avec comme valeur "ici" j'écris par exemple dans mon item :
+Vous pouvez visiter google !lien!https://google.com!ici! et je peux continuer mon texte.</p>
+<h2 id="template-de-page">Template de page</h2>
+<p>Chaque page suit un modèle défini par son header <code>linksAndScripts.php</code>, une navbar <code>navbar.php</code>, son footer <code>footer.php</code>, et éventuellement un message d'alerte <code>Diplay.php</code> dans \pages\includes </p>
+<h2 id="creer-une-nouvelle-page">Créer une nouvelle page</h2>
+<p>Pour créer une nouvelle page, il suffit de la placer dans le dossier \pages et de remplir le tableau du fichier pageManagement.php</p>
+<h2 id="documenter-le-projet">Documenter le projet</h2>
+<p>Il faut toujours bien documenter ce que vous faites dans le dossier /docs. Vous trouverez plus d'informations à propos de mkdocs utilisé pour créer la doc <a href="https://www.mkdocs.org/getting-started/#getting-started-with-mkdocs">ici</a>.</p>
+<p>Il suffit de modifier le index.md et d'exécuter <code>mkdocs build</code>. Lors d'un commit, la documentation est automatiquement mise à jour.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="quickstart/" class="btn btn-neutral float-right" title="Quickstart">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+      <span><a href="quickstart/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme_extra.js" defer></script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.4.2
+Build Date UTC : 2023-01-22 21:30:40.525128+00:00
+-->

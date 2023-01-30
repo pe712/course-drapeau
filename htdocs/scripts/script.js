@@ -6,13 +6,17 @@ function changeView(fromid, toid, from = "none", to = "inherit") {
 
 $(document).ready(function () {
     $("#admin-gpx-button").click(function () {
-        $.post("ajax/AdminRequest.php?todo=removeGPX", function (data) {
+        $.post("ajax/AdminRequest.php?todo=removeGPX", {
+            token: $("#token").text()
+        }, function (data) {
             call_cs_popup(data, 1500);
         });
     })
 
     $("#admin-horaires-button").click(function () {
-        $.post("ajax/AdminRequest.php?todo=calculHoraires", function (data) {
+        $.post("ajax/AdminRequest.php?todo=calculHoraires", {
+            token: $("#token").text()
+        }, function (data) {
             call_cs_popup(data, 3000);
         });
     })
@@ -20,17 +24,17 @@ $(document).ready(function () {
     $("#modifyPerso").click(function () {
         changeView("espacePerso-modify-infosPerso", "formPerso", "none", "flex")
     });
-    
+
     $("#espacePerso-modify-logistique").click(function () {
         changeView("espacePerso-logistique-infos", "espacePerso-form-logistique")
     });
-    
+
     $("#retourFromInfo").click(function () {
         if (document.getElementById("modifyPerso")) {
             changeView("formPerso", "espacePerso-modify-infosPerso")
         }
     });
-    
+
     $("#espacePerso-retourFromLogistique").click(function () {
         if (document.getElementById("espacePerso-logistique-infos")) {
             changeView("espacePerso-form-logistique", "espacePerso-logistique-infos")
@@ -59,6 +63,7 @@ $(document).ready(function () {
             page: postdata[0],
             section: postdata[1],
             item: postdata[2],
+            token: $("#token").text(),
         }, function (data) {
             call_cs_popup(data, 3000);
         });
@@ -210,7 +215,6 @@ function call_cs_popup(text, time = 1000000) {
 $(document).ready(function () {
     $(".nav-container").click(function () {
         location.href = "?page=" + $(this).children('.nav-content').attr("id");
-
     });
 })
 
@@ -219,7 +223,7 @@ $(document).ready(function () {
 function callCASUrl() {
     let callback = encodeURIComponent("https://course-drapeau.binets.fr/?page=Connect")
     // document.cookie = "CAScallback=" + callback;
-    document.location = "https://cas.binets.fr/login?service=" + callback
+    document.location = "https://cas.binets.fr/login?service=" + callback + "&renew=true";
 }
 
 $(document).ready(function () {
@@ -231,20 +235,6 @@ $(document).ready(function () {
 });
 
 /**************** Espace Perso *************************/
-var setHref = function (event) {
-    event.preventDefault()
-
-    var path = $("#espacePerso-download").children().text()
-
-    $.post("ajax/AdminRequest.php?todo=download", {
-        path: path,
-    }, function (data) {
-        $("#espacePerso-download").attr("href", data)
-    });
-    $(event.currentTarget).data('isConfirming', true);
-    event.currentTarget.click();
-};
-
 $(document).ready(function () {
     $("#espacePerso-lienPaiement").click(function () {
         $("#espacePerso-messagePaiement").show();
@@ -252,30 +242,25 @@ $(document).ready(function () {
 
     $("#espacePerso-modifyCertif").click(function (e) {
         e.preventDefault();
-        changeView("espacePerso-certificatUpload", "espacePerso-messageCertif")
+        changeView("espacePerso-messageCertif", "espacePerso-certificatUpload")
     });
 
-    /* $("#espacePerso-download").delegate("[download]", "click", setHref); */
     $("#espacePerso-download").click(function (event) {
         if ($(event.currentTarget).data('isOk')) return;
         event.preventDefault()
-
-        var path = $("#espacePerso-download").children().text()
-
         $.post("ajax/AdminRequest.php?todo=download", {
-            path: path,
-        }, function (data) {
-            $("#espacePerso-download").attr("href", data)
-            $(event.currentTarget).data('isOk', true);
-            event.currentTarget.click();
-        });
+            token: $("#token").text()
+        },
+            function (data) {
+                $("#espacePerso-download").attr("href", data)
+                $(event.currentTarget).data('isOk', true);
+                event.currentTarget.click();
+            });
     });
-
 
     $("#espacePerso-retourFromCertif").click(function () {
         if (document.getElementById("espacePerso-messageCertif")) {
-            $("#espacePerso-certificatUpload").hide();
-            $("#espacePerso-messageCertif").show();
+            changeView("espacePerso-certificatUpload", "espacePerso-messageCertif")
         }
     });
 
@@ -303,3 +288,37 @@ $(document).ready(function () {
         $(".espacePerso-input-permis").hide()
     });
 });
+
+/**************** Suivi *************************/
+function setKilometers(num){
+    document.documentElement.style.setProperty('--final_num', num);
+}
+
+function animateValue(start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      $("#counter").text(Math.floor(progress * (end - start) + start));
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }
+
+  function sleep(repeatInterval) {
+    return new Promise((resolve) => setTimeout(resolve, repeatInterval));
+}
+
+const pollingRate = 1; // polling frequency in seconds
+async function callupdateDistance(url) {
+    while (true) {
+        $.post("ajax/AdminRequest.php?todo=updateDistance", {
+            token: $("#token").text()
+        }, function (data) {
+            console.log(data);
+        });
+        await sleep(pollingRate * 1000);
+    }
+}

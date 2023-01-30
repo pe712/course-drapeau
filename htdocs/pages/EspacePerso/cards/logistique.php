@@ -2,7 +2,7 @@
 if ($user->vegetarian != null) {
 ?>
     <div id="espacePerso-logistique-infos">
-        <p class="espacePerso-firstLine">Vous avez déjà complété cet onglet.</p>
+        <p class="espacePerso-firstLine">Tu as déjà complété cet onglet.</p>
 
         <button id="espacePerso-modify-logistique" class="btn btn-primary">Modifier mes informations</button>
         <br><br>
@@ -110,6 +110,7 @@ if ($user->vegetarian != null) {
             </span>
         </div>
         <button type="submit" class="btn btn-primary">Soumettre mes réponses</button>
+        <input type="hidden" name="token" value="<?=$_SESSION['token']?>">
     </form>
     </div>
     <br>

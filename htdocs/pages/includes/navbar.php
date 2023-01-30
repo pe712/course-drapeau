@@ -6,17 +6,22 @@
             <div class="nav-bar nav-bot"></div>
         </div>
         <div class="nav-container">
-            <div id="About" class="nav-content">A propos</div>
+            <div id="About" class="nav-content">À propos</div>
             <div class="nav-bar nav-top"></div>
             <div class="nav-bar nav-bot"></div>
         </div>
         <div class="nav-container">
-            <div id="Contact" class="nav-content">Qui sommes-nous?</div>
+            <div id="Contact" class="nav-content">Le binet</div>
             <div class="nav-bar nav-top"></div>
             <div class="nav-bar nav-bot"></div>
         </div>
         <div class="nav-container">
             <div id="Troncons" class="nav-content">Tronçons</div>
+            <div class="nav-bar nav-top"></div>
+            <div class="nav-bar nav-bot"></div>
+        </div>
+        <div class="nav-container">
+            <div id="Suivi" class="nav-content">Suivi</div>
             <div class="nav-bar nav-top"></div>
             <div class="nav-bar nav-bot"></div>
         </div>
@@ -33,7 +38,7 @@ FIN;
             }
             echo <<<FIN
                 <div class="nav-container">
-                    <div id="EspacePerso" class="nav-content">Espace Personnel</div>
+                    <div id="EspacePerso" class="nav-content">Espace Membre</div>
                     <div class="nav-bar nav-top"></div>
                     <div class="nav-bar nav-bot"></div>
                 </div>
@@ -45,11 +50,6 @@ FIN;
 FIN;
         } else {
         ?>
-            <!-- <div class="nav-container">
-                <div id="Inscription" class="nav-content">Inscription</div>
-                <div class="nav-bar nav-top"></div>
-                <div class="nav-bar nav-bot"></div>
-            </div> -->
             <div class="nav-container">
                 <div id="Connect" class="nav-content">Me connecter</div>
                 <div class="nav-bar nav-top"></div>

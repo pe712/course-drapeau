@@ -1,3 +1,6 @@
+<?php
+Users::generateToken();
+?>
 <div class="centerer-container">
     <div id="connect-choice"><button class="btn btn-primary connect-btn" onclick="callCASUrl()">
             Je suis un X
@@ -20,6 +23,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Me connecter</button><br>
             <a href="?page=Inscription">Je n'ai pas encore de compte</a>
+            <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
         </form>
     </div>
 </div>
