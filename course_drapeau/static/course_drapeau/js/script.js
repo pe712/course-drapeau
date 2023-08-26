@@ -212,11 +212,7 @@ function call_cs_popup(text, time = 1000000) {
 }
 
 /**************** Navbar *************************/
-$(document).ready(function () {
-    $(".nav-container").click(function () {
-        location.href = "?page=" + $(this).children('.nav-content').attr("id");
-    });
-})
+
 
 
 /**************** connect *************************/

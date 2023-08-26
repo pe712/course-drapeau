@@ -20,7 +20,7 @@ from django_cas_ng.views import LoginView, LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login', LoginView.as_view(), name='cas_ng_login'),
-    path('logout', LogoutView.as_view(), name='cas_ng_logout'),
+    path('login', LoginView.as_view(), name='login'),
+    path('logout', LogoutView.as_view(), name='logout'),
     path('', include('course_drapeau.urls')),
 ]

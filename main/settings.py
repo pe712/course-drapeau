@@ -137,3 +137,79 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+    },
+    # root is default logger. All other loggers inherit from it. Equivalent to logger ''.
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+    'formatters': {
+        'simple': {
+            'format': '{levelname} {asctime} {name}: {message}',
+            'style': '{',
+            'datefmt': '%d-%m %H:%M:%S',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django.server': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'httpx': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'asyncio': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'environ': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'hpack': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'httpcore': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'google': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'urllib3': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        # This lib is verbose when google auth does not find metadata (which is normal in dev)
+        'google.auth.compute_engine._metadata': {
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': False,
+        }
+    }
+}

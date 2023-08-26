@@ -1,0 +1,95 @@
+{% extends "course_drapeau/base.html" %}
+{% load static %}
+{% block title %}
+    Tronçons
+{% endblock title %}
+{% block content %}
+    <section>
+        <div class="btn-group adminView default-margin"
+             role="group"
+             aria-label="Basic radio toggle button group"
+             id="troncons-switch">
+            <input type="radio"
+                   class="btn-check"
+                   name="btnradio"
+                   id="btnradio1"
+                   onclick="changeView('map', 'tronconsListe')"
+                   checked>
+            <label class="btn btn-outline-primary" for="btnradio1">Liste</label>
+            <input type="radio"
+                   class="btn-check "
+                   name="btnradio"
+                   id="btnradio2"
+                   onclick="changeView('tronconsListe', 'map'); add_gpx('pages/Troncons/traces/trace_complete.gpx', 0)">
+            <label class="btn btn-outline-primary" for="btnradio2">Visualisation parcours complet</label>
+        </div>
+        <div id="map"></div>
+        <div id="tronconsListe">
+            <table id="troncons-table" class="table table-striped table-hover">
+                <tr>
+                    <th style="width:10px">Numéro tronçon</th>
+                    <th>Groupe de coureurs</th>
+                    <th>Heure de départ</th>
+                    <th>Point GPS de départ</th>
+                    <th>Heure arrivée</th>
+                    <th>Point GPS arrivée</th>
+                    <th id="troncons-column-visualize">Voir sur la carte</th>
+                    <th>Télécharger la trace</th>
+                </tr>
+                {% for trace in GPX_traces %}{% endfor %}
+                <tr>
+                    <td>{{ trace.id }}</td>
+                    {% if trace.trinome %}
+                        <td style="background-color: {{ trinome.color }}">{{ trinome.id }}</td>
+                    {% else %}
+                        <td>A venir</td>
+                    {% endif %}
+                    <td>{{ trace.date_start }}</td>
+                    <td>
+                        <a href="https://www.google.fr/maps/search/{{ trace.url_gps_start }}"
+                           target="_blank"
+                           id="pdep{{ trace.id }}">{{ trace.gps_start }}</a>
+                        <button class="troncons-button">
+                            <img class="troncons-icon"
+                                 src="{% static 'course_drapeau/img/icons/clipboard.png' %}"
+                                 alt="copy to clipboard"
+                                 onclick="copier('pdep{{ trace.id }}', 'Point GPS copié dans le presse-papier')"
+                                 width="28px"
+                                 height="auto">
+                        </button>
+                    </td>
+                    <td>{{ trace.date_stop }}</td>
+                    <td>
+                        <a href="https://www.google.fr/maps/search/${{ trace.url_gps_stop }}"
+                           target="_blank"
+                           id="parr{{ trace.id }}">{{ trace.gps_stop }}</a>
+                        <button class="troncons-button">
+                            <img class="troncons-icon"
+                                 src="{% static 'course_drapeau/img/icons/clipboard.png' %}"
+                                 alt="copy to clipboard"
+                                 onclick="copier('parr{{ trace.id }}', 'Point GPS copié dans le presse-papier')"
+                                 width="28px"
+                                 height="auto">
+                        </button>
+                    </td>
+                    <td>
+                        <button class="troncons-button"
+                                onclick="changeView('troncons-table', 'carte'); add_gpx('pages/Troncons/traces/trace{{ trace.id }}.gpx', 1)">
+                            Visualiser
+                        </button>
+                    </td>
+                    <td>
+                        {% comment %} <a href="{% url 'file' trace.file.id download="True" %}">Télécharger</a> {% endcomment %}
+                    </td>
+                </tr>
+            </table>
+            <div id="carte">
+                <button class="btn btn-primary"
+                        onclick="changeView('carte', 'troncons-table')">Retourner à la liste</button>
+                <div id="map2"></div>
+            </div>
+            <div id="cs-popup-area"></div>
+        </div>
+        <script src="{% static 'course_drapeau/js/map.js' %}"></script>
+    </section>
+{% endblock content %}

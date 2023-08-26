@@ -1,0 +1,45 @@
+{% extends "course_drapeau/base.html" %}
+{% block title %}
+    A propos
+{% endblock title %}
+{% block content %}
+    <section>
+        <h2 class="default-margin">Foire Aux Questions</h2>
+        <div class="accordion">
+            {% for question, answer in items %}
+                {% if forloop.first %}
+                    <div class="accordion-item">
+                        <button class="accordion-button"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapse0"
+                                aria-expanded="true"
+                                aria-controls="collapse0">{{ question }}</button>
+                    </div>
+                    <div id="collapse0"
+                         class="accordion-collapse collapse border show"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">{{ answer }}</div>
+                    </div>
+                {% else %}
+                    <div class="accordion-item">
+                        <button class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{ forloop.counter }}"
+                                aria-expanded="false"
+                                aria-controls="collapse{{ forloop.counter }}">{{ question }}</button>
+                        <div id="collapse{{ forloop.counter }}"
+                             class="accordion-collapse collapse border"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">{{ answer }}</div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <p id="about-messageFin" class="default-margin">
+                Tu n'as pas trouvé ta réponse, n'hésites pas à <a href="?page=Contact">nous contacter.</a>
+            </p>
+        </div>
+    </section>
+{% endblock content %}
