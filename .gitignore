@@ -1,0 +1,11 @@
+# python venv
+.venv
+
+# editors
+.idea
+.vscode
+!.vscode/tasks.json
+
+*.pyc
+
+db.sqlite3
