@@ -1,7 +1,21 @@
 /**************** ADMIN *************************/
 function changeView(fromid, toid, from = "none", to = "inherit") {
-    document.getElementById(fromid).style.display = from;
-    document.getElementById(toid).style.display = to;
+    try {
+        document.getElementById(fromid).style.display = from;
+    }
+    catch (e) {
+        for (element of document.getElementsByClassName(fromid)) {
+            element.style.display = from;
+        }
+    }
+    try {
+        document.getElementById(toid).style.display = to;
+    }
+    catch (e) {
+        for (element of document.getElementsByClassName(toid)) {
+            element.style.display = to;
+        }
+    }
 }
 
 $(document).ready(function () {
@@ -286,24 +300,24 @@ $(document).ready(function () {
 });
 
 /**************** Suivi *************************/
-function setKilometers(num){
+function setKilometers(num) {
     document.documentElement.style.setProperty('--final_num', num);
 }
 
 function animateValue(start, end, duration) {
     let startTimestamp = null;
     const step = (timestamp) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      $("#counter").text(Math.floor(progress * (end - start) + start));
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      }
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        $("#counter").text(Math.floor(progress * (end - start) + start));
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
     };
     window.requestAnimationFrame(step);
-  }
+}
 
-  function sleep(repeatInterval) {
+function sleep(repeatInterval) {
     return new Promise((resolve) => setTimeout(resolve, repeatInterval));
 }
 

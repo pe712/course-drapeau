@@ -1,0 +1,14 @@
+{% extends "course_drapeau/base.html" %}
+{% block title %}
+    Suivi de la course
+{% endblock title %}
+{% block content %}
+    {% with board_color as '1486aa' %}
+        <iframe id="suivi-frame"
+                src="https://racemap.com/player/course-bordeaux-x_2022-11-27#color={{ board_color }}"
+                loading="lazy"
+                allowfullscreen
+                webkitallowfullscreen
+                mozallowfullscreen></iframe>
+    {% endwith %}
+{% endblock content %}

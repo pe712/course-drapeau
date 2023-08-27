@@ -1,24 +1,24 @@
 from django.views.generic import TemplateView
+from course_drapeau.permissions import is_runner, is_staff, is_authenticated
 
-class NavItem:
-    def __init__(self, page_name, title, logged_in_display=True, logged_out_display=True, staff_required=False):
+
+class NavbarItem:
+    def __init__(self, page_name, title, test_func=None):
         self.page_name = page_name
         self.title = title
-        self.logged_in_display = logged_in_display
-        self.logged_out_display = logged_out_display
-        self.staff_required = staff_required
+        self.test_func = test_func or (lambda user: True)
 
 class CustomTemplateView(TemplateView):
     navbar = [
-        NavItem('index', 'Accueil'),
-        NavItem('about', 'À propos'),
-        NavItem('contact', 'Le binet'),
-        NavItem('troncons', 'Tronçons'),
-        NavItem('suivi', 'Suivi'),
-        NavItem('admin:index', 'Administration', staff_required=True),
-        NavItem('espaceperso', 'Espace Membre', logged_out_display=False),
-        NavItem('login', 'Me connecter', logged_in_display=False),
-        NavItem('logout', 'Me déconnecter', logged_out_display=False),
+        NavbarItem('index', 'Accueil'),
+        NavbarItem('about', 'À propos'),
+        NavbarItem('contact', 'Le binet'),
+        NavbarItem('route', 'Tronçons'),
+        NavbarItem('tracking', 'Suivi'),
+        NavbarItem('admin:index', 'Administration', is_staff),
+        NavbarItem('account', 'Espace Membre', is_runner),
+        NavbarItem('cas_ng_login', 'Me connecter', lambda user: not user.is_authenticated),
+        NavbarItem('cas_ng_logout', 'Me déconnecter', is_authenticated),
     ]
 
     def get_context_data(self, **kwargs):

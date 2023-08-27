@@ -1,0 +1,25 @@
+{% extends "course_drapeau/base.html" %}
+{% load account_card %}
+{% block title %}
+    Mon Espace Personnel
+{% endblock title %}
+{% block content %}
+    {% get_header user as header %}
+    <div class="espacePersoMainContainer">
+        <p class="progression">{{ header.text }}</p>
+        <div class="progress">
+            <div id="espacePerso-progress-bar"
+                 class="progress-bar"
+                 role="progressbar"
+                 aria-valuemin="0"
+                 aria-valuemax="100">{{ header.progress }}</div>
+        </div>
+        {% for line in cards %}
+            <div class="espacePersoRowContainer">
+                {% for card in line %}
+                    {% include card.template with card=card %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

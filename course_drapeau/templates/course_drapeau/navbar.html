@@ -1,8 +1,8 @@
-{% load tags %}
+{% load navbar %}
 <nav>
     <div class="nav-mainContainer">
         {% for navbar_item in navbar %}
-        {% navbar_item_display navbar_item user as display %}
+        {% does_navbar_item_display navbar_item user as display %}
         {% if display %}
             <div class="nav-container">
                 <a href="{% url navbar_item.page_name %}">
