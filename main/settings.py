@@ -22,14 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-6^mej2m3m=i*l4q&z8&szbx1^foje8qna6_g6cj*&@a4q9l9i*'
+SECRET_KEY_FALLBACKS = []
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
+SILKY_PYTHON_PROFILER = True
+SILKY_AUTHORISATION = True  # User must be staff
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -39,10 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_cas_ng',
-    'course_drapeau'
+    'course_drapeau',
+    'silk',
 ]
 
-MIDDLEWARE = [
+if DEBUG:
+    MIDDLEWARE = ['silk.middleware.SilkyMiddleware']
+else:
+    MIDDLEWARE = []
+
+MIDDLEWARE += [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -104,12 +110,12 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-  'django.contrib.auth.backends.ModelBackend',
-  'django_cas_ng.backends.CASBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'django_cas_ng.backends.CASBackend',
 )
 
 CAS_VERSION = '3'
-CAS_SERVER_URL = "https://cas.binets.fr/"
+CAS_SERVER_URL = 'https://cas.binets.fr/'
 
 
 # Internationalization
@@ -127,12 +133,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# for app static files
 STATIC_URL = 'static/'
-
+# for project static files
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / 'static',
 ]
+# path to the directory where collectstatic will collect static files for deployment.
+STATIC_ROOT = None
 
+# file storage
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type

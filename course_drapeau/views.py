@@ -1,7 +1,5 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
-from typing import Any, Callable
 from django_cas_ng.views import LoginView as CASLoginView, LogoutView as CASLogoutView
-from django.views import View
 from django.views.generic import DetailView
 from django.http import FileResponse, HttpRequest, HttpResponse
 
@@ -90,15 +88,6 @@ class FileView(DetailView):
         return response
 
 
-class WipView(View):
-    def get(self, request, *args, **kwargs):
-        # for key, value in request.session['attributes'].items():
-        #     logging.info(f"{key}: {value}")
-        content = ''
-        from .models import Runner
-        Runner.objects.create(user=request.user)
-        logging.info(self.request.user.__class__)
-        return HttpResponse(content, content_type='text/plain')
 
 
 class LoginView(CASLoginView):

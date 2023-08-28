@@ -1,7 +1,8 @@
 
 from django.urls import path
 
-from .views import IndexView, AboutView, ContactView, TronconsView, SuiviView, AccountView, WipView
+from .views import IndexView, AboutView, ContactView, TronconsView, SuiviView, AccountView
+from .wip import WipView
 from .views import LoginView, LogoutView
 
 
