@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from course_drapeau.permissions import is_runner, is_staff, is_authenticated
+from course_drapeau.permissions import is_member, is_staff, is_authenticated
 
 
 class NavbarItem:
@@ -8,16 +8,20 @@ class NavbarItem:
         self.title = title
         self.test_func = test_func or (lambda user: True)
 
+
 class CustomTemplateView(TemplateView):
     navbar = [
         NavbarItem('index', 'Accueil'),
         NavbarItem('about', 'À propos'),
         NavbarItem('contact', 'Le binet'),
+        NavbarItem('register', 'Inscription',
+                   lambda user: not is_member(user)),
         NavbarItem('route', 'Tronçons'),
         NavbarItem('tracking', 'Suivi'),
         NavbarItem('admin:index', 'Administration', is_staff),
-        NavbarItem('account', 'Espace Membre', is_runner),
-        NavbarItem('cas_ng_login', 'Me connecter', lambda user: not user.is_authenticated),
+        NavbarItem('account', 'Espace Membre', is_member),
+        NavbarItem('cas_ng_login', 'Me connecter',
+                   lambda user: not user.is_authenticated),
         NavbarItem('cas_ng_logout', 'Me déconnecter', is_authenticated),
     ]
 

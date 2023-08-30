@@ -1,10 +1,13 @@
+from typing import Any, Optional
+from django import http
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django_cas_ng.views import LoginView as CASLoginView, LogoutView as CASLogoutView
+from django.shortcuts import redirect
 from django.views.generic import DetailView
-from django.http import FileResponse, HttpRequest, HttpResponse
+from django.http import FileResponse
+from course_drapeau.forms.account import DriverForm, RunnerForm, UserTypeForm
 
-from course_drapeau.permissions import is_runner
-from .base_views import CustomTemplateView
+from course_drapeau.permissions import is_member
+from .base import CustomTemplateView
 import logging
 
 logger = logging.getLogger(__name__)
@@ -70,7 +73,7 @@ class AccountView(UserPassesTestMixin, CustomTemplateView):
     ]]
 
     def test_func(self):
-        return is_runner(self.request.user)
+        return is_member(self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -88,18 +91,49 @@ class FileView(DetailView):
         return response
 
 
+class RegisterView(CustomTemplateView):
+    template_name = 'course_drapeau/pages/register.html'
 
+    def post(self, request, *args, **kwargs):
 
-class LoginView(CASLoginView):
-    def successful_login(self, request: HttpRequest, next_page: str) -> HttpResponse:
+        user_type_form = UserTypeForm(request.POST)
+        driver_form = DriverForm(request.POST)
+        runner_form = RunnerForm(request.POST)
         user = request.user
-        if not user.first_name:
-            user.first_name = request.session['attributes']['givenName']
-            user.last_name = request.session['attributes']['sn']
-            user.email = request.session['attributes']['email']
-            user.save()
-        return super().successful_login(request, next_page)
+        error_response = self.render_to_response(self.get_context_data(
+            user_type_form=user_type_form,
+            driver_form=driver_form,
+            runner_form=runner_form
+        ))
+        if not user.is_authenticated:
+            return error_response
+        if user_type_form.is_valid():
+            user_type = user_type_form.cleaned_data['user_type']
+            if user_type == 'driver' and driver_form.is_valid():
+                driver = driver_form.save(commit=False)
+                driver.user = user
+                driver.save()
+                return redirect('account')
+            elif user_type == 'runner' and runner_form.is_valid():
+                runner = runner_form.save(commit=False)
+                runner.user = user
+                runner.save()
+                if runner.save_group(runner_form.cleaned_data['group_member_choice']):
+                    return redirect('account')
+                else:
+                    pass
+                    # TODO
+        return error_response
 
+    def get(self, request, *args, **kwargs):
+        if is_member(request.user):
+            return redirect('account')
+        return super().get(request, *args, **kwargs)
 
-class LogoutView(CASLogoutView):
-    pass
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_type_form'] = kwargs.get(
+            'user_type_form', UserTypeForm())
+        context['driver_form'] = kwargs.get('driver_form', DriverForm())
+        context['runner_form'] = kwargs.get('runner_form', RunnerForm())
+        return context

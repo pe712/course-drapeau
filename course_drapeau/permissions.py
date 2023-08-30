@@ -9,11 +9,11 @@ def is_authenticated(user: Union[User, AnonymousUser]):
     return user.is_authenticated
 
 
-def is_runner(user: Union[User, AnonymousUser]):
+def is_member(user: Union[User, AnonymousUser]):
     """
     Check if the user it authenticated as a runner.
     """
-    return hasattr(user, 'runner')
+    return hasattr(user, 'runner') or hasattr(user, 'driver')
 
 
 def is_staff(user: Union[User, AnonymousUser]):

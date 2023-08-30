@@ -1,6 +1,8 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 from silk.profiling.profiler import silk_profile
+
+from course_drapeau.models import Runner
 
 
 class WipView(View):
@@ -15,4 +17,14 @@ class WipView(View):
         # from .models import Runner
         # Runner.objects.create(user=request.user)
         # logging.info(self.request.user.__class__)
+        from django.contrib.auth.models import User
+        user = User.objects.all().first() 
+        user.is_staff = True
+        user.is_superuser = True
+        user.save()
+        # user.delete()
+        # return HttpResponseRedirect('/admin/')
+        runner = Runner.objects.all().first()
+        runner.user
         return HttpResponse(content)
+    

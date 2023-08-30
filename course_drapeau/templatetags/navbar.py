@@ -1,5 +1,5 @@
 from django import template
-from course_drapeau.base_views import NavbarItem
+from course_drapeau.views.base import NavbarItem
 from django.urls import reverse, resolve
 register = template.Library()
 

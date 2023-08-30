@@ -1,0 +1,23 @@
+{% extends "course_drapeau/base.html" %}
+{% block title %}
+    Inscription
+{% endblock title %}
+{% block content %}
+    <div class="centerer-container inscriptionForm">
+        {% if not user.is_authenticated %}
+            <p>
+                Vous devez d'abord <a href="{% url 'cas_ng_login' %}">vous connecter</a> pour vous inscrire.
+            </p>
+        {% else %}
+            <div id="formPerso" class="centerer-container">
+                <form class="ms-4" method="post" action="{% url 'register' %}">
+                    {% csrf_token %}
+                    {{ user_type_form }}
+                    {{ driver_form }}
+                    {{ runner_form }}
+                    <button type="submit">M'inscrire</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}
