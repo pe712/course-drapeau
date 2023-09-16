@@ -10,7 +10,7 @@ class PageListing
         ),
         array(
             "name" => "About",
-            "title" => "À propos",
+            "title" => "Informations",
         ),
         array(
             "name" => "Inscription",
