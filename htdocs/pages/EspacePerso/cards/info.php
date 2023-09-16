@@ -40,7 +40,7 @@ if ($user->nom == null) {
             </label>
             <input class="form-check-input" type="radio" name="type" id="coureur" checked>
         </div>
-        <div id="espacePerso-radio-chauffeur">
+        <div id="espacePerso-radio-chauffeur" style="display:None">
             <label class="form-check-label" for="chauffeur">
                 Chauffeur
             </label>

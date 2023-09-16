@@ -53,14 +53,14 @@
             <td style="background-color: $color">$trinome</td>
             <td>$date_dep</td>
             <td>
-                <a href="https://www.google.fr/maps/search/$url_gps_dep" target="_blank" id="pdep$trace->id">$gps_dep</a>
+                <a href="https://www.google.fr/maps/search/$url_gps_dep" target="_blank" id="pdep$trace->id">point de départ</a>
                 <button class="troncons-button">
                     <img class="troncons-icon" src="img/icons/clipboard.png" alt="copy to clipboard" onclick="copier('pdep$trace->id', 'Point GPS copié dans le presse-papier')">
                 </button>
             </td>
             <td>$date_arr</td>
             <td>
-            <a href="https://www.google.fr/maps/search/$url_gps_arr" target="_blank" id="parr$trace->id">$gps_arr</a>
+            <a href="https://www.google.fr/maps/search/$url_gps_arr" target="_blank" id="parr$trace->id">point d'arrivée</a>
                 <button class="troncons-button">
                     <img class="troncons-icon" src="img/icons/clipboard.png" alt="copy to clipboard" onclick="copier('parr$trace->id', 'Point GPS copié dans le presse-papier')">
                 </button>
