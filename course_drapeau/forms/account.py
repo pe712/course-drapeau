@@ -4,8 +4,10 @@ from django.contrib.auth.models import User
 
 class UserTypeForm(forms.Form):
     user_type = forms.ChoiceField(
-        choices=[('driver', 'Chauffeur'), ('runner', 'Coureur')],
-        widget=forms.RadioSelect
+        choices=[('runner', 'Coureur')], # ('driver', 'Chauffeur')
+        widget=forms.RadioSelect,
+        initial='runner',
+        label='Je suis',
     )
 
 class DriverForm(forms.ModelForm):
@@ -15,7 +17,7 @@ class DriverForm(forms.ModelForm):
 
 class RunnerForm(forms.ModelForm):
     group_member_choice = forms.ModelChoiceField(
-        queryset=User.objects.filter(runner__isnull=True),
+        queryset=User.objects.filter(runner__isnull=False),
         widget=forms.Select,
         required=False,
     )

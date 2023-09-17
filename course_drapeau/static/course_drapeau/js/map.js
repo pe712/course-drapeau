@@ -35,9 +35,9 @@ function create_gpx(url, map) {
     var parameters = {
         async: true,
         marker_options: {
-            startIconUrl: 'lib/leaflet/images/marker-icon.png',
-            endIconUrl: 'lib/leaflet/images/marker-icon.png',
-            shadowUrl: 'lib/leaflet-gpx/pin-shadow.png'
+            startIconUrl: 'static/leaflet/images/marker-icon.png',
+            endIconUrl: 'static/leaflet/images/marker-icon.png',
+            shadowUrl: 'static/leaflet-gpx/pin-shadow.png'
         }
     }
     var gpx_trace = new L.GPX(url, parameters).on('loaded', function (e) {

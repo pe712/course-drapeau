@@ -13,11 +13,10 @@
                 <form class="ms-4" method="post" action="{% url 'register' %}">
                     {% csrf_token %}
                     {{ user_type_form }}
-                    {{ driver_form }}
+                    {% comment %} {{ driver_form }} {% endcomment %}
                     {{ runner_form }}
                     <button type="submit">M'inscrire</button>
                 </form>
             </div>
-        {% endif %}
     </div>
 {% endblock content %}

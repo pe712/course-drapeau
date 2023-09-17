@@ -24,7 +24,9 @@ class WipView(View):
         user.save()
         # user.delete()
         # return HttpResponseRedirect('/admin/')
-        runner = Runner.objects.all().first()
-        runner.user
+        # runner = Runner.objects.all().first()
+        # runner.user
+        user = User.objects.get(username='aezrea')
+        runner = Runner.objects.create(user=user, progress=0.5)
         return HttpResponse(content)
     

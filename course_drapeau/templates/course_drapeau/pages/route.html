@@ -1,5 +1,6 @@
 {% extends "course_drapeau/base.html" %}
 {% load static %}
+{% load route %}
 {% block title %}
     Tronçons
 {% endblock title %}
@@ -17,10 +18,10 @@
                    checked>
             <label class="btn btn-outline-primary" for="btnradio1">Liste</label>
             <input type="radio"
-                   class="btn-check "
+                   class="btn-check"
                    name="btnradio"
                    id="btnradio2"
-                   onclick="changeView('tronconsListe', 'map'); add_gpx('pages/Troncons/traces/trace_complete.gpx', 0)">
+                   onclick="changeView('tronconsListe', 'map'); add_gpx('{% url "fullsection" %}', 0)">
             <label class="btn btn-outline-primary" for="btnradio2">Visualisation parcours complet</label>
         </div>
         <div id="map"></div>
@@ -36,52 +37,50 @@
                     <th id="troncons-column-visualize">Voir sur la carte</th>
                     <th>Télécharger la trace</th>
                 </tr>
-                {% for trace in GPX_traces %}{% endfor %}
-                <tr>
-                    <td>{{ trace.id }}</td>
-                    {% if trace.trinome %}
-                        <td style="background-color: {{ trinome.color }}">{{ trinome.id }}</td>
-                    {% else %}
-                        <td>A venir</td>
-                    {% endif %}
-                    <td>{{ trace.date_start }}</td>
-                    <td>
-                        <a href="https://www.google.fr/maps/search/{{ trace.url_gps_start }}"
-                           target="_blank"
-                           id="pdep{{ trace.id }}">{{ trace.gps_start }}</a>
-                        <button class="troncons-button">
-                            <img class="troncons-icon"
-                                 src="{% static 'course_drapeau/img/icons/clipboard.png' %}"
-                                 alt="copy to clipboard"
-                                 onclick="copier('pdep{{ trace.id }}', 'Point GPS copié dans le presse-papier')"
-                                 width="28px"
-                                 height="auto">
-                        </button>
-                    </td>
-                    <td>{{ trace.date_stop }}</td>
-                    <td>
-                        <a href="https://www.google.fr/maps/search/${{ trace.url_gps_stop }}"
-                           target="_blank"
-                           id="parr{{ trace.id }}">{{ trace.gps_stop }}</a>
-                        <button class="troncons-button">
-                            <img class="troncons-icon"
-                                 src="{% static 'course_drapeau/img/icons/clipboard.png' %}"
-                                 alt="copy to clipboard"
-                                 onclick="copier('parr{{ trace.id }}', 'Point GPS copié dans le presse-papier')"
-                                 width="28px"
-                                 height="auto">
-                        </button>
-                    </td>
-                    <td>
-                        <button class="troncons-button"
-                                onclick="changeView('troncons-table', 'carte'); add_gpx('pages/Troncons/traces/trace{{ trace.id }}.gpx', 1)">
-                            Visualiser
-                        </button>
-                    </td>
-                    <td>
-                        {% comment %} <a href="{% url 'file' trace.file.id download="True" %}">Télécharger</a> {% endcomment %}
-                    </td>
-                </tr>
+                {% for trace in GPX_traces %}
+                    {% gps_url trace as gps_url %}
+                    <tr>
+                        <td>{{ trace.id }}</td>
+                        {% if trace.trinome %}
+                            <td style="background-color: {{ trinome.color }}">{{ trinome.id }}</td>
+                        {% else %}
+                            <td>A venir</td>
+                        {% endif %}
+                        <td>{{ trace.datetime_start | date:"D j M, G:i" }}</td>
+                        <td>
+                            <a href={{ gps_url.start }} target="_blank" id="pdep{{ trace.id }}">point départ</a>
+                            <button class="troncons-button">
+                                <img class="troncons-icon"
+                                     src="{% static 'course_drapeau/img/icons/clipboard.png' %}"
+                                     alt="copy to clipboard"
+                                     onclick="copier('pdep{{ trace.id }}', 'Point GPS copié dans le presse-papier')"
+                                     width="28px"
+                                     height="auto">
+                            </button>
+                        </td>
+                        <td>{{ trace.datetime_stop | date:"D j M, G:i" }}</td>
+                        <td>
+                            <a href={{ gps_url.stop }} target="_blank" id="parr{{ trace.id }}">point arrivée</a>
+                            <button class="troncons-button">
+                                <img class="troncons-icon"
+                                     src="{% static 'course_drapeau/img/icons/clipboard.png' %}"
+                                     alt="copy to clipboard"
+                                     onclick="copier('parr{{ trace.id }}', 'Point GPS copié dans le presse-papier')"
+                                     width="28px"
+                                     height="auto">
+                            </button>
+                        </td>
+                        <td>
+                            <button class="troncons-button"
+                                    onclick="changeView('troncons-table', 'carte'); add_gpx('{% url "section" trace.id %}', 1)">
+                                Visualiser
+                            </button>
+                        </td>
+                        <td>
+                            <a href={% url "section" trace.id %} target="_blank">Télécharger</a>
+                        </td>
+                    </tr>
+                {% endfor %}
             </table>
             <div id="carte">
                 <button class="btn btn-primary"

@@ -6,8 +6,8 @@ from course_drapeau.models import Group
 class GroupAdmin(admin.ModelAdmin):
     list_display = ('id', 'member_count')
     filter_horizontal = ('sections',)
-    
+
     def member_count(self, obj):
         return obj.runners.count()
-    
+
     member_count.short_description = 'Nombre de coureurs'

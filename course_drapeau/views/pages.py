@@ -1,9 +1,6 @@
-from typing import Any, Optional
-from django import http
+from course_drapeau.models import Information, Section
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import redirect
-from django.views.generic import DetailView
-from django.http import FileResponse
 from course_drapeau.forms.account import DriverForm, RunnerForm, UserTypeForm
 
 from course_drapeau.permissions import is_member
@@ -19,16 +16,10 @@ class IndexView(CustomTemplateView):
 
 class AboutView(CustomTemplateView):
     template_name = 'course_drapeau/pages/about.html'
-    items = [
-        ('question1', 'answer1'),
-        ('question2', 'answer2'),
-        ('question3', 'answer3'),
-        ('question4', 'answer4'),
-    ]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['items'] = self.items
+        context['informations'] = Information.objects.all()
         return context
 
 
@@ -36,7 +27,7 @@ class ContactView(CustomTemplateView):
     template_name = 'course_drapeau/pages/contact.html'
 
 
-class TronconsView(CustomTemplateView):
+class RouteView(CustomTemplateView):
     template_name = 'course_drapeau/pages/route.html'
 
     def get_context_data(self, **kwargs):
@@ -81,21 +72,10 @@ class AccountView(UserPassesTestMixin, CustomTemplateView):
         return context
 
 
-class FileView(DetailView):
-    # queryset = File.objects.all()
-
-    def get(self, request, *args, **kwargs):
-        instance = self.get_object()
-        as_attachment = bool(request.GET.get('download', False))
-        response = FileResponse(instance.upload, as_attachment=as_attachment)
-        return response
-
-
 class RegisterView(CustomTemplateView):
     template_name = 'course_drapeau/pages/register.html'
 
     def post(self, request, *args, **kwargs):
-
         user_type_form = UserTypeForm(request.POST)
         driver_form = DriverForm(request.POST)
         runner_form = RunnerForm(request.POST)

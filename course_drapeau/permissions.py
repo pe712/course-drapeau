@@ -21,3 +21,9 @@ def is_staff(user: Union[User, AnonymousUser]):
     Check if the user is a staff member.
     """
     return user.is_staff
+
+def is_owner(user: Union[User, AnonymousUser], obj: object):
+    """
+    Check if the user is the owner of the object.
+    """
+    return user == obj.user
