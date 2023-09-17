@@ -1,0 +1,13 @@
+{% extends "admin/change_form.html" %}
+{% block inline_field_sets %}
+    {% for inline_admin_formset in inline_admin_formsets %}
+        {% include inline_admin_formset.opts.template %}
+    {% endfor %}
+    <fieldset class="module">
+        <h2>Ajouter plusieurs tronçons</h2>
+        <input name="multiple_section" type="file" multiple />
+    </fieldset>
+    <fieldset class="module">
+        <h2>Générer la trace complète</h2>
+    </fieldset>
+{% endblock inline_field_sets %}

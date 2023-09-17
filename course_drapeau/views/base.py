@@ -16,7 +16,7 @@ class CustomTemplateView(TemplateView):
         NavbarItem('contact', 'Le binet'),
         NavbarItem('register', 'Inscription',
                    lambda user: not is_member(user)),
-        NavbarItem('route', 'Tronçons'),
+        NavbarItem('route', 'Parcours'),
         NavbarItem('tracking', 'Suivi'),
         NavbarItem('admin:index', 'Administration', is_staff),
         NavbarItem('account', 'Espace Membre', is_member),
