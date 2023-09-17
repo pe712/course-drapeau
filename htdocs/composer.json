@@ -1,6 +1,0 @@
-{
-    "require": {
-        "phpoffice/phpspreadsheet": "^1.25",
-        "apereo/phpcas": "^1.6"
-    }
-}
