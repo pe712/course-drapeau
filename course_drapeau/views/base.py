@@ -12,7 +12,7 @@ class NavbarItem:
 class CustomTemplateView(TemplateView):
     navbar = [
         NavbarItem('index', 'Accueil'),
-        NavbarItem('about', 'À propos'),
+        NavbarItem('about', 'Informations'),
         NavbarItem('contact', 'Le binet'),
         NavbarItem('register', 'Inscription',
                    lambda user: not is_member(user)),
