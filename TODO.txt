@@ -1,40 +1,20 @@
 --------------------------------------------------
-* Construire un archivage de la base de donnée et des documents personnels /pages/espacePerso
-
---------------------------------------------------
 Mettre un moyen plus efficace et moderne d'upload les fichiers xlsx et csv
 https://phpspreadsheet.readthedocs.io/en/latest/#getting-started
 
 * Automatiser le contrôle de paiement à partir du csv obtenu avec Lydia
 ->upload du csv et mise à jour automatique sur une comparaison multicritères (prenom+nom ou mail)
 
-* empêcher l'inscription avec comparaison avec une liste excel
-+ par le nombre d'inscrits
+* empêcher l'inscription par le nombre d'inscrits (liste d'attente)
 
 --------------------------------------------------
 Admin:
--Proposer un affichage sous forme de table des participants et de l'état des inscriptions
 -Pouvoir récupérer toutes les feuilles de routes des participants en .pdf à download
-
-Contenu modifiable:
--une modification d'un item ne permet plus de voir tous les items
--l'ajout d'un item recharge la page, ce qui est pénible, il faut le faire en asynchronous
--Mettre dans l'arborescence de Admin le "title" des pages et non son "name"
-=> il faut surtout enlever complètement cette fonctionnalité
-
---------------------------------------------------
-Download (pas la priorité):
-Le download fonctionne mais n'est pas idéal (fichier copié dans le dossier tmp qui est vidé régulièrement). Cela permet d'assurer la sécurité du processus et de garder les fichiers protégés. En fait il y a plus simple et on peut diriger l'utilisateur vers une page avec un header bien défini.
 
 --------------------------------------------------
 Suivi:
 -compteur de kms avec interpolation à partir des données reçues toutes les 5 min par l'API
 -redimensionner le iFrame pour le rendre responsive (créer des marges pour pouvoir scroll)
-
---------------------------------------------------
-divers
-hmtlspecialchars à la sortie de la database et pas à l'entrée:
--> ou alors empêcher les dits caractères spéciaux en le spécifiant au client
 
 --------------------------------------------------
 Projet:

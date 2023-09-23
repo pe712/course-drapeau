@@ -39,13 +39,11 @@
                 </tr>
                 {% for trace in GPX_traces %}
                     {% gps_url trace as gps_url %}
+                    {% group trace as group %}
                     <tr>
                         <td>{{ trace.id }}</td>
-                        {% if trace.trinome %}
-                            <td style="background-color: {{ trinome.color }}">{{ trinome.id }}</td>
-                        {% else %}
-                            <td>A venir</td>
-                        {% endif %}
+                        <td style="background-color: {{ group.color }};
+                                   border-bottom-width: {{ group.bw }}">{{ group.name|default_if_none:"A venir" }}</td>
                         <td>{{ trace.datetime_start | date:"D j M, G:i" }}</td>
                         <td>
                             <a href={{ gps_url.start }} target="_blank" id="pdep{{ trace.id }}">point départ</a>

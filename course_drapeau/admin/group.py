@@ -4,7 +4,7 @@ from course_drapeau.models import Group
 
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ('id', 'member_count')
+    list_display = ('id', 'name', 'member_count')
     filter_horizontal = ('sections',)
 
     def member_count(self, obj):

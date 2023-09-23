@@ -17,9 +17,10 @@ class DriverForm(forms.ModelForm):
 
 class RunnerForm(forms.ModelForm):
     group_member_choice = forms.ModelChoiceField(
-        queryset=User.objects.filter(runner__isnull=False),
+        queryset=Runner.objects.all(),
         widget=forms.Select,
         required=False,
+        label="J'aimerais être avec"
     )
 
     class Meta:

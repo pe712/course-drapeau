@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django import forms
 from course_drapeau.models import Route, Section
 
 
@@ -13,15 +12,25 @@ class SectionAdmin(admin.ModelAdmin):
         'start_longitude',
         'stop_latitude',
         'stop_longitude',
-        'full'
+        'full',
+        'get_group',
     )
 
     readonly_fields = (
         'start_latitude',
         'start_longitude',
         'stop_latitude',
-        'stop_longitude'
+        'stop_longitude',
+        'get_group',
     )
+
+    @admin.display(description='Groupe')
+    def get_group(self, obj):
+        """
+        group is a ManyToManyField, it cannot be displayed easily.
+        Returns the group associated to this section if any.
+        """
+        return obj.group.all().first()
 
 
 class SectionInline(admin.TabularInline):

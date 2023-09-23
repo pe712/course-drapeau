@@ -1,4 +1,3 @@
-from collections.abc import Iterable
 from django.db import models
 from django.contrib.auth.models import User
 from xml.etree import ElementTree as ET
@@ -69,8 +68,18 @@ class Group(models.Model):
         verbose_name_plural = 'Groupes de coureurs'
 
     id = models.AutoField(primary_key=True)
+    name = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name='nom d\'équipe'
+    )
     sections = models.ManyToManyField(
-        Section, verbose_name='tronçons', blank=True)
+        Section,
+        blank=True,
+        related_name='group',
+        verbose_name='tronçons',
+    )
 
     def __str__(self):
         return f"Groupe {self.id}"
@@ -92,31 +101,27 @@ class Runner(models.Model):
     class Meta:
         verbose_name = 'Coureur'
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, primary_key=True)
+        User, on_delete=models.CASCADE, primary_key=True, verbose_name='utilisateur')
     group = models.ForeignKey(
-        Group, on_delete=models.CASCADE, related_name='runners', null=True, blank=True)
+        Group, on_delete=models.CASCADE, related_name='runners', null=True, blank=True, verbose_name='groupe')
     progress = models.FloatField(default=0.0, verbose_name='avancement')
     medical_certificate = models.FileField(
         upload_to='certificates/', verbose_name='certificat médical', null=True, blank=True)
 
     def save_group(self, runner):
-        if not hasattr(runner, 'group'):
-            return True
         if not runner.group:
-            group = Group()
+            group = Group.objects.create(name=f'Leader: {runner.user}')
             runner.group = group
             runner.save()
-            self.group = group
-            self.save()
-            return True
-        else:
-            group = runner.group
-            if group.runners.count() >= 3:
-                return False
-            else:
-                self.group = group
-                self.save()
-                return True
+        group = runner.group
+        if group.runners.count() >= 3:
+            return False
+        self.group = group
+        self.save()
+        return True
+
+    def __str__(self):
+        return self.user.username
 
 
 class Driver(models.Model):
@@ -149,3 +154,4 @@ class Route(models.Model):
         verbose_name_plural = 'Parcours'
 
     id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=100, verbose_name='titre')
