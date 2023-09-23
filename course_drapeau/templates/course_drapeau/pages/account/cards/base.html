@@ -3,7 +3,7 @@
         <h2>
             <a href='#'
                class="stretched-link"
-               onclick="changeView('card', '{{ card.id }}')">{{ card.title }}</a>
+               onclick="changeView('card', '{{ card.id }}', from='None', to='block')">{{ card.title }}</a>
         </h2>
     </div>
 </div>
@@ -11,6 +11,6 @@
     {% block content %}
     {% endblock content %}
     <button id="TODO"
-            class="btn btn-primary"
+            class="btn btn-primary mt-2"
             onclick="changeView('{{ card.id }}', 'card')">Retour</button>
 </div>

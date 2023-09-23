@@ -24,15 +24,17 @@ class SectionView(FileView):
     def get_file(self, object):
         return object.gpx
 
+
 class FullSectionView(SectionView):
     as_attachment = True
-    
+
     def get_object(self):
         return Section.objects.get(full=True)
 
+
 class MedicalCertificateView(FileView):
     queryset = Runner.objects.all()
-    as_attachment = True
+    as_attachment = False
 
     def get_file(self, object):
         return object.medical_certificate

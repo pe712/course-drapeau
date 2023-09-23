@@ -106,9 +106,13 @@ class Runner(models.Model):
         Group, on_delete=models.CASCADE, related_name='runners', null=True, blank=True, verbose_name='groupe')
     progress = models.FloatField(default=0.0, verbose_name='avancement')
     medical_certificate = models.FileField(
-        upload_to='certificates/', verbose_name='certificat médical', null=True, blank=True)
+        upload_to='certificates/', verbose_name='certificat médical de moins de 1 an', null=True, blank=True)
+    paid = models.BooleanField(default=False, verbose_name='payé')
 
     def save_group(self, runner):
+        if not runner:
+            # self has not chosen yet
+            return True
         if not runner.group:
             group = Group.objects.create(name=f'Leader: {runner.user}')
             runner.group = group
@@ -116,9 +120,22 @@ class Runner(models.Model):
         group = runner.group
         if group.runners.count() >= 3:
             return False
+        if self.group and self.group.runners.count() == 1:
+            self.group.delete()
         self.group = group
         self.save()
         return True
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        progress = 0.0
+        increase = [self.group, self.medical_certificate, self.paid, self.user]
+        n = len(increase)
+        for elmt in increase:
+            if elmt:
+                progress += 1/n
+        self.progress = progress
+        super().save()
+        
 
     def __str__(self):
         return self.user.username

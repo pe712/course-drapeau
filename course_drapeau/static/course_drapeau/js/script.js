@@ -1,4 +1,11 @@
 /**************** ADMIN *************************/
+/**
+ * Hide the element fromid and show the element toid
+ * @param {String} fromid html id or class of the element to hide
+ * @param {String} toid html id or class of the element to show
+ * @param {String} from display style to apply
+ * @param {String} to display style to apply
+ */
 function changeView(fromid, toid, from = "none", to = "inherit") {
     try {
         document.getElementById(fromid).style.display = from;
@@ -297,6 +304,9 @@ $(document).ready(function () {
     $("#espacePerso-not_permis").click(function () {
         $(".espacePerso-input-permis").hide()
     });
+
+    $('#id_medical_certificate').addClass('form-control');
+
 });
 
 /**************** Suivi *************************/

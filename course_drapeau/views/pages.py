@@ -1,7 +1,7 @@
 from course_drapeau.models import Information, Section
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import redirect
-from course_drapeau.forms.account import DriverForm, RunnerForm, UserTypeForm
+from course_drapeau.forms.account import DriverForm, MedicalCertificateForm, RunnerForm, UserTypeForm
 
 from course_drapeau.permissions import is_member
 from .base import CustomTemplateView
@@ -49,19 +49,22 @@ class Card:
 
 class AccountView(UserPassesTestMixin, CustomTemplateView):
     template_name = 'course_drapeau/pages/account/index.html'
-    cards = [[
-        Card("Mes informations personnelles", "info", "info"),
-        # Card("Mon certificat médical", "certif", "certif"),
-        # Card("Paiement de la course", "payement", "payement")],
-        # [
-        # Card("Logistique", "logistique", "logistique"),
-        # Card("Liste d'affaires à emmener",
-        #      "affaires", "affaires"),
-        # Card("Hébergement", "hebergement", "hebergement")],
+    cards = [
+        [
+            Card("Mes informations personnelles", "info", "info"),
+            Card("Mon certificat médical", "certif", "certif"),
+            Card("Paiement de la course", "payment", "payment")
+        ],
+        [
+            # Card("Logistique", "logistique", "logistique"),
+            # Card("Liste d'affaires à emmener",
+            #      "affaires", "affaires"),
+            Card("Hébergement", "lodging", "lodging")
+        ],
         # [
         # Card("Mes tronçons", "troncons", "troncons"),
         # Card("Mon trinôme", "trinomes", "trinomes")]]
-    ]]
+    ]
 
     def test_func(self):
         return is_member(self.request.user)
@@ -69,7 +72,25 @@ class AccountView(UserPassesTestMixin, CustomTemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['cards'] = self.cards
+        context['user_type_form'] = UserTypeForm()
+        context['driver_form'] = DriverForm()
+        context['runner_form'] = RunnerForm()
+        context['medical_certificate_form'] = MedicalCertificateForm()
         return context
+
+    def post(self, request, *args, **kwargs):
+        """Medical certificate upload"""
+        medical_certificate_form = MedicalCertificateForm(
+            request.POST, request.FILES)
+        if medical_certificate_form.is_valid():
+            runner = request.user.runner
+            runner.medical_certificate = medical_certificate_form.cleaned_data[
+                'medical_certificate']
+            runner.save()
+            return redirect('account')
+        return self.render_to_response(self.get_context_data(
+            medical_certificate_form=medical_certificate_form
+        ))
 
 
 class RegisterView(CustomTemplateView):

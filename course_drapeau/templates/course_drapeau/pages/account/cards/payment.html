@@ -1,0 +1,17 @@
+{% extends "course_drapeau/pages/account/cards/base.html" %}
+{% block content %}
+    {% if user.driver %}
+        <p class="espacePerso-firstLine">Tu n'as pas besoin de payer la course</p>
+    {% elif not user.paid %}
+        <p class="espacePerso-firstLine">Le paiement sera ultérieur. Entre 50 et 100€/pers</p>
+        {% comment %} <p>
+            La coût de la course est de x€. Cela comprend les frais de transports, la nourriture et le logement pour les 4 jours.
+            Tu peux régler <a href="" target="_blank" id="espacePerso-lienPaiement">ici</a>.
+        </p>
+        <p id="espacePerso-messagePaiement">
+            Quand nous aurons vérifié ton paiement, cet onglet sera mis à jour. Nous vérifions à la main, cela ne sera pas fait automatiquement.
+        </p> {% endcomment %}
+    {% else %}
+        <p class="espacePerso-firstLine">Tu as déjà payé la course.</p>
+    {% endif %}
+{% endblock content %}

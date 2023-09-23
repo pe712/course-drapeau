@@ -2,6 +2,9 @@ from django import forms
 from course_drapeau.models import Driver, Runner
 from django.contrib.auth.models import User
 
+# import user form
+from django.contrib.auth.forms import UserCreationForm
+
 class UserTypeForm(forms.Form):
     user_type = forms.ChoiceField(
         choices=[('runner', 'Coureur')], # ('driver', 'Chauffeur')
@@ -26,3 +29,8 @@ class RunnerForm(forms.ModelForm):
     class Meta:
         model = Runner
         fields = []
+
+class MedicalCertificateForm(forms.ModelForm):
+    class Meta:
+        model = Runner
+        fields = ['medical_certificate']
