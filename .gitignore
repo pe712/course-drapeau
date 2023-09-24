@@ -12,3 +12,5 @@ media/gpx/*
 media/certificates/*
 
 db.sqlite3
+
+.env*

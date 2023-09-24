@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 from silk.profiling.profiler import silk_profile
+from course_drapeau.forms.account import AdvancedRunnerForm
 
 from course_drapeau.models import Runner, Section
 from django.contrib.auth.models import User
@@ -28,4 +29,6 @@ class WipView(View):
         # return HttpResponseRedirect('/admin/')
         # runner = Runner.objects.all().first()
         # runner.user
+        form = AdvancedRunnerForm(instance=request.user.runner)
+        logging.info(form)
         return HttpResponse(content)

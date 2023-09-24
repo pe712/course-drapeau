@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+dotenvpath = os.environ.get('DOTENV_PATH', '.env')
+load_dotenv(dotenvpath)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +25,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o8iyglkei1ak4l4&i$&ql_u02vuzo$=77q5@=mxeol$h36cexr'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', None)
 SECRET_KEY_FALLBACKS = []
 
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', False)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
+host = os.environ.get('ALLOWED_HOSTS', None)
+if host:
+    ALLOWED_HOSTS.append(host)
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 SILKY_PYTHON_PROFILER = True
 SILKY_AUTHORISATION = True  # User must be staff
@@ -83,12 +93,30 @@ WSGI_APPLICATION = 'hermes.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+DATABASE_NAME = os.environ.get('DATABASE_NAME', None)
+DATABASE_USER = os.environ.get('DATABASE_USER', None)
+DATABASE_PASSWORD = os.environ.get('DATABASE_PASSWORD', None)
+DATABASE_HOST = os.environ.get('DATABASE_HOST', None)
+DATABASE_PORT = os.environ.get('DATABASE_PORT', None)
+if DATABASE_NAME and DATABASE_USER and DATABASE_PASSWORD:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': DATABASE_NAME,
+            'USER': DATABASE_USER,
+            'PASSWORD': DATABASE_PASSWORD,
+            'HOST': DATABASE_HOST,
+            'PORT': DATABASE_PORT,
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+CONN_MAX_AGE = 60  # 1 minute
 
 
 # Password validation

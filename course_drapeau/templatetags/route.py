@@ -23,12 +23,21 @@ colors = [
 
 @register.simple_tag
 def gps_url(section: Section):
-    start_gps = f'{section.start_latitude} {section.start_longitude}'
-    stop_gps = f'{section.stop_latitude} {section.stop_longitude}'
+    coordinates = coordinate(section)
     base_url = 'https://www.google.fr/maps/search/'
     return {
-        'start': base_url + quote(start_gps),
-        'stop': base_url + quote(stop_gps),
+        'start': base_url + quote(coordinates["start"]),
+        'stop': base_url + quote(coordinates["stop"]),
+    }
+
+
+@register.simple_tag
+def coordinate(section: Section):
+    start_gps = f'{section.start_latitude} {section.start_longitude}'
+    stop_gps = f'{section.stop_latitude} {section.stop_longitude}'
+    return {
+        'start': start_gps,
+        'stop': stop_gps,
     }
 
 

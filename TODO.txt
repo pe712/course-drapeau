@@ -21,3 +21,7 @@ Projet:
 Vous pouvez mettre un workflow qui build automatiquement la documentation plutôt que manuellement
 
 
+data that need to be mounted as volumes:
+- database
+- media
+- static (only if not commited in the repo)

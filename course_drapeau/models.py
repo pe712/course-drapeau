@@ -106,8 +106,32 @@ class Runner(models.Model):
         Group, on_delete=models.CASCADE, related_name='runners', null=True, blank=True, verbose_name='groupe')
     progress = models.FloatField(default=0.0, verbose_name='avancement')
     medical_certificate = models.FileField(
-        upload_to='certificates/', verbose_name='certificat médical de moins de 1 an', null=True, blank=True)
+        upload_to='certificates/',
+        null=True,
+        blank=True,
+        verbose_name='certificat médical de moins de 1 an',
+    )
     paid = models.BooleanField(default=False, verbose_name='payé')
+    vegetarian = models.BooleanField(
+        null=True,
+        blank=True,
+        verbose_name='végétarien',
+    )
+    license = models.BooleanField(
+        null=True,
+        blank=True,
+        verbose_name='permis de conduire',
+    )
+    manual_gearbox = models.BooleanField(
+        null=True,
+        blank=True,
+        verbose_name='boîte manuelle',
+    )
+    young_driver = models.BooleanField(
+        null=True,
+        blank=True,
+        verbose_name='jeune conducteur',
+    )
 
     def save_group(self, runner):
         if not runner:
@@ -127,15 +151,24 @@ class Runner(models.Model):
         return True
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        progress = 0.0
-        increase = [self.group, self.medical_certificate, self.paid, self.user]
+        self.progress = self.compute_progress()
+        super().save()
+
+    def compute_progress(self) -> float:
+        increase = [
+            self.user,
+            self.group,
+            self.medical_certificate,
+            self.paid is not None,
+            self.vegetarian is not None,
+        ]
+        # self.license, self.manual_gearbox and self.young_driver are filled at the same time as self.vegetarian (AdvancedRunnerForm)
         n = len(increase)
+        progress = 0.0
         for elmt in increase:
             if elmt:
                 progress += 1/n
-        self.progress = progress
-        super().save()
-        
+        return round(progress, 2)
 
     def __str__(self):
         return self.user.username

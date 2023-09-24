@@ -8,8 +8,7 @@
             {% if runner.medical_certificate %}
                 <p id="espacePerso-messageCertif" class="espacePerso-firstLine">
                     Tu as déjà mis ton certificat médical. Cliques
-                    <a href="{% url "medical_certificate" runner.pk %}"
-                       target="_blank">ici</a> pour le voir et
+                    <a href="{% url "medical_certificate" runner.pk %}" target="_blank">ici</a> pour le voir et
                     <a href="" id="espacePerso-modifyCertif">ici</a> pour le modifier
                 </p>
             {% endif %}
@@ -18,12 +17,11 @@
                  id="espacePerso-certificatUpload">
                 <div class="centerer-container" id="espacePerso-certificatUpload">
                     <form enctype="multipart/form-data"
-                          action="{% url 'account' %}"
-                          method="post">
-                          {% csrf_token %}
-                        <div class="mb-3">
-                            {{ medical_certificate_form.as_p }}
-                        </div>
+                    action="{% url 'account' %}"
+                    method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="medical_certificate">
+                        <div class="mb-3">{{ forms.medical_certificate_form }}</div>
                         <button id="espacePerso-certif-button" type="submit" class="btn btn-primary">Envoyer</button>
                     </form>
                 </div>

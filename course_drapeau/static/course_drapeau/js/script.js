@@ -213,6 +213,10 @@ function unvalidate(id) {
     st.fontWeight = "inherit";
 }
 
+$(document).ready(function () {
+    $("#id_group_member_choice").addClass('form-control');
+});
+
 /**************** Pop-up *************************/
 function call_cs_popup(text, time = 1000000) {
     var html_content = '<div id="cs-popup-container" class="cs-popup"><div class="cs-popup-content">' + text + '</div></div>';
@@ -306,7 +310,10 @@ $(document).ready(function () {
     });
 
     $('#id_medical_certificate').addClass('form-control');
-
+    $('#id_vegetarian').addClass('form-control');
+    $('#id_license').addClass('form-control');
+    $('#id_manual_gearbox').addClass('form-control');
+    $('#id_young_driver').addClass('form-control');
 });
 
 /**************** Suivi *************************/

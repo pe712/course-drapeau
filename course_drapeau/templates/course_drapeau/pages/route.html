@@ -28,7 +28,7 @@
         <div id="tronconsListe">
             <table id="troncons-table" class="table table-striped table-hover">
                 <tr>
-                    <th style="width:10px">Numéro tronçon</th>
+                    <th>Numéro tronçon</th>
                     <th>Groupe de coureurs</th>
                     <th>Heure de départ</th>
                     <th>Point GPS de départ</th>
@@ -39,6 +39,7 @@
                 </tr>
                 {% for trace in GPX_traces %}
                     {% gps_url trace as gps_url %}
+                    {% coordinate trace as coordinate %}
                     {% group trace as group %}
                     <tr>
                         <td>{{ trace.id }}</td>
@@ -46,24 +47,26 @@
                                    border-bottom-width: {{ group.bw }}">{{ group.name|default_if_none:"A venir" }}</td>
                         <td>{{ trace.datetime_start | date:"D j M, G:i" }}</td>
                         <td>
-                            <a href={{ gps_url.start }} target="_blank" id="pdep{{ trace.id }}">point départ</a>
+                            <a href={{ gps_url.start }} target="_blank">point départ</a>
+                            <div id="hidden_start_{{ trace.id }}" class="d-none">{{ coordinate.start }}</div>
                             <button class="troncons-button">
                                 <img class="troncons-icon"
                                      src="{% static 'course_drapeau/img/icons/clipboard.png' %}"
                                      alt="copy to clipboard"
-                                     onclick="copier('pdep{{ trace.id }}', 'Point GPS copié dans le presse-papier')"
+                                     onclick="copier('hidden_start_{{ trace.id }}', 'Point GPS copié dans le presse-papier')"
                                      width="28px"
                                      height="auto">
                             </button>
                         </td>
                         <td>{{ trace.datetime_stop | date:"D j M, G:i" }}</td>
                         <td>
-                            <a href={{ gps_url.stop }} target="_blank" id="parr{{ trace.id }}">point arrivée</a>
+                            <a href={{ gps_url.stop }} target="_blank">point arrivée</a>
+                            <div id="hidden_stop_{{ trace.id }}" class="d-none">{{ coordinate.stop }}</div>
                             <button class="troncons-button">
                                 <img class="troncons-icon"
                                      src="{% static 'course_drapeau/img/icons/clipboard.png' %}"
                                      alt="copy to clipboard"
-                                     onclick="copier('parr{{ trace.id }}', 'Point GPS copié dans le presse-papier')"
+                                     onclick="copier('hidden_stop_{{ trace.id }}', 'Point GPS copié dans le presse-papier')"
                                      width="28px"
                                      height="auto">
                             </button>

@@ -1,6 +1,8 @@
 from django import template
 from urllib.parse import quote
 
+from course_drapeau.models import Runner
+
 register = template.Library()
 
 
@@ -19,3 +21,9 @@ def get_header(user):
 def maps_url(location: str):
     base_url = 'https://www.google.fr/maps/place/'
     return base_url + quote(location)
+
+def group_runners(runner: Runner):
+    if not runner.group:
+        return []
+    else:
+        return runner.group.runners.all()

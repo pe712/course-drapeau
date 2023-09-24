@@ -12,9 +12,9 @@
             <div id="formPerso" class="centerer-container">
                 <form class="ms-4" method="post" action="{% url 'register' %}">
                     {% csrf_token %}
-                    {{ user_type_form }}
-                    {% comment %} {{ driver_form }} {% endcomment %}
-                    {{ runner_form }}
+                    {{ forms.user_type_form }}
+                    {{ driver_form }}
+                    {{ forms.simple_runner_form }}
                     <br>
                     <button type="submit" class="btn btn-primary">M'inscrire</button>
                 </form>

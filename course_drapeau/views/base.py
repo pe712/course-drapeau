@@ -9,7 +9,7 @@ class NavbarItem:
         self.test_func = test_func or (lambda user: True)
 
 
-class CustomTemplateView(TemplateView):
+class NavbarMixin:
     navbar = [
         NavbarItem('index', 'Accueil'),
         NavbarItem('about', 'Informations'),

@@ -13,7 +13,11 @@ class RunnerAdmin(admin.ModelAdmin):
 
     base_fieldsets = (
         ('Informations personnelles', {
-            'fields': ('user',),
+            'fields': ('user',
+                       'vegetarian',
+                       'license',
+                       'manual_gearbox',
+                       'young_driver'),
         }),
         ('Groupe', {
             'fields': ('group',),
@@ -39,6 +43,8 @@ class RunnerAdmin(admin.ModelAdmin):
         return super().change_view(request, object_id, form_url, extra_context)
 
 # @admin.register(Driver)
+
+
 class DriverAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name',
                     'seats')
