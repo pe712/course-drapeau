@@ -1,4 +1,5 @@
 from django.views.generic.base import TemplateResponseMixin
+from course_drapeau.models import Section
 from course_drapeau.permissions import is_member
 from course_drapeau.views.base import NavbarMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
@@ -38,9 +39,10 @@ class AccountView(UserPassesTestMixin, NavbarMixin, TemplateResponseMixin, Multi
             Card("Liste d'affaires à emmener", "stuff", "stuff"),
             Card("Hébergement", "lodging", "lodging")
         ],
-        # [
-        # Card("Mes tronçons", "troncons", "troncons"),
+        [
+        Card("Mes tronçons", "sections", "sections"),
         # Card("Mon trinôme", "trinomes", "trinomes")]]
+        ],
     ]
 
     def test_func(self):
@@ -48,6 +50,7 @@ class AccountView(UserPassesTestMixin, NavbarMixin, TemplateResponseMixin, Multi
 
     def get_context_data(self, **kwargs):
         kwargs['cards'] = self.cards
+        kwargs['GPX_traces'] = Section.objects.all()
         return super().get_context_data(**kwargs)
 
     def get_forms_kwargs(self):

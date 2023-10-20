@@ -1,14 +1,19 @@
 {% load static %}
-
 <footer class="mainfooter">
     <div class="container-fluid bg-light bg-gradient text-center">
         <div class="row">
-            <div class="col-6 offset-3">Une course organisée par l'école polytechnique <img src="{% static 'img/logo_raid.png' %}" alt="logo binet course au drapeau"></div>
+            <div class="col-6 offset-3">
+                Une course organisée par l'école polytechnique
+                <img src="{% static 'img/logo_raid.png' %}"
+                     alt="logo binet course au drapeau"
+                     width="50px"
+                     height="50px">
+            </div>
         </div>
         <div class="row">
             <div class="col-6 offset-3">
-                <a href="?page=Contact">Nous contacter</a>
-                <a href="?page=Mentions">Mentions légales</a>
+                <a href="{% url "contact" %}">Nous contacter</a>
+                <a href="{% url "reference" %}">Mentions légales</a>
             </div>
         </div>
     </div>

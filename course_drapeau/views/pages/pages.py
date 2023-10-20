@@ -16,6 +16,8 @@ logger = logging.getLogger(__name__)
 class IndexView(NavbarMixin, TemplateView):
     template_name = 'course_drapeau/pages/index.html'
 
+class ReferenceView(NavbarMixin, TemplateView):
+    template_name = 'course_drapeau/pages/reference.html'
 
 class AboutView(NavbarMixin, TemplateView):
     template_name = 'course_drapeau/pages/about.html'

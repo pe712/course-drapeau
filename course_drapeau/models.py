@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from django.db import models
 from django.contrib.auth.models import User
 from xml.etree import ElementTree as ET
@@ -67,7 +68,7 @@ class Group(models.Model):
         verbose_name = 'Groupe de coureurs'
         verbose_name_plural = 'Groupes de coureurs'
 
-    id = models.AutoField(primary_key=True)
+    id = models.IntegerField(primary_key=True, blank=True, null=False)
     name = models.CharField(
         max_length=100,
         null=True,
@@ -80,6 +81,18 @@ class Group(models.Model):
         related_name='group',
         verbose_name='tronçons',
     )
+
+    def get_member_count(self):
+        return self.runners.count()
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if not self.id:
+            available_ids = {group.id for group in Group.objects.all()}
+            id = 1
+            while id in available_ids:
+                id += 1
+            self.id = id
+        super().save(force_insert, force_update, using, update_fields)
 
     def __str__(self):
         return f"Groupe {self.id}"
@@ -137,14 +150,14 @@ class Runner(models.Model):
         if not runner:
             # self has not chosen yet
             return True
-        if not runner.group:
-            group = Group.objects.create(name=f'Leader: {runner.user}')
+        group = runner.group
+        if not group:
+            group = Group.objects.create(name=f'{runner.user}')
             runner.group = group
             runner.save()
-        group = runner.group
         if group.runners.count() >= 3:
             return False
-        if self.group and self.group.runners.count() == 1:
+        if self.group and self.group.get_member_count() == 1:
             self.group.delete()
         self.group = group
         self.save()

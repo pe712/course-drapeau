@@ -52,8 +52,6 @@ def group(section: Section):
         color = colors[0]
         name = None
         border_width = 'thin'
-    import logging
-    logging.info(f'color: {color}')
     return {
         'name': name,
         'color': color,

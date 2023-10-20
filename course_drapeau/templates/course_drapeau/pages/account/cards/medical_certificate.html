@@ -17,8 +17,8 @@
                  id="espacePerso-certificatUpload">
                 <div class="centerer-container" id="espacePerso-certificatUpload">
                     <form enctype="multipart/form-data"
-                    action="{% url 'account' %}"
-                    method="post">
+                          action="{% url 'account' %}"
+                          method="post">
                         {% csrf_token %}
                         <input type="hidden" name="action" value="medical_certificate">
                         <div class="mb-3">{{ forms.medical_certificate_form }}</div>
